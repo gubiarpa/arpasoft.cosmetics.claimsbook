@@ -9,11 +9,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\lib\bootstrap\" />
+    <None Include="compilerconfig.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="compilerconfig.json" />
+    <Folder Include="wwwroot\fonts\" />
+    <Folder Include="wwwroot\imgs\" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,26 @@
+﻿@font-face {
+    font-family: "Maison Neue";
+    src: url("../../fonts/MaisonNeue-Book.woff2");
+}
+
+.bg-yanbal {
+    background-color: $orange-yanbal !important;
+    /*height: 16px;
+    width: 64px;*/
+    color: #FFFFFF;
+    font-family: "Maison Neue";
+    font-weight: 300;
+    letter-spacing: 0.2px;
+    line-height: 16px;
+}
+
+.yanbal-com {
+    font-size: 12px!important;
+}
+
+img {
+    .yanbal-logo {
+        height: 41px;
+        width: 201px;
+    }
+}

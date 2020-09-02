@@ -45,6 +45,8 @@ $green:   #28a745 !default;
 $teal:    #20c997 !default;
 $cyan:    #17a2b8 !default;
 
+$orange-yanbal: #dc582a !default;
+
 $colors: () !default;
 $colors: map-merge((
   "blue":       $blue,
@@ -649,8 +651,8 @@ $pagination-disabled-border-color:  $gray-300 !default;
 
 // Jumbotron
 
-$jumbotron-padding:                 2rem !default;
-$jumbotron-bg:                      $gray-200 !default;
+$jumbotron-padding:                 16px !default;
+$jumbotron-bg:                      $white !default;
 
 
 // Cards
