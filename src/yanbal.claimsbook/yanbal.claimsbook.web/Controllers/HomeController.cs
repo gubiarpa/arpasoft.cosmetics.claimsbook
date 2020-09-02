@@ -5,9 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using yanbal.libroreclamaciones.web.Models;
+using yanbal.claimsbook.web.Models;
 
-namespace yanbal.libroreclamaciones.web.Controllers
+namespace yanbal.claimsbook.web.Controllers
 {
     public class HomeController : Controller
     {

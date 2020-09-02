@@ -1,6 +1,6 @@
 using System;
 
-namespace yanbal.libroreclamaciones.web.Models
+namespace yanbal.claimsbook.web.Models
 {
     public class ErrorViewModel
     {

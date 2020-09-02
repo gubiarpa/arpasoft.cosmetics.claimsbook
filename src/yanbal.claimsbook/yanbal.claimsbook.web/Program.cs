@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace yanbal.libroreclamaciones.web
+namespace yanbal.claimsbook.web
 {
     public class Program
     {
