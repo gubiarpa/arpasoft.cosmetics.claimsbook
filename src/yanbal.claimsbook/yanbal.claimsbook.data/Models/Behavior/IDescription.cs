@@ -4,8 +4,8 @@ using System.Text;
 
 namespace yanbal.claimsbook.data.Models.Behavior
 {
-    public interface IGuid
+    public interface IDescription
     {
-        Guid ID { get; set; }
+        string Description { get; set; }
     }
 }
