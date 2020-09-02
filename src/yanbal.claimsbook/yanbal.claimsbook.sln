@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "yanbal.libroreclamaciones.web", "yanbal.libroreclamaciones.web\yanbal.libroreclamaciones.web.csproj", "{6C5662C2-75E1-46A8-B8F0-D1183E947F3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "yanbal.claimsbook.web", "yanbal.libroreclamaciones.web\yanbal.claimsbook.web.csproj", "{6C5662C2-75E1-46A8-B8F0-D1183E947F3C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependencies", "Dependencies", "{B389F0B2-FEB8-4216-BDFC-B8A4B3B8FC64}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "yanbal.libroreclamaciones.data", "yanbal.libroreclamaciones.data\yanbal.libroreclamaciones.data.csproj", "{B67E1B22-1121-49C6-B8AA-3365F58DB32D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "yanbal.claimsbook.data", "yanbal.libroreclamaciones.data\yanbal.claimsbook.data.csproj", "{B67E1B22-1121-49C6-B8AA-3365F58DB32D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "yanbal.libroreclamaciones.repository", "yanbal.libroreclamaciones.repository\yanbal.libroreclamaciones.repository.csproj", "{6D67AE7A-00B5-4223-BA42-B922E278231B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "yanbal.claimsbook.repository", "yanbal.libroreclamaciones.repository\yanbal.claimsbook.repository.csproj", "{6D67AE7A-00B5-4223-BA42-B922E278231B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
