@@ -17,9 +17,4 @@
     <Folder Include="wwwroot\imgs\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\yanbal.libroreclamaciones.data\yanbal.libroreclamaciones.data.csproj" />
-    <ProjectReference Include="..\yanbal.libroreclamaciones.repository\yanbal.libroreclamaciones.repository.csproj" />
-  </ItemGroup>
-
 </Project>
