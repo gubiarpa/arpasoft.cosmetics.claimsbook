@@ -1,4 +1,19 @@
-﻿<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+﻿
+<div class="text-center">
+    <h1 class="display-4">Libro de Reclamaciones</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+<form>
+    <div class="form-row align-items-center">
+        <div class="col-auto my-1">
+            <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" placeholder="asfasf">
+                <option selected hidden>Tipo de Documento</option>
+                @foreach (var item in ((List<yanbal.claimsbook.data.Models.DocumentType>)(ViewBag.DocumentTypes)))
+                {
+                    <option value="item.ID">@item.Description</option>
+                }
+            </select>
+        </div>
+    </div>
+</form>

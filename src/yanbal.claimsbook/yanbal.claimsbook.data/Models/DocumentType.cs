@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using yanbal.claimsbook.data.Models.Behavior;
 
 namespace yanbal.claimsbook.data.Models
 {
-    public class DocumentType
+    public class DocumentType : IGuid, IDescription
     {
-        public int IdDocumentType { get; set; }
-        public string Descripcion { get; set; }
+        [Column("ID")]
+        public Guid ID { get; set; }
+        [Column("Description")]
+        public string Description { get; set; }
     }
 }
