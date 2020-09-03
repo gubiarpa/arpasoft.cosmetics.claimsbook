@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using yanbal.claimsbook.data.Models;
 using yanbal.claimsbook.repository;
 
 namespace yanbal.claimsbook.web.Controllers
@@ -21,8 +22,8 @@ namespace yanbal.claimsbook.web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var documentTypes = await _context.DocumentTypes.ToListAsync();
-            ViewBag.DocumentTypes = documentTypes;//.OrderBy(x => x.Description);
+            List<DocumentType> documentTypes = await _context.DocumentTypes.OrderBy(x => x.Description).ToListAsync();
+            ViewBag.DocumentTypes = documentTypes;
             return View();
         }
     }

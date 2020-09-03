@@ -1,18 +1,71 @@
 ﻿
 <div class="text-center">
     <h1 class="display-4">Libro de Reclamaciones</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 <form>
     <div class="form-row align-items-center">
-        <div class="col-auto my-1">
-            <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
-            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" placeholder="asfasf">
+        <!-- Tipo de Documento -->
+        <div class="mb-3 col-md-6">
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
                 <option selected hidden>Tipo de Documento</option>
                 @foreach (var item in ((List<yanbal.claimsbook.data.Models.DocumentType>)(ViewBag.DocumentTypes)))
                 {
                     <option value="item.ID">@item.Description</option>
                 }
+            </select>
+        </div>
+        <!-- Número de Documento -->
+        <div class="mb-3 col-md-6">
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Número de Documento">
+        </div>
+        <!-- Nombres -->
+        <div class="mb-3 col-md-6">
+            <input type="text" class="form-control text-capitalize" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Nombres">
+        </div>
+        <!-- Apellido Paterno -->
+        <div class="mb-3 col-md-6">
+            <input type="text" class="form-control text-capitalize" " id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Apellido Paterno">
+        </div>
+        <!-- Apellido Materno -->
+        <div class="mb-3 col-md-6">
+            <input type="text" class="form-control text-capitalize" " id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Apellido Materno">
+        </div>
+        <!-- Teléfono -->
+        <div class="mb-3 col-md-6">
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Teléfono">
+        </div>
+        <!-- Tipo de Respuesta -->
+        <div class="mb-3 col-md-6">
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                <option selected hidden>Tipo de Respuesta</option>
+                <option>Correo Electrónico</option>
+                <option>Dirección Domiciliaria</option>
+            </select>
+        </div>
+        <!-- Correo electrónico -->
+        <div class="mb-3 col-md-6">
+            <input type="text" class="form-control text-lowercase" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Correo electrónico">
+        </div>
+        <!-- Dirección -->
+        <div class="mb-3 col-md-6">
+            <input type="text" class="form-control text-capitalize" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Dirección">
+        </div>
+        <!-- Departamento -->
+        <div class="mb-3 col-md-6">
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                <option selected hidden>Departamento</option>
+            </select>
+        </div>
+        <!-- Provincia -->
+        <div class="mb-3 col-md-6">
+            <select disabled class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                <option selected hidden>Provincia</option>
+            </select>
+        </div>
+        <!-- Distrito -->
+        <div class="mb-3 col-md-6">
+            <select disabled class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                <option selected hidden>Distrito</option>
             </select>
         </div>
     </div>
