@@ -24,3 +24,12 @@ img {
         width: 201px;
     }
 }
+
+label {
+    &.yanbal-label {
+        font-size: 12px !important;
+        padding-left: 5px;
+        margin-bottom: 4px;
+        color: $gray-yanbal;
+    }
+}
