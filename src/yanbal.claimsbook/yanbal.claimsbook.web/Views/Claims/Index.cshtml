@@ -168,7 +168,7 @@
     </div>
 </div>
 <!-- Bien Contratado (contractedGoodForm) -->
-<div id="contractedGoodForm" class="form-page">
+<div id="contractedGoodForm" class="form-page not-display">
     <div class="h2 form-title">
         Identificación del Bien Contratado
     </div>
@@ -201,7 +201,7 @@
     </div>
 </div>
 <!-- Detalle del Reclamo (claimDetailForm) -->
-<div id="claimDetailForm" class="form-page">
+<div id="claimDetailForm" class="form-page not-display">
     <div class="h2 form-title">
         Detalle de su reclamo
     </div>
@@ -212,7 +212,7 @@
     </div>
 </div>
 <!-- Resumen Final (finalSummaryForm) -->
-<div id="finalSummaryForm" class="form-page">
+<div id="finalSummaryForm" class="form-page not-display">
     <div class="h2 form-title">
         Resumen final
     </div>
@@ -289,8 +289,6 @@
         });
 
         /* Younger */
-
-
         $('#checkIsYounger').change(function () {
             let guardForm = $('#guardForm');
             setTimeout(() => {
