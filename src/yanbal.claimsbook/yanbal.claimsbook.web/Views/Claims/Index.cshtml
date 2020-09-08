@@ -164,7 +164,9 @@
     </div>
     <div class="form-row">
         <div></div>
-        <button class="btn btn-primary col-md-6 offset-md-3">Continuar</button>
+        <button name="btnContinue" data-parentForm="personalInfoForm" data-nextForm="contractedGoodForm" class="btn btn-primary col-md-6 offset-md-3">
+            Continuar
+        </button>
     </div>
 </div>
 <!-- Bien Contratado (contractedGoodForm) -->
@@ -196,9 +198,9 @@
             <input type="text" class="form-control" id="textDescription" placeholder="Descripción">
         </div>
     </div>
-    <div class="form-row">
-        <button class="btn btn-primary col-md-6 offset-md-3">Continuar</button>
-    </div>
+    <button name="btnContinue" data-parentForm="contractedGoodForm" data-nextForm="claimDetailForm" class="btn btn-primary col-md-6 offset-md-3">
+        Continuar
+    </button>
 </div>
 <!-- Detalle del Reclamo (claimDetailForm) -->
 <div id="claimDetailForm" class="form-page not-display">
@@ -207,9 +209,9 @@
     </div>
     <div class="form-row">
     </div>
-    <div class="form-row">
-        <button class="btn btn-primary col-md-6 offset-md-3">Continuar</button>
-    </div>
+    <button name="btnContinue" data-parentForm="claimDetailForm" data-nextForm="finalSummaryForm" class="btn btn-primary col-md-6 offset-md-3">
+        Continuar
+    </button>
 </div>
 <!-- Resumen Final (finalSummaryForm) -->
 <div id="finalSummaryForm" class="form-page not-display">
@@ -218,9 +220,9 @@
     </div>
     <div class="form-row">
     </div>
-    <div class="form-row">
-        <button class="btn btn-primary col-md-6 offset-md-3">Enviar</button>
-    </div>
+    <button name="btnContinue" data-parentForm="finalSummaryForm" data-nextForm="" class="btn btn-primary col-md-6 offset-md-3">
+        Continuar
+    </button>
 </div>
 <script type="text/javascript" src="~/lib/jquery/dist/jquery.js"></script>
 <script type="text/javascript" src="~/js/site.js"></script>
@@ -296,6 +298,16 @@
                 guardForm.toggleClass('invisible');
                 guardForm.addClass('animate__fadeIn');
             }, 200);
+
+        });
+
+        /* Continue */
+        $('[name="btnContinue"]').click(function () {
+            let parentFormName = $(this).attr('data-parentForm');
+            let nextFormName = $(this).attr('data-nextForm');
+
+            $('#' + parentFormName).toggleClass('not-display');
+            $('#' + nextFormName).toggleClass('not-display');
 
         });
     });
