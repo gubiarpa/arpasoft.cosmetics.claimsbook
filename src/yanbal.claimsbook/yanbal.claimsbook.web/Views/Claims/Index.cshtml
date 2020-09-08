@@ -175,14 +175,14 @@
     <div class="form-row align-items-center">
         <div class="col-12">
             <!-- Producto -->
-            <div class="custom-control custom-radio custom-control-inline col-md-6">
-                <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">
-                <label class="custom-control-label" for="customRadioInline1">Producto</label>
+            <div class="custom-control custom-radio custom-control-inline col-6">
+                <input type="radio" name="isProductOrService" class="custom-control-input">
+                <label class="custom-control-label" for="checkIsProduct">Producto</label>
             </div>
             <!-- Servicio -->
             <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
-                <label class="custom-control-label" for="customRadioInline2">Servicio</label>
+                <input type="radio" name="isProductOrService" class="custom-control-input">
+                <label class="custom-control-label" for="checkIsService">Servicio</label>
             </div>
         </div>
         <!-- Monto Reclamado -->
@@ -197,7 +197,7 @@
         </div>
     </div>
     <div class="form-row">
-        <button class="btn btn-primary">Continuar</button>
+        <button class="btn btn-primary col-md-6 offset-md-3">Continuar</button>
     </div>
 </div>
 <!-- Detalle del Reclamo (claimDetailForm) -->
@@ -207,6 +207,9 @@
     </div>
     <div class="form-row">
     </div>
+    <div class="form-row">
+        <button class="btn btn-primary col-md-6 offset-md-3">Continuar</button>
+    </div>
 </div>
 <!-- Resumen Final (finalSummaryForm) -->
 <div id="finalSummaryForm" class="form-page">
@@ -214,6 +217,9 @@
         Resumen final
     </div>
     <div class="form-row">
+    </div>
+    <div class="form-row">
+        <button class="btn btn-primary col-md-6 offset-md-3">Enviar</button>
     </div>
 </div>
 <script type="text/javascript" src="~/lib/jquery/dist/jquery.js"></script>
