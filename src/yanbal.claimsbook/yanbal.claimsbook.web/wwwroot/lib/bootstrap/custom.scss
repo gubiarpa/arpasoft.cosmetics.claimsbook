@@ -33,3 +33,22 @@ label {
         color: $gray-yanbal;
     }
 }
+
+.form-page {
+    .form-title {
+        height: 32px;
+        width: 459px;
+        color: #1C1F28;
+        font-family: Ogg;
+        font-size: 24px;
+        font-weight: bold;
+        letter-spacing: 0.2px;
+        line-height: 32px;
+    }
+}
+
+.btn {
+    &.btn-primary {
+        margin-top: 20px;
+    }
+}

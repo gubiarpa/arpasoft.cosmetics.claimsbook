@@ -3,11 +3,12 @@
     <h1 class="display-4">Libro de Reclamaciones</h1>
 </div>
 <!-- Mensajes de Error -->
-<div>
+<div id="errorMessageForm">
+    <div></div>
 </div>
-<!-- Datos Personales -->
+<!-- Datos Personales (personalInfoForm) -->
 <div id="personalInfoForm" class="form-page">
-    <div class="h2">
+    <div class="h2 form-title">
         Información del Consumidor Reclamante
     </div>
     <div id="claimerForm" class="form-row align-items-center">
@@ -97,7 +98,7 @@
         </div>
         <!-- Número de Documento -->
         <div class="mb-2 col-md-6">
-            <label for="textDocumentNumber" class="yanbal-label">Número de Documento</label>
+            <label for="textGuardDocumentNumber" class="yanbal-label">Número de Documento</label>
             <input type="text" class="form-control" id="textGuardDocumentNumber" placeholder="Número de Documento">
         </div>
         <!-- Nombres -->
@@ -163,55 +164,53 @@
     </div>
     <div class="form-row">
         <div></div>
-        <button class="btn btn-primary">Continuar</button>
+        <button class="btn btn-primary col-md-6 offset-md-3">Continuar</button>
     </div>
 </div>
-<!-- Bien Contratado -->
-<div id="contractedGoodForm">
-    <div class="h2">
+<!-- Bien Contratado (contractedGoodForm) -->
+<div id="contractedGoodForm" class="form-page">
+    <div class="h2 form-title">
         Identificación del Bien Contratado
     </div>
     <div class="form-row align-items-center">
         <div class="col-12">
-            <div class="text-center">
-                <!-- Producto -->
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">
-                    <label class="custom-control-label" for="customRadioInline1">Toggle this custom radio</label>
-                </div>
-                <!-- Servicio -->
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
-                    <label class="custom-control-label" for="customRadioInline2">Or toggle this other custom radio</label>
-                </div>
+            <!-- Producto -->
+            <div class="custom-control custom-radio custom-control-inline col-md-6">
+                <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">
+                <label class="custom-control-label" for="customRadioInline1">Producto</label>
+            </div>
+            <!-- Servicio -->
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
+                <label class="custom-control-label" for="customRadioInline2">Servicio</label>
             </div>
         </div>
         <!-- Monto Reclamado -->
-        <div class="mb-2 col-12">
+        <div class="col-md-6">
             <label for="textClaimedAmount" class="yanbal-label">Monto Reclamado</label>
-            <input type="number" class="form-control" id="textClaimedAmount" placeholder="Monto Reclamado">
+            <input type="text" class="form-control" id="textClaimedAmount" placeholder="Monto Reclamado">
         </div>
         <!-- Descripción -->
-        <div class="mb-2 col-12">
-            <label for="textDocumentNumber" class="yanbal-label">Descripción</label>
-            <input type="text" class="form-control" id="textDocumentNumber" placeholder="Número de Documento">
+        <div class="col-md-6">
+            <label for="textDescription" class="yanbal-label">Descripción</label>
+            <input type="text" class="form-control" id="textDescription" placeholder="Descripción">
         </div>
     </div>
     <div class="form-row">
         <button class="btn btn-primary">Continuar</button>
     </div>
 </div>
-<!-- Detalle del Reclamo -->
-<div id="claimDetailForm">
-    <div class="h2">
+<!-- Detalle del Reclamo (claimDetailForm) -->
+<div id="claimDetailForm" class="form-page">
+    <div class="h2 form-title">
         Detalle de su reclamo
     </div>
     <div class="form-row">
     </div>
 </div>
 <!-- Resumen Final (finalSummaryForm) -->
-<div id="finalSummaryForm">
-    <div class="h2">
+<div id="finalSummaryForm" class="form-page">
+    <div class="h2 form-title">
         Resumen final
     </div>
     <div class="form-row">
