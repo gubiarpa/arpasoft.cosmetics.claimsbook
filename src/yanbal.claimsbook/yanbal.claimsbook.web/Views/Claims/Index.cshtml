@@ -2,12 +2,19 @@
 <div class="text-center">
     <h1 class="display-4">Libro de Reclamaciones</h1>
 </div>
-<form>
-    <div class="form-row align-items-center">
+<!-- Mensajes de Error -->
+<div>
+</div>
+<!-- Datos Personales -->
+<div id="personalInfoForm" class="form-page">
+    <div class="h2">
+        Información del Consumidor Reclamante
+    </div>
+    <div id="claimerForm" class="form-row align-items-center">
         <!-- Tipo de Documento -->
         <div class="mb-2 col-md-6">
             <label for="selectDocumentType" class="yanbal-label">Tipo de Documento</label>
-            <select class="custom-select mr-sm-2" id="selectDocumentType">
+            <select class="custom-select mr-sm-2" id="selectDocumentType" data-id="documentType">
             </select>
         </div>
         <!-- Número de Documento -->
@@ -45,48 +52,175 @@
             </select>
         </div>
         <!-- Correo electrónico -->
-        <div class="mb-3 col-md-6">
+        <div class="mb-2 col-md-6">
             <label for="textMail" class="yanbal-label">Correo Electrónico</label>
             <input type="text" class="form-control text-lowercase" id="textMail" placeholder="Correo electrónico">
         </div>
         <!-- Dirección -->
-        <div class="mb-3 col-md-6">
+        <div class="mb-2 col-md-6">
             <label for="textAddress" class="yanbal-label">Dirección</label>
             <input type="text" class="form-control text-capitalize" id="textAddress" placeholder="Dirección">
         </div>
         <!-- Departamento -->
-        <div class="mb-3 col-md-6">
+        <div class="mb-2 col-md-6">
             <label for="selectDepartment" class="yanbal-label">Departamento</label>
             <select class="custom-select mr-sm-2" id="selectDepartment">
                 <option selected value="00">Departamento</option>
             </select>
         </div>
         <!-- Provincia -->
-        <div class="mb-3 col-md-6">
+        <div class="mb-2 col-md-6">
             <label for="selectProvince" class="yanbal-label">Provincia</label>
             <select disabled class="custom-select mr-sm-2" id="selectProvince">
                 <option selected value="00">Provincia</option>
             </select>
         </div>
         <!-- Distrito -->
-        <div class="mb-3 col-md-6">
+        <div class="mb-2 col-md-6">
             <label for="selectDistrict" class="yanbal-label">Distrito</label>
             <select disabled class="custom-select mr-sm-2" id="selectDistrict">
                 <option selected value="00">Distrito</option>
             </select>
         </div>
+        <!-- No soy mayor -->
         <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="customCheck1">
-            <label class="custom-control-label" for="customCheck1">Declaro que no soy mayor de edad (+18 años)</label>
+            <input type="checkbox" class="custom-control-input" id="checkIsYounger">
+            <label class="custom-control-label" for="checkIsYounger">Declaro que no soy mayor de edad (+18 años)</label>
         </div>
     </div>
-</form>
+    <div id="guardForm" class="form-row align-items-center invisible animate__animated not-display">
+        <!-- Tipo de Documento -->
+        <div class="mb-2 col-md-6">
+            <label for="selectDocumentTypeAp" class="yanbal-label">Tipo de Documento</label>
+            <select class="custom-select mr-sm-2" id="selectGuardDocumentType" data-id="documentType">
+            </select>
+        </div>
+        <!-- Número de Documento -->
+        <div class="mb-2 col-md-6">
+            <label for="textDocumentNumber" class="yanbal-label">Número de Documento</label>
+            <input type="text" class="form-control" id="textGuardDocumentNumber" placeholder="Número de Documento">
+        </div>
+        <!-- Nombres -->
+        <div class="mb-2 col-md-6">
+            <label for="textClaimerName" class="yanbal-label">Nombres</label>
+            <input type="text" class="form-control text-capitalize" id="textGuardClaimerName" placeholder="Nombres">
+        </div>
+        <!-- Apellido Paterno -->
+        <div class="mb-2 col-md-6">
+            <label for="textClaimerName" class="yanbal-label">Apellido Paterno</label>
+            <input type="text" class="form-control text-capitalize" id="textGuardSurnameFather" placeholder="Apellido Paterno">
+        </div>
+        <!-- Apellido Materno -->
+        <div class="mb-2 col-md-6">
+            <label for="textClaimerName" class="yanbal-label">Apellido Materno</label>
+            <input type="text" class="form-control text-capitalize" id="textGuardSurnameMother" aria-describedby="emailHelp" placeholder="Apellido Materno">
+        </div>
+        <!-- Teléfono -->
+        <div class="mb-2 col-md-6">
+            <label for="textTelephone" class="yanbal-label">Teléfono</label>
+            <input type="text" class="form-control" id="textGuardTelephone" aria-describedby="emailHelp" placeholder="Teléfono">
+        </div>
+        <!-- Tipo de Respuesta -->
+        <div class="mb-2 col-md-6">
+            <label for="textAnswerType" class="yanbal-label">Tipo de Respuesta</label>
+            <select class="custom-select mr-sm-2" id="selectGuardAnswerType">
+                <option selected hidden>Tipo de Respuesta</option>
+                <option>Correo Electrónico</option>
+                <option>Dirección Domiciliaria</option>
+            </select>
+        </div>
+        <!-- Correo electrónico -->
+        <div class="mb-2 col-md-6">
+            <label for="textMail" class="yanbal-label">Correo Electrónico</label>
+            <input type="text" class="form-control text-lowercase" id="textGuardMail" placeholder="Correo electrónico">
+        </div>
+        <!-- Dirección -->
+        <div class="mb-2 col-md-6">
+            <label for="textAddress" class="yanbal-label">Dirección</label>
+            <input type="text" class="form-control text-capitalize" id="textGuardAddress" placeholder="Dirección">
+        </div>
+        <!-- Departamento -->
+        <div class="mb-2 col-md-6">
+            <label for="selectDepartment" class="yanbal-label">Departamento</label>
+            <select class="custom-select mr-sm-2" id="selectGuardDepartment">
+                <option selected value="00">Departamento</option>
+            </select>
+        </div>
+        <!-- Provincia -->
+        <div class="mb-2 col-md-6">
+            <label for="selectProvince" class="yanbal-label">Provincia</label>
+            <select disabled class="custom-select mr-sm-2" id="selectGuardProvince">
+                <option selected value="00">Provincia</option>
+            </select>
+        </div>
+        <!-- Distrito -->
+        <div class="mb-2 col-md-6">
+            <label for="selectDistrict" class="yanbal-label">Distrito</label>
+            <select disabled class="custom-select mr-sm-2" id="selectGuardDistrict">
+                <option selected value="00">Distrito</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row">
+        <div></div>
+        <button class="btn btn-primary">Continuar</button>
+    </div>
+</div>
+<!-- Bien Contratado -->
+<div id="contractedGoodForm">
+    <div class="h2">
+        Identificación del Bien Contratado
+    </div>
+    <div class="form-row align-items-center">
+        <div class="col-12">
+            <div class="text-center">
+                <!-- Producto -->
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">
+                    <label class="custom-control-label" for="customRadioInline1">Toggle this custom radio</label>
+                </div>
+                <!-- Servicio -->
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
+                    <label class="custom-control-label" for="customRadioInline2">Or toggle this other custom radio</label>
+                </div>
+            </div>
+        </div>
+        <!-- Monto Reclamado -->
+        <div class="mb-2 col-12">
+            <label for="textClaimedAmount" class="yanbal-label">Monto Reclamado</label>
+            <input type="number" class="form-control" id="textClaimedAmount" placeholder="Monto Reclamado">
+        </div>
+        <!-- Descripción -->
+        <div class="mb-2 col-12">
+            <label for="textDocumentNumber" class="yanbal-label">Descripción</label>
+            <input type="text" class="form-control" id="textDocumentNumber" placeholder="Número de Documento">
+        </div>
+    </div>
+    <div class="form-row">
+        <button class="btn btn-primary">Continuar</button>
+    </div>
+</div>
+<!-- Detalle del Reclamo -->
+<div id="claimDetailForm">
+    <div class="h2">
+        Detalle de su reclamo
+    </div>
+    <div class="form-row">
+    </div>
+</div>
+<!-- Resumen Final (finalSummaryForm) -->
+<div id="finalSummaryForm">
+    <div class="h2">
+        Resumen final
+    </div>
+    <div class="form-row">
+    </div>
+</div>
 <script type="text/javascript" src="~/lib/jquery/dist/jquery.js"></script>
 <script type="text/javascript" src="~/js/site.js"></script>
 <script type="text/javascript">
     $(document).ready(() => {
-
-        
         /* Document Types */
         $.ajax({
             type: 'GET',
@@ -96,10 +230,9 @@
                 for (let elem of array) {
                     options += printOptionInSelect(elem.id, elem.description);
                 }
-                $('#selectDocumentType').html(options);
+                $('[data-id="documentType"]').html(options);
             }
         });
-        
 
         /* Departments */
         $.ajax({
@@ -148,6 +281,19 @@
                     $('#selectDistrict').html(options).removeAttr('disabled');
                 }
             });
+        });
+
+        /* Younger */
+
+
+        $('#checkIsYounger').change(function () {
+            let guardForm = $('#guardForm');
+            setTimeout(() => {
+                guardForm.toggleClass('not-display');
+                guardForm.toggleClass('invisible');
+                guardForm.addClass('animate__fadeIn');
+            }, 200);
+
         });
     });
 </script>
