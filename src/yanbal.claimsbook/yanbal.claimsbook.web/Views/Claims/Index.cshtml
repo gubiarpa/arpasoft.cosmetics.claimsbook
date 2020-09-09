@@ -177,14 +177,20 @@
     <div class="form-row align-items-center">
         <div class="col-12">
             <!-- Producto -->
-            <div class="custom-control custom-radio custom-control-inline col-6">
+            @*<div class="custom-control custom-radio custom-control-inline col-6">
                 <input type="radio" name="isProductOrService" class="custom-control-input">
                 <label class="custom-control-label" for="checkIsProduct">Producto</label>
-            </div>
+            </div>*@
             <!-- Servicio -->
-            <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" name="isProductOrService" class="custom-control-input">
-                <label class="custom-control-label" for="checkIsService">Servicio</label>
+            @*<div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" name="isProductOrService" class="custom-control-input">
+            <label class="custom-control-label" for="checkIsService">Servicio</label>
+        </div>*@
+            <!-- Derivado -->
+            <div class="custom-control custom-radio">
+                <input type="radio" id="checkIsService" name="isProductOrService" class="" title="Servicio">
+                <label for="selectDocumentType" class="">Tipo de Documento</label>
+                @*<label class="custom-control-label" for="checkIsProduct">Producto</label>*@
             </div>
         </div>
         <!-- Monto Reclamado -->
@@ -207,7 +213,29 @@
     <div class="h2 form-title">
         Detalle de su reclamo
     </div>
-    <div class="form-row">
+    <div class="form-row align-items-center">
+        <div class="col-12">
+            <!-- Producto -->
+            <div class="custom-control custom-radio custom-control-inline col-6">
+                <input type="radio" name="isClaimOrComplaint" class="custom-control-input">
+                <label class="custom-control-label" for="checkIsClaim">Reclamo</label>
+            </div>
+            <!-- Servicio -->
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" name="isClaimOrComplaint" class="custom-control-input">
+                <label class="custom-control-label" for="checkIsComplaint">Queja</label>
+            </div>
+        </div>
+        <!-- Monto Reclamado -->
+        <div class="col-md-6">
+            <label for="textClaimDetail" class="yanbal-label">Monto Reclamado</label>
+            <input type="text" class="form-control" id="textClaimDetail" placeholder="Detalle">
+        </div>
+        <!-- Descripción -->
+        <div class="col-md-6">
+            <label for="textOrder" class="yanbal-label">Pedido</label>
+            <input type="text" class="form-control" id="textOrder" placeholder="Pedido">
+        </div>
     </div>
     <button name="btnContinue" data-parentForm="claimDetailForm" data-nextForm="finalSummaryForm" class="btn btn-primary col-md-6 offset-md-3">
         Continuar
@@ -306,9 +334,52 @@
             let parentFormName = $(this).attr('data-parentForm');
             let nextFormName = $(this).attr('data-nextForm');
 
-            $('#' + parentFormName).toggleClass('not-display');
-            $('#' + nextFormName).toggleClass('not-display');
+            let validationResult = validateForm(parentFormName);
 
+            if (validationResult.length == 0) {
+                $('#' + parentFormName).toggleClass('not-display');
+                $('#' + nextFormName).toggleClass('not-display animate__animated animate__fadeIn');
+            }
         });
+
+        /* Validation */
+        const validateForm = (nameForm) => {
+            
+            let errors = []; return errors;
+
+            switch (nameForm) {
+                case 'personalInfoForm':
+                    // Document Type
+                    let documentTypeID = $('#selectDocumentType option:selected').val();
+                    let documentTypeName = $('#selectDocumentType option:selected').text();
+                    let textDocumentNumber = $('#textDocumentNumber').val();
+
+                    if (documentTypeID == null || documentTypeID == 'null') {
+                        $('#selectDocumentType').addClass('border-danger');
+                        //errors.push({ title: 'DNI' });
+                    }
+                    else {
+                        $('#selectDocumentType').removeClass('border-danger');
+                    }
+
+                    if (documentTypeName == 'DNI') {
+                        if (textDocumentNumber == null || textDocumentNumber.length != 8) {
+                            $('#textDocumentNumber').removeClass('border-danger');
+                        }
+                        // errors.push({ title: 'DNI', message: 'El DNI debe ser numérico y de 8 dígitos' })
+                    }
+                    break;
+                case 'contractedGoodForm':
+                    break;
+                case 'claimDetailForm':
+                    break;
+                case 'finalSummaryForm':
+                    break;
+                default:
+                    break;
+            }
+
+            return errors;
+        }
     });
 </script>
