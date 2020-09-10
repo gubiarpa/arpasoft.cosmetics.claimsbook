@@ -175,22 +175,17 @@
         Identificación del Bien Contratado
     </div>
     <div class="form-row align-items-center">
-        <div class="col-12">
-            <!-- Producto -->
-            @*<div class="custom-control custom-radio custom-control-inline col-6">
-                <input type="radio" name="isProductOrService" class="custom-control-input">
-                <label class="custom-control-label" for="checkIsProduct">Producto</label>
-            </div>*@
-            <!-- Servicio -->
-            @*<div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" name="isProductOrService" class="custom-control-input">
-            <label class="custom-control-label" for="checkIsService">Servicio</label>
-        </div>*@
-            <!-- Derivado -->
+        <!-- Tipo de Bien Contratado -->
+        <div class="col-md-12 input-group">
+            <!-- Opción 1: Producto -->
+            <div class="custom-control custom-radio col-6">
+                <input type="radio" id="checkIsProduct" name="isProductOrService" class="" title="Producto">
+                <label for="checkIsProduct" class="">Producto</label>
+            </div>
+            <!-- Opción 2: Servicio -->
             <div class="custom-control custom-radio">
                 <input type="radio" id="checkIsService" name="isProductOrService" class="" title="Servicio">
-                <label for="selectDocumentType" class="">Tipo de Documento</label>
-                @*<label class="custom-control-label" for="checkIsProduct">Producto</label>*@
+                <label for="checkIsService" class="">Servicio</label>
             </div>
         </div>
         <!-- Monto Reclamado -->
@@ -214,27 +209,27 @@
         Detalle de su reclamo
     </div>
     <div class="form-row align-items-center">
-        <div class="col-12">
-            <!-- Producto -->
-            <div class="custom-control custom-radio custom-control-inline col-6">
-                <input type="radio" name="isClaimOrComplaint" class="custom-control-input">
+        <div class="col-md-12 input-group">
+            <!-- Reclamo -->
+            <div class="custom-control custom-radio col-6">
+                <input type="radio" id="checkIsClaim" name="isClaimOrComplaint" class="custom-control-input">
                 <label class="custom-control-label" for="checkIsClaim">Reclamo</label>
             </div>
-            <!-- Servicio -->
-            <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" name="isClaimOrComplaint" class="custom-control-input">
+            <!-- Queja -->
+            <div class="custom-control custom-radio">
+                <input type="radio" id="checkIsComplaint" name="isClaimOrComplaint" class="custom-control-input">
                 <label class="custom-control-label" for="checkIsComplaint">Queja</label>
             </div>
         </div>
-        <!-- Monto Reclamado -->
+        <!-- Detalle -->
         <div class="col-md-6">
-            <label for="textClaimDetail" class="yanbal-label">Monto Reclamado</label>
+            <label for="textClaimDetail" class="yanbal-label">Detalle</label>
             <input type="text" class="form-control" id="textClaimDetail" placeholder="Detalle">
         </div>
-        <!-- Descripción -->
+        <!-- Pedido -->
         <div class="col-md-6">
-            <label for="textOrder" class="yanbal-label">Pedido</label>
-            <input type="text" class="form-control" id="textOrder" placeholder="Pedido">
+            <label for="textOrderDetail" class="yanbal-label">Pedido</label>
+            <input type="text" class="form-control" id="textOrderDetail" placeholder="Pedido">
         </div>
     </div>
     <button name="btnContinue" data-parentForm="claimDetailForm" data-nextForm="finalSummaryForm" class="btn btn-primary col-md-6 offset-md-3">
@@ -247,9 +242,15 @@
         Resumen final
     </div>
     <div class="form-row">
+        Aquí va un resumen con los datos que se han registrado en los anteriores formularios... 😝
     </div>
-    <button name="btnContinue" data-parentForm="finalSummaryForm" data-nextForm="" class="btn btn-primary col-md-6 offset-md-3">
-        Continuar
+    <!-- No soy mayor -->
+    <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input">
+        <label class="custom-control-label" for="checkIsYounger">Al enviar este formulario acepto que el flujo transfronterizo de mis datos personales, según la <a href="#">Ley de Protección de Datos Personales</a></label>
+    </div>
+    <button id="btnSend" class="btn btn-primary col-md-6 offset-md-3">
+        Enviar
     </button>
 </div>
 <script type="text/javascript" src="~/lib/jquery/dist/jquery.js"></script>
@@ -311,7 +312,6 @@
                     let options = printOptionInSelect(null, 'Distrito');
                     for (let elem of array) {
                         options += printOptionInSelect(elem.code, elem.district);
-                        console.log(elem);
                     }
                     $('#selectDistrict').html(options).removeAttr('disabled');
                 }
@@ -342,44 +342,99 @@
             }
         });
 
-        /* Validation */
-        const validateForm = (nameForm) => {
-            
-            let errors = []; return errors;
-
-            switch (nameForm) {
-                case 'personalInfoForm':
-                    // Document Type
-                    let documentTypeID = $('#selectDocumentType option:selected').val();
-                    let documentTypeName = $('#selectDocumentType option:selected').text();
-                    let textDocumentNumber = $('#textDocumentNumber').val();
-
-                    if (documentTypeID == null || documentTypeID == 'null') {
-                        $('#selectDocumentType').addClass('border-danger');
-                        //errors.push({ title: 'DNI' });
-                    }
-                    else {
-                        $('#selectDocumentType').removeClass('border-danger');
-                    }
-
-                    if (documentTypeName == 'DNI') {
-                        if (textDocumentNumber == null || textDocumentNumber.length != 8) {
-                            $('#textDocumentNumber').removeClass('border-danger');
-                        }
-                        // errors.push({ title: 'DNI', message: 'El DNI debe ser numérico y de 8 dígitos' })
-                    }
-                    break;
-                case 'contractedGoodForm':
-                    break;
-                case 'claimDetailForm':
-                    break;
-                case 'finalSummaryForm':
-                    break;
-                default:
-                    break;
-            }
-
-            return errors;
-        }
+        /* Send */
+        $('#btnSend').click(sendForm);
     });
+
+    /* Validation */
+    const validateForm = (nameForm) => {
+
+        let errors = []; return errors;
+
+        switch (nameForm) {
+            case 'personalInfoForm':
+                // Document Type
+                let documentTypeID = $('#selectDocumentType option:selected').val();
+                let documentTypeName = $('#selectDocumentType option:selected').text();
+                let textDocumentNumber = $('#textDocumentNumber').val();
+
+                if (documentTypeID == null || documentTypeID == 'null') {
+                    $('#selectDocumentType').addClass('border-danger');
+                    //errors.push({ title: 'DNI' });
+                }
+                else {
+                    $('#selectDocumentType').removeClass('border-danger');
+                }
+
+                if (documentTypeName == 'DNI') {
+                    if (textDocumentNumber == null || textDocumentNumber.length != 8) {
+                        $('#textDocumentNumber').removeClass('border-danger');
+                    }
+                    // errors.push({ title: 'DNI', message: 'El DNI debe ser numérico y de 8 dígitos' })
+                }
+                break;
+            case 'contractedGoodForm':
+                break;
+            case 'claimDetailForm':
+                break;
+            case 'finalSummaryForm':
+                break;
+            default:
+                break;
+        }
+
+        return errors;
+    }
+
+    /* Sending */
+    const sendForm = () => {
+        /// (i) Personal Info
+        let mainClaimer = {
+            documentType: $('#selectDocumentType').val(),
+            documentNumber: $('#textDocumentNumber').val(),
+            name: $('#textClaimerName').val(),
+            paternalSurname: $('#textSurnameFather').val(),
+            maternalSurname: $('#textSurnameMother').val(),
+            phoneNumber: $('#textTelephone').val(),
+            answerType: $('#selectAnswerType option:selected').val(),
+            mail: $('#textMail').val(),
+            address: $('#textAddress').val(),
+            geoZone: $('#selectDistrict').val()
+        };
+        let guardClaimer = {
+            documentType: $('#selectGuardDocumentType').val(),
+            documentNumber: $('#textGuardDocumentNumber').val(),
+            name: $('#textGuardClaimerName').val(),
+            paternalSurname: $('#textGuardSurnameFather').val(),
+            maternalSurname: $('#textGuardSurnameMother').val(),
+            phoneNumber: $('#textGuardTelephone').val(),
+            answerType: $('#selectAnswerType option:selected').val(),
+            mail: $('#textMail').val(),
+            address: $('#textAddress').val(),
+            geoZone: $('#selectGuardDistrict').val()
+        };
+
+        /// (ii) Contracted Good
+        let isAProduct = $('#checkIsProduct')[0].checked; // or a service
+        let claimedAmount = $('#textClaimedAmount').val();
+        let goodDescription = $('#textDescription').val();
+
+        /// (iii) Claim Detail
+        let isAClaim = $('#checkIsClaim')[0].checked; // or a complaint (queja)
+        let claimDetail = $('#textClaimDetail').val();
+        let orderDetail = $('#textOrderDetail').val();
+
+        /// Group Information
+        let claim = {
+            mainClaimer,
+            guardClaimer,
+            isAProduct,
+            claimedAmount,
+            goodDescription,
+            isAClaim,
+            claimDetail,
+            orderDetail
+        };
+        console.log(claim);
+    };
 </script>
