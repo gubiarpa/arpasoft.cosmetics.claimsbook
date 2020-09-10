@@ -14,9 +14,9 @@ namespace yanbal.claimsbook.data.Models
         public string PaternalSurname { get; set; }
         public string MaternalSurname { get; set; }
         public Guid AnswerTypeID { get; set; }
-        public string Telephone { get; set; }
-        public string Mail { get; set; }
+        public string PhoneNumber { get; set; }
+        public string EMail { get; set; }
         public string Address { get; set; }
-        public string GeoZone { get; set; }
+        public Guid GeoZoneID { get; set; }
     }
 }

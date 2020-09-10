@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using yanbal.claimsbook.data.Models;
 using yanbal.claimsbook.repository;
+using yanbal.claimsbook.web.Models;
 
 namespace yanbal.claimsbook.web.Controllers
 {
@@ -65,6 +66,40 @@ namespace yanbal.claimsbook.web.Controllers
                 .OrderBy(x => x.Code)
                 .ToListAsync();
             return new JsonResult(districts);
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> SaveClaim(ClaimViewModel claim)
+        {
+            try
+            {
+                // GeoZone
+                var geoZone = await _context.GeoZones.SingleOrDefaultAsync(x => x.Code == claim.MainClaimer.GeoZone);
+
+                // Main Claimer
+                var mainClaimer = new Claimer()
+                {
+                    DocumentTypeID = claim.MainClaimer.DocumentType,
+                    DocumentNumber = claim.MainClaimer.DocumentNumber,
+                    Names = claim.MainClaimer.Names,
+                    PaternalSurname = claim.MainClaimer.PaternalSurname,
+                    MaternalSurname = claim.MainClaimer.MaternalSurname,
+                    AnswerTypeID = claim.MainClaimer.AnswerType,
+                    PhoneNumber = claim.MainClaimer.PhoneNumber,
+                    EMail = claim.MainClaimer.EMail,
+                    Address = claim.MainClaimer.Address,
+                    GeoZoneID = geoZone.ID
+                };
+                _context.Claimers.Add(mainClaimer);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+            return Ok();
         }
         #endregion
     }

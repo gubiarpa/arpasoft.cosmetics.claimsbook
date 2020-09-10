@@ -21,7 +21,7 @@
         <!-- Número de Documento -->
         <div class="mb-2 col-md-6">
             <label for="textDocumentNumber" class="yanbal-label">Número de Documento</label>
-            <input type="text" class="form-control" id="textDocumentNumber" placeholder="Número de Documento">
+            <input type="tel" class="form-control" id="textDocumentNumber" placeholder="Número de Documento">
         </div>
         <!-- Nombres -->
         <div class="mb-2 col-md-6">
@@ -254,6 +254,7 @@
 <script type="text/javascript" src="~/js/site.js"></script>
 <script type="text/javascript">
     $(document).ready(() => {
+        debugger;
         /* Document Types */
         $.ajax({
             type: 'GET',
@@ -402,12 +403,12 @@
         let mainClaimer = {
             documentType: $('#selectDocumentType').val(),
             documentNumber: $('#textDocumentNumber').val(),
-            name: $('#textClaimerName').val(),
+            names: $('#textClaimerName').val(),
             paternalSurname: $('#textSurnameFather').val(),
             maternalSurname: $('#textSurnameMother').val(),
             phoneNumber: $('#textTelephone').val(),
             answerType: $('#selectAnswerType option:selected').val(),
-            mail: $('#textMail').val(),
+            eMail: $('#textMail').val(),
             address: $('#textAddress').val(),
             geoZone: $('#selectDistrict').val()
         };
@@ -445,6 +446,18 @@
             claimDetail,
             orderDetail
         };
-        console.log(claim);
+
+        $.ajax({
+            type: 'POST',
+            url: 'Claims/SaveClaim',
+            data: claim,
+            success(array) {
+                let options = printOptionInSelect(null, 'Departamento');
+                for (let elem of array) {
+                    options += printOptionInSelect(elem.code, elem.department);
+                }
+                $('#selectDepartment').html(options);
+            }
+        });
     };
 </script>
