@@ -71,41 +71,57 @@ namespace yanbal.claimsbook.web.Controllers
         }
         
         [HttpPost]
-        public async Task<IActionResult> SaveClaim(ClaimViewModel claim)
+        public async Task<IActionResult> SaveClaim(ClaimViewModel claimRequest)
         {
             try
             {
                 // GeoZone
-                var geoZone = await _context.GeoZones.SingleOrDefaultAsync(x => x.Code == claim.MainClaimer.GeoZone);
+                var geoZone = await _context.GeoZones.SingleOrDefaultAsync(x => x.Code == claimRequest.MainClaimer.GeoZone);
 
                 // Main Claimer
                 var mainClaimer = new Claimer()
                 {
-                    DocumentTypeID = claim.MainClaimer.DocumentType,
-                    DocumentNumber = claim.MainClaimer.DocumentNumber,
-                    Names = claim.MainClaimer.Names,
-                    PaternalSurname = claim.MainClaimer.PaternalSurname,
-                    MaternalSurname = claim.MainClaimer.MaternalSurname,
-                    AnswerTypeID = claim.MainClaimer.AnswerType,
-                    PhoneNumber = claim.MainClaimer.PhoneNumber,
-                    EMail = claim.MainClaimer.EMail,
-                    Address = claim.MainClaimer.Address,
+                    DocumentTypeID = claimRequest.MainClaimer.DocumentType,
+                    DocumentNumber = claimRequest.MainClaimer.DocumentNumber,
+                    Names = claimRequest.MainClaimer.Names,
+                    PaternalSurname = claimRequest.MainClaimer.PaternalSurname,
+                    MaternalSurname = claimRequest.MainClaimer.MaternalSurname,
+                    AnswerTypeID = claimRequest.MainClaimer.AnswerType,
+                    PhoneNumber = claimRequest.MainClaimer.PhoneNumber,
+                    EMail = claimRequest.MainClaimer.EMail,
+                    Address = claimRequest.MainClaimer.Address,
                     GeoZoneID = geoZone.ID
                 };
                 _context.Claimers.Add(mainClaimer);
 
+                await _context.SaveChangesAsync();
+
                 // Good Type
-                var goodTypeEnum = claim.ContractedGood.IsAProduct ?
+                var goodTypeEnum = claimRequest.ContractedGood.IsAProduct ?
                     GoodTypeEnum.Product : GoodTypeEnum.Service;
-                var goodTypeID = (await _context.GoodTypes.SingleOrDefaultAsync(
-                    x => x.Description == goodTypeEnum.ToDbString())).ID;
+                var goodType = (await _context.GoodTypes.SingleOrDefaultAsync(
+                    x => x.Description == goodTypeEnum.ToDbString()));
 
                 // Claim Type
-                var claimTypeEnum = claim.ClaimDetail.IsAClaim ?
+                var claimTypeEnum = claimRequest.ClaimDetail.IsAClaim ?
                     ClaimTypeEnum.Claim : ClaimTypeEnum.Complaint;
-                var claimTypeID = (await _context.ClaimTypes.SingleOrDefaultAsync(
-                    x => x.Description == claimTypeEnum.ToDbString())).ID;
+                var claimType = (await _context.ClaimTypes.SingleOrDefaultAsync(
+                    x => x.Description == claimTypeEnum.ToDbString()));
 
+                // Claim
+                var claim = new Claim()
+                {
+                    MainClaimerID = mainClaimer.ID,
+                    GuardClaimerID = null,
+                    GoodTypeID = goodType.ID,
+                    ClaimedAmount = claimRequest.ContractedGood.ClaimedAmount,
+                    Description = claimRequest.ContractedGood.GoodDescription,
+                    ClaimTypeID = claimType.ID,
+                    ClaimDetail = claimRequest.ClaimDetail.ClaimDetail,
+                    OrderDetail = claimRequest.ClaimDetail.OrderDetail
+                };
+
+                _context.Claims.Add(claim);
 
                 await _context.SaveChangesAsync();
             }

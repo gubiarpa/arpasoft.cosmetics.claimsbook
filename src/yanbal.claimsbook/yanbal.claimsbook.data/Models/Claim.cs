@@ -9,7 +9,7 @@ namespace yanbal.claimsbook.data.Models
     {
         public Guid ID { get; set; }
         public Guid MainClaimerID { get; set; }
-        public Guid GuardClaimerID { get; set; }
+        public Guid? GuardClaimerID { get; set; }
         public Guid GoodTypeID { get; set; }
         public decimal ClaimedAmount { get; set; }
         public string Description { get; set; }
