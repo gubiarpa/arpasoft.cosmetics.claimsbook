@@ -32,6 +32,12 @@ namespace yanbal.claimsbook.web.Controllers
             return new JsonResult(documentTypes);
         }
 
+        public async Task<IActionResult> GetAnswerTypes()
+        {
+            var answerTypes = await _context.AnswerTypes.OrderBy(x => x.Description).ToListAsync();
+            return new JsonResult(answerTypes);
+        }
+
         public async Task<IActionResult> GetDepartments()
         {
             var departments = await _context.GeoZones

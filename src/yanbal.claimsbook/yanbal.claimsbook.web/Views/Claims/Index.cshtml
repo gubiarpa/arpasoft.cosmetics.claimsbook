@@ -47,9 +47,6 @@
         <div class="mb-2 col-md-6">
             <label for="textAnswerType" class="yanbal-label">Tipo de Respuesta</label>
             <select class="custom-select mr-sm-2" id="selectAnswerType">
-                <option selected hidden>Tipo de Respuesta</option>
-                <option>Correo Electrónico</option>
-                <option>Dirección Domiciliaria</option>
             </select>
         </div>
         <!-- Correo electrónico -->
@@ -267,6 +264,19 @@
                     options += printOptionInSelect(elem.id, elem.description);
                 }
                 $('[data-id="documentType"]').html(options);
+            }
+        });
+
+        /* Answer Types */
+        $.ajax({
+            type: 'GET',
+            url: 'Claims/GetAnswerTypes',
+            success(array) {
+                let options = printOptionInSelect(null, 'Tipo de Respuesta');
+                for (let elem of array) {
+                    options += printOptionInSelect(elem.id, elem.description);
+                }
+                $('#selectAnswerType').html(options);
             }
         });
 
