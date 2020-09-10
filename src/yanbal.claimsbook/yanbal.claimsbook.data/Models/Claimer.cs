@@ -8,17 +8,15 @@ namespace yanbal.claimsbook.data.Models
     public class Claimer : IGuid
     {
         public Guid ID { get; set; }
-        public DocumentType TipoDocumento { get; set; }
-        public string NumDocumento { get; set; }
-        public string Name { get; set; }
-        public string SurnameFather { get; set; }
-        public string SurnameMother { get; set; }
+        public Guid DocumentTypeID { get; set; }
+        public string DocumentNumber { get; set; }
+        public string Names { get; set; }
+        public string PaternalSurname { get; set; }
+        public string MaternalSurname { get; set; }
+        public Guid AnswerTypeID { get; set; }
         public string Telephone { get; set; }
-        public AnswerType AnswerType { get; set; }
         public string Mail { get; set; }
         public string Address { get; set; }
-        public string Departament { get; set; }
-        public string Province { get; set; }
-        public string District { get; set; }
+        public string GeoZone { get; set; }
     }
 }
