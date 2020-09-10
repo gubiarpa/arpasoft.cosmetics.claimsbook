@@ -426,25 +426,25 @@
         };
 
         /// (ii) Contracted Good
-        let isAProduct = $('#checkIsProduct')[0].checked; // or a service
-        let claimedAmount = $('#textClaimedAmount').val();
-        let goodDescription = $('#textDescription').val();
+        let contractedGood = {
+            isAProduct: $('#checkIsProduct')[0].checked, // or a service
+            claimedAmount: $('#textClaimedAmount').val(),
+            goodDescription: $('#textDescription').val()
+        };
 
         /// (iii) Claim Detail
-        let isAClaim = $('#checkIsClaim')[0].checked; // or a complaint (queja)
-        let claimDetail = $('#textClaimDetail').val();
-        let orderDetail = $('#textOrderDetail').val();
+        let claimDetail = {
+            isAClaim: $('#checkIsClaim')[0].checked, // or a complaint (queja)
+            claimDetail: $('#textClaimDetail').val(),
+            orderDetail: $('#textOrderDetail').val()
+        };
 
         /// Group Information
         let claim = {
             mainClaimer,
             guardClaimer,
-            isAProduct,
-            claimedAmount,
-            goodDescription,
-            isAClaim,
-            claimDetail,
-            orderDetail
+            contractedGood,
+            claimDetail
         };
 
         $.ajax({
@@ -452,11 +452,7 @@
             url: 'Claims/SaveClaim',
             data: claim,
             success(array) {
-                let options = printOptionInSelect(null, 'Departamento');
-                for (let elem of array) {
-                    options += printOptionInSelect(elem.code, elem.department);
-                }
-                $('#selectDepartment').html(options);
+                
             }
         });
     };

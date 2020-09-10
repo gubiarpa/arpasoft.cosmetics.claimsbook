@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using yanbal.claimsbook.data.Models;
+using yanbal.claimsbook.data.Utils;
 using yanbal.claimsbook.repository;
 using yanbal.claimsbook.web.Models;
 
@@ -91,6 +93,20 @@ namespace yanbal.claimsbook.web.Controllers
                     GeoZoneID = geoZone.ID
                 };
                 _context.Claimers.Add(mainClaimer);
+
+                // Good Type
+                var goodTypeEnum = claim.ContractedGood.IsAProduct ?
+                    GoodTypeEnum.Product : GoodTypeEnum.Service;
+                var goodTypeID = (await _context.GoodTypes.SingleOrDefaultAsync(
+                    x => x.Description == goodTypeEnum.ToDbString())).ID;
+
+                // Claim Type
+                var claimTypeEnum = claim.ClaimDetail.IsAClaim ?
+                    ClaimTypeEnum.Claim : ClaimTypeEnum.Complaint;
+                var claimTypeID = (await _context.ClaimTypes.SingleOrDefaultAsync(
+                    x => x.Description == claimTypeEnum.ToDbString())).ID;
+
+
                 await _context.SaveChangesAsync();
             }
             catch (Exception ex)

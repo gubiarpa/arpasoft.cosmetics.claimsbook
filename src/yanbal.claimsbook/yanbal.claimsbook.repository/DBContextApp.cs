@@ -12,8 +12,9 @@ namespace yanbal.claimsbook.repository
         public DbSet<DocumentType> DocumentTypes { get; set; }
         public DbSet<GeoZone> GeoZones { get; set; }
         public DbSet<AnswerType> AnswerTypes { get; set; }
+        public DbSet<GoodType> GoodTypes { get; set; }
+        public DbSet<ClaimType> ClaimTypes { get; set; }
         public DbSet<Claim> Claims { get; set; }
-
         public DbSet<Claimer> Claimers { get; set; }
 
         public DBContextApp(DbContextOptions<DBContextApp> options) : base(options)
@@ -26,8 +27,10 @@ namespace yanbal.claimsbook.repository
             modelBuilder.ApplyConfiguration(new DocumentTypeMap());
             modelBuilder.ApplyConfiguration(new GeoZoneMap());
             modelBuilder.ApplyConfiguration(new AnswerTypeMap());
+            modelBuilder.ApplyConfiguration(new ClaimTypeMap());
             modelBuilder.ApplyConfiguration(new ClaimerMap());
             modelBuilder.ApplyConfiguration(new ClaimMap());
+            modelBuilder.ApplyConfiguration(new GoodTypeMap());
         }
     }
 }

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using yanbal.claimsbook.data.Models.Behavior;
 
 namespace yanbal.claimsbook.data.Models
 {
-    public enum GoodType
+    public class GoodType : IGuid, IDescription
     {
-        Product = 1,
-        Service = 2
+        public Guid ID { get; set; }
+        public string Description { get; set; }
     }
 }

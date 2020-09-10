@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using yanbal.claimsbook.data.Models.Behavior;
 
 namespace yanbal.claimsbook.data.Models
 {
-    public class ContractedGood
+    public class ClaimType : IGuid, IDescription
     {
-        public GoodType GoodType { get; set; }
-        public decimal Amount { get; set; }
+        public Guid ID { get; set; }
         public string Description { get; set; }
     }
 }
