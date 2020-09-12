@@ -52,3 +52,14 @@ label {
         margin-top: 20px;
     }
 }
+
+.warning-message {
+    font-size: 12px;
+}
+
+.title-text-center {
+    font-size: 40px;
+    @media only screen and (max-width: 768px) {
+        font-size: 24px;
+    }
+}

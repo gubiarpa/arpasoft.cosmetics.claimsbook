@@ -1,6 +1,6 @@
 ﻿
 <div class="text-center">
-    <h1 class="display-4">Libro de Reclamaciones</h1>
+    <div class="title-text-center">Libro de Reclamaciones</div>
 </div>
 <!-- Mensajes de Error -->
 <div id="errorMessageForm">
@@ -63,30 +63,33 @@
         <div class="mb-2 col-md-6">
             <label for="selectDepartment" class="yanbal-label">Departamento</label>
             <select class="custom-select mr-sm-2" id="selectDepartment">
-                <option selected value="00">Departamento</option>
+                <option selected>Departamento</option>
             </select>
         </div>
-        <!-- Provincia -->
+        <!-- Provincia --> 
         <div class="mb-2 col-md-6">
             <label for="selectProvince" class="yanbal-label">Provincia</label>
             <select disabled class="custom-select mr-sm-2" id="selectProvince">
-                <option selected value="00">Provincia</option>
+                <option selected>Provincia</option>
             </select>
         </div>
         <!-- Distrito -->
         <div class="mb-2 col-md-6">
             <label for="selectDistrict" class="yanbal-label">Distrito</label>
             <select disabled class="custom-select mr-sm-2" id="selectDistrict">
-                <option selected value="00">Distrito</option>
+                <option selected>Distrito</option>
             </select>
         </div>
         <!-- No soy mayor -->
-        <div class="custom-control custom-checkbox">
+        <div class="custom-control custom-checkbox col-md-6 mt-2">
             <input type="checkbox" class="custom-control-input" id="checkIsYounger">
-            <label class="custom-control-label" for="checkIsYounger">Declaro que no soy mayor de edad (+18 años)</label>
+            <label class="custom-control-label ml-4" for="checkIsYounger">Soy menor de edad</label>
         </div>
     </div>
     <div id="guardForm" class="form-row align-items-center invisible animate__animated not-display">
+        <div class="warning-message mt-1">
+            <span>(*) Toda comunicación relacionada con el reclamo/queja será enviada a los datos de contacto del Apoderado.</span>
+        </div>
         <!-- Tipo de Documento -->
         <div class="mb-2 col-md-6">
             <label for="selectDocumentTypeAp" class="yanbal-label">Tipo de Documento</label>
@@ -239,7 +242,12 @@
         Resumen final
     </div>
     <div class="form-row">
-        Aquí va un resumen con los datos que se han registrado en los anteriores formularios... 😝
+        <div id="sum_Document"></div>
+        <div id="sum_Names"></div>
+        <div id="sum_PhoneNumber"></div>
+        <div id="sum_EMail"></div>
+        <div id="sum_Address"></div>
+        <div id="sum_IsAdult"></div>
     </div>
     <!-- No soy mayor -->
     <div class="custom-control custom-checkbox">
@@ -254,7 +262,7 @@
 <script type="text/javascript" src="~/js/site.js"></script>
 <script type="text/javascript">
     $(document).ready(() => {
-        debugger;
+
         /* Document Types */
         $.ajax({
             type: 'GET',
@@ -291,13 +299,14 @@
                     options += printOptionInSelect(elem.code, elem.department);
                 }
                 $('#selectDepartment').html(options);
+                $('#selectGuardDepartment').html(options);
             }
         });
 
         /* Provinces */
         $('#selectDepartment').change(function () {
-            $('#selectProvince').val('0');
-            $('#selectDistrict').val('0');
+            $('#selectProvince option[value!=null]').remove();
+            $('#selectDistrict option').remove();
             $.ajax({
                 type: 'GET',
                 url: 'Claims/GetProvinces',
@@ -308,7 +317,8 @@
                         options += printOptionInSelect(elem.code, elem.province);
                     }
                     $('#selectProvince').html(options).removeAttr('disabled');
-                    $('#selectDistrict').val('00');
+                    $('#selectDistrict').attr('disabled', 'disabled');
+                    $('#selectDistrict').html(printOptionInSelect(null, 'Distrito'));
                 }
             });
         });
@@ -337,11 +347,13 @@
                 guardForm.toggleClass('invisible');
                 guardForm.addClass('animate__fadeIn');
             }, 200);
+            $("html, body").animate({ scrollTop: $(document).height() }, 700);
 
         });
 
         /* Continue */
         $('[name="btnContinue"]').click(function () {
+            /// (i) Cambio de formulario
             let parentFormName = $(this).attr('data-parentForm');
             let nextFormName = $(this).attr('data-nextForm');
 
@@ -351,6 +363,14 @@
                 $('#' + parentFormName).toggleClass('not-display');
                 $('#' + nextFormName).toggleClass('not-display animate__animated animate__fadeIn');
             }
+
+            /// (ii) Muestra de Resumen
+            $('#sum_Document').html($('#'));
+            $('#sum_Names').html($('#'));
+            $('#sum_PhoneNumber').html($('#'));
+            $('#sum_EMail').html($('#'));
+            $('#sum_Address').html($('#'));
+            $('#sum_IsAdult').html($('#'));
         });
 
         /* Send */
