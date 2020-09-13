@@ -315,7 +315,7 @@
                 selectZone: 'selectProvince'
             }, function (elem) {
                 return printOptionInSelect(elem.code, elem.province);
-            })
+            }, { code: null, province: 'Provincia' }, { code: null, province: 'Distrito' })
         });
 
         $('#selectGuardDepartment').change(function () {
@@ -329,7 +329,8 @@
                 selectZone: 'selectGuardProvince'
             }, function (elem) {
                 return printOptionInSelect(elem.code, elem.province);
-            })
+            }, { code: null, province: 'Provincia' }, { code: null, province: 'Distrito'}
+            )
         });
 
 
@@ -388,17 +389,16 @@
     });
 
     /* Change Department */
-    const changeGeoZone = (obj, printerMethod) => {
+    const changeGeoZone = (obj, printerMethod, defaultElem, defaultSubElem) => {
 
         $(`#${obj.selectSubzone} option`).remove();
         $(`#${obj.selectSubzone}`).attr('disabled', 'disabled');
-        $(`#${obj.selectSubzone}`).html(printerMethod({ dataValue: null, displayValue: `${obj.subZoneDefault}`}));
+        $(`#${obj.selectSubzone}`).html(printerMethod(defaultSubElem));
         $.ajax({
             type: obj.ajaxMethod,
             url: obj.url,
             data: { geoCode: obj.body },
             success(array) {
-                let defaultElem = { code: null, province: `${obj.zoneDefault}` };
                 let options = printerMethod(defaultElem);
                 for (let elem of array) {
                     options += printerMethod(elem)
