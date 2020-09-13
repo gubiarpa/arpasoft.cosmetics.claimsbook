@@ -142,21 +142,21 @@
         </div>
         <!-- Departamento -->
         <div class="mb-2 col-md-6">
-            <label for="selectDepartment" class="yanbal-label">Departamento</label>
+            <label for="selectGuardDepartment" class="yanbal-label">Departamento</label>
             <select class="custom-select mr-sm-2" id="selectGuardDepartment">
                 <option selected value="00">Departamento</option>
             </select>
         </div>
         <!-- Provincia -->
         <div class="mb-2 col-md-6">
-            <label for="selectProvince" class="yanbal-label">Provincia</label>
+            <label for="selectGuardProvince" class="yanbal-label">Provincia</label>
             <select disabled class="custom-select mr-sm-2" id="selectGuardProvince">
                 <option selected value="00">Provincia</option>
             </select>
         </div>
         <!-- Distrito -->
         <div class="mb-2 col-md-6">
-            <label for="selectDistrict" class="yanbal-label">Distrito</label>
+            <label for="selectGuardDistrict" class="yanbal-label">Distrito</label>
             <select disabled class="custom-select mr-sm-2" id="selectGuardDistrict">
                 <option selected value="00">Distrito</option>
             </select>
@@ -305,23 +305,33 @@
 
         /* Provinces */
         $('#selectDepartment').change(function () {
-            $('#selectProvince option[value!=null]').remove();
-            $('#selectDistrict option').remove();
-            $.ajax({
-                type: 'GET',
+            changeGeoZone({
+                selectSubzone: 'selectDistrict',
+                subZoneDefault: 'Distrito',
+                ajaxMethod: 'GET',
                 url: 'Claims/GetProvinces',
-                data: { geoCode: $(this).val() },
-                success(array) {
-                    let options = printOptionInSelect(null, 'Provincia');
-                    for (let elem of array) {
-                        options += printOptionInSelect(elem.code, elem.province);
-                    }
-                    $('#selectProvince').html(options).removeAttr('disabled');
-                    $('#selectDistrict').attr('disabled', 'disabled');
-                    $('#selectDistrict').html(printOptionInSelect(null, 'Distrito'));
-                }
-            });
+                body: $(this).val(),
+                zoneDefault: 'Provincia',
+                selectZone: 'selectProvince'
+            }, function (elem) {
+                return printOptionInSelect(elem.code, elem.province);
+            })
         });
+
+        $('#selectGuardDepartment').change(function () {
+            changeGeoZone({
+                selectSubzone: 'selectGuardDistrict',
+                subZoneDefault: 'Distrito',
+                ajaxMethod: 'GET',
+                url: 'Claims/GetProvinces',
+                body: $(this).val(),
+                zoneDefault: 'Provincia',
+                selectZone: 'selectGuardProvince'
+            }, function (elem) {
+                return printOptionInSelect(elem.code, elem.province);
+            })
+        });
+
 
         /* Districts */
         $('#selectProvince').change(function () {
@@ -376,6 +386,27 @@
         /* Send */
         $('#btnSend').click(sendForm);
     });
+
+    /* Change Department */
+    const changeGeoZone = (obj, printerMethod) => {
+
+        $(`#${obj.selectSubzone} option`).remove();
+        $(`#${obj.selectSubzone}`).attr('disabled', 'disabled');
+        $(`#${obj.selectSubzone}`).html(printerMethod({ dataValue: null, displayValue: `${obj.subZoneDefault}`}));
+        $.ajax({
+            type: obj.ajaxMethod,
+            url: obj.url,
+            data: { geoCode: obj.body },
+            success(array) {
+                let defaultElem = { code: null, province: `${obj.zoneDefault}` };
+                let options = printerMethod(defaultElem);
+                for (let elem of array) {
+                    options += printerMethod(elem)
+                }
+                $(`#${obj.selectZone}`).html(options).removeAttr('disabled');
+            }
+        });
+    }
 
     /* Validation */
     const validateForm = (nameForm) => {
