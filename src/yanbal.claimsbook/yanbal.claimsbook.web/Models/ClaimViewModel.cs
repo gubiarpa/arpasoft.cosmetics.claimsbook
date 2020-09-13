@@ -7,6 +7,7 @@ namespace yanbal.claimsbook.web.Models
 {
     public class ClaimViewModel
     {
+        public bool IsAdult { get; set; }
         public ClaimerViewModel MainClaimer { get; set; }
         public ClaimerViewModel GuardClaimer { get; set; }
         public ContractedGoodViewModel ContractedGood { get; set; }

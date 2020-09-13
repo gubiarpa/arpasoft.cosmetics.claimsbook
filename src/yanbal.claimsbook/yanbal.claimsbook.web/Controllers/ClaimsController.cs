@@ -77,6 +77,7 @@ namespace yanbal.claimsbook.web.Controllers
             {
                 // GeoZone
                 var geoZone = await _context.GeoZones.SingleOrDefaultAsync(x => x.Code == claimRequest.MainClaimer.GeoZone);
+                var guardGeoZone = await _context.GeoZones.SingleOrDefaultAsync(x => x.Code == claimRequest.GuardClaimer.GeoZone);
 
                 // Main Claimer
                 var mainClaimer = new Claimer()
@@ -94,7 +95,31 @@ namespace yanbal.claimsbook.web.Controllers
                 };
                 _context.Claimers.Add(mainClaimer);
 
-                await _context.SaveChangesAsync();
+                var guardClaimer = new Claimer();
+
+                if (!claimRequest.IsAdult)
+                {
+                    guardClaimer = new Claimer()
+                    {
+                        DocumentTypeID = claimRequest.GuardClaimer.DocumentType,
+                        DocumentNumber = claimRequest.GuardClaimer.DocumentNumber,
+                        Names = claimRequest.GuardClaimer.Names,
+                        PaternalSurname = claimRequest.GuardClaimer.PaternalSurname,
+                        MaternalSurname = claimRequest.GuardClaimer.MaternalSurname,
+                        AnswerTypeID = claimRequest.GuardClaimer.AnswerType,
+                        PhoneNumber = claimRequest.GuardClaimer.PhoneNumber,
+                        EMail = claimRequest.GuardClaimer.EMail,
+                        Address = claimRequest.GuardClaimer.Address,
+                        GeoZoneID = guardGeoZone.ID
+                    };
+                    if (!claimRequest.IsAdult) _context.Claimers.Add(guardClaimer);
+                }
+                else
+                {
+                    guardClaimer = null;
+                }
+
+                 await _context.SaveChangesAsync();
 
                 // Good Type
                 var goodTypeEnum = claimRequest.ContractedGood.IsAProduct ?
@@ -112,7 +137,7 @@ namespace yanbal.claimsbook.web.Controllers
                 var claim = new Claim()
                 {
                     MainClaimerID = mainClaimer.ID,
-                    GuardClaimerID = null,
+                    GuardClaimerID = guardClaimer == null ? null : (Guid?)guardClaimer.ID,
                     GoodTypeID = goodType.ID,
                     ClaimedAmount = claimRequest.ContractedGood.ClaimedAmount,
                     Description = claimRequest.ContractedGood.GoodDescription,

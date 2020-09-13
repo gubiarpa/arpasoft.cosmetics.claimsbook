@@ -41,7 +41,7 @@
         <!-- Teléfono -->
         <div class="mb-2 col-md-6">
             <label for="textTelephone" class="yanbal-label">Teléfono</label>
-            <input type="text" class="form-control" id="textTelephone" aria-describedby="emailHelp" placeholder="Teléfono">
+            <input type="tel" class="form-control" id="textTelephone" aria-describedby="emailHelp" placeholder="Teléfono">
         </div>
         <!-- Tipo de Respuesta -->
         <div class="mb-2 col-md-6">
@@ -99,7 +99,7 @@
         <!-- Número de Documento -->
         <div class="mb-2 col-md-6">
             <label for="textGuardDocumentNumber" class="yanbal-label">Número de Documento</label>
-            <input type="text" class="form-control" id="textGuardDocumentNumber" placeholder="Número de Documento">
+            <input type="tel" class="form-control" id="textGuardDocumentNumber" placeholder="Número de Documento">
         </div>
         <!-- Nombres -->
         <div class="mb-2 col-md-6">
@@ -119,15 +119,12 @@
         <!-- Teléfono -->
         <div class="mb-2 col-md-6">
             <label for="textTelephone" class="yanbal-label">Teléfono</label>
-            <input type="text" class="form-control" id="textGuardTelephone" aria-describedby="emailHelp" placeholder="Teléfono">
+            <input type="tel" class="form-control" id="textGuardTelephone" aria-describedby="emailHelp" placeholder="Teléfono">
         </div>
         <!-- Tipo de Respuesta -->
         <div class="mb-2 col-md-6">
-            <label for="textAnswerType" class="yanbal-label">Tipo de Respuesta</label>
-            <select class="custom-select mr-sm-2" id="selectGuardAnswerType">
-                <option selected hidden>Tipo de Respuesta</option>
-                <option>Correo Electrónico</option>
-                <option>Dirección Domiciliaria</option>
+            <label for="selectGuardAnswerType" class="yanbal-label">Tipo de Respuesta</label>
+            <select class="custom-select mr-sm-2" id="selectGuardAnswerType" disabled>
             </select>
         </div>
         <!-- Correo electrónico -->
@@ -191,7 +188,7 @@
         <!-- Monto Reclamado -->
         <div class="col-md-6">
             <label for="textClaimedAmount" class="yanbal-label">Monto Reclamado</label>
-            <input type="text" class="form-control" id="textClaimedAmount" placeholder="Monto Reclamado">
+            <input type="tel" class="form-control" id="textClaimedAmount" placeholder="Monto Reclamado (S/.)">
         </div>
         <!-- Descripción -->
         <div class="col-md-6">
@@ -262,7 +259,6 @@
 <script type="text/javascript" src="~/js/site.js"></script>
 <script type="text/javascript">
     $(document).ready(() => {
-
         /* Document Types */
         $.ajax({
             type: 'GET',
@@ -286,7 +282,12 @@
                     options += printOptionInSelect(elem.id, elem.description);
                 }
                 $('#selectAnswerType').html(options);
+                $('#selectGuardAnswerType').html(options);
             }
+        });
+
+        $('#selectAnswerType').change(function () {
+            $('#selectGuardAnswerType').val($(this).val());
         });
 
         /* Departments */
@@ -303,7 +304,6 @@
             }
         });
 
-        /* Provinces */
         $('#selectDepartment').change(function () {
             changeGeoZone({
                 selectSubzone: 'selectDistrict',
@@ -318,6 +318,7 @@
             }, { code: null, province: 'Provincia' }, { code: null, province: 'Distrito' })
         });
 
+        /* Provinces */
         $('#selectGuardDepartment').change(function () {
             changeGeoZone({
                 selectSubzone: 'selectGuardDistrict',
@@ -388,12 +389,12 @@
             }
 
             /// (ii) Muestra de Resumen
-            $('#sum_Document').html($('#'));
-            $('#sum_Names').html($('#'));
-            $('#sum_PhoneNumber').html($('#'));
-            $('#sum_EMail').html($('#'));
-            $('#sum_Address').html($('#'));
-            $('#sum_IsAdult').html($('#'));
+            //$('#sum_Document').html($('#'));
+            //$('#sum_Names').html($('#'));
+            //$('#sum_PhoneNumber').html($('#'));
+            //$('#sum_EMail').html($('#'));
+            //$('#sum_Address').html($('#'));
+            //$('#sum_IsAdult').html($('#'));
         });
 
         /* Send */
@@ -475,23 +476,24 @@
             address: $('#textAddress').val(),
             geoZone: $('#selectDistrict').val()
         };
+        let isAdult = !$('#checkIsYounger')[0].checked;
         let guardClaimer = {
             documentType: $('#selectGuardDocumentType').val(),
             documentNumber: $('#textGuardDocumentNumber').val(),
-            name: $('#textGuardClaimerName').val(),
+            names: $('#textGuardClaimerName').val(),
             paternalSurname: $('#textGuardSurnameFather').val(),
             maternalSurname: $('#textGuardSurnameMother').val(),
             phoneNumber: $('#textGuardTelephone').val(),
             answerType: $('#selectAnswerType option:selected').val(),
-            mail: $('#textMail').val(),
-            address: $('#textAddress').val(),
+            eMail: $('#textGuardMail').val(),
+            address: $('#textGuardAddress').val(),
             geoZone: $('#selectGuardDistrict').val()
         };
 
         /// (ii) Contracted Good
         let contractedGood = {
             isAProduct: $('#checkIsProduct')[0].checked, // or a service
-            claimedAmount: $('#textClaimedAmount').val(),
+            claimedAmount: parseInt($('#textClaimedAmount').val()),
             goodDescription: $('#textDescription').val()
         };
 
@@ -504,6 +506,7 @@
 
         /// Group Information
         let claim = {
+            isAdult,
             mainClaimer,
             guardClaimer,
             contractedGood,
