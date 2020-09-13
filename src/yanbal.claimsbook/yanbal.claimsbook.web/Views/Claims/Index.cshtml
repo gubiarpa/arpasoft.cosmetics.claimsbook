@@ -333,21 +333,33 @@
             )
         });
 
-
         /* Districts */
         $('#selectProvince').change(function () {
-            $.ajax({
-                type: 'GET',
+            changeGeoZone({
+                selectSubzone: 'selectDistrict',
+                subZoneDefault: null,
+                ajaxMethod: 'GET',
                 url: 'Claims/GetDistricts',
-                data: { geoCode: $(this).val() },
-                success(array) {
-                    let options = printOptionInSelect(null, 'Distrito');
-                    for (let elem of array) {
-                        options += printOptionInSelect(elem.code, elem.district);
-                    }
-                    $('#selectDistrict').html(options).removeAttr('disabled');
-                }
-            });
+                body: $(this).val(),
+                zoneDefault: 'Distrito',
+                selectZone: 'selectDistrict'
+            }, function (elem) {
+                return printOptionInSelect(elem.code, elem.district);
+            }, { code: null, district: 'Distrito' }, { code: null, district: null})
+        });
+
+        $('#selectGuardProvince').change(function () {
+            changeGeoZone({
+                selectSubzone: 'selectGuardDistrict',
+                subZoneDefault: null,
+                ajaxMethod: 'GET',
+                url: 'Claims/GetDistricts',
+                body: $(this).val(),
+                zoneDefault: 'Distrito',
+                selectZone: 'selectGuardDistrict'
+            }, function (elem) {
+                return printOptionInSelect(elem.code, elem.district);
+            }, { code: null, district: 'Distrito' }, { code: null, district: null })
         });
 
         /* Younger */
