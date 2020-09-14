@@ -238,67 +238,51 @@
     <div class="h2 form-title">
         Resumen final
     </div>
-    <div class="container">
-        <div class="col-md-6">
-            <table>
-                <thead>
-                    <tr>
-                        <th scope="col" colspan="2">Información del Reclamante</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th class="">Doc:</th>
-                        <th class="" id="sumDocument"></th>
-                    </tr>
-                    <tr>
-                        <th class="">Nombres y apellidos:</th>
-                        <th class="" id="sumFullName"></th>
-                    </tr>
-                    <tr>
-                        <th class="">Teléfono:</th>
-                        <th class="" id="sumPhoneNumber"></th>
-                    </tr>
-                    <tr>
-                        <th class="">Respuesta a:</th>
-                        <th class="" id="sumAnswerType"></th>
-                    </tr>
-                    <tr>
-                        <th class="">Correo electrónico:</th>
-                        <th class="" id="sumEMail"></th>
-                    </tr>
-                    <tr>
-                        <th class="">Dirección:</th>
-                        <th class="" id="sumFullAddress"></th>
-                    </tr>
-                    <tr>
-                        <th class="">Mayoría de edad:</th>
-                        <th class="" id="sumIsAdult"></th>
-                    </tr>
-                </tbody>
-            </table>
-            <table>
-                <thead>
-                    <tr>
-                        <th scope="col" colspan="2">Identificación del Bien Contratado</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th>Tipo:</th>
-                        <th id="">Producto</th>
-                    </tr>
-                    <tr>
-                        <th>Monto:</th>
-                        <th id="">S/. 98.00</th>
-                    </tr>
-                    <tr>
-                        <th>Descripción:</th>
-                        <th id="">Zapato para varones marca Adidas LK9920</th>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <div class="text-justify">
+        <table class="">
+            <thead>
+                <tr>
+                    <th scope="col" colspan="2">Información del Reclamante</th>
+                    <th scope="col" colspan="2">Identificación del Bien Contratado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th class="">Doc:</th>
+                    <th class="" id="sumDocument"></th>
+                    <th class="">Tipo:</th>
+                    <th class=""></th>
+                </tr>
+                <tr>
+                    <th class="">Nombres y apellidos:</th>
+                    <th class="text-capitalize" id="sumFullName"></th>
+                    <th class="">Monto:</th>
+                    <th class="" id="sumClaimedAmount"></th>
+                </tr>
+                <tr>
+                    <th class="">Teléfono:</th>
+                    <th class="" id="sumPhoneNumber"></th>
+                    <th class="">Descripción:</th>
+                    <th class="" id="sumDescription" rowspan="5"></th>
+                </tr>
+                <tr>
+                    <th class="">Respuesta a:</th>
+                    <th class="" id="sumAnswerType"></th>
+                </tr>
+                <tr>
+                    <th class="">Correo electrónico:</th>
+                    <th class="text-lowercase" id="sumEMail"></th>
+                </tr>
+                <tr>
+                    <th class="">Dirección:</th>
+                    <th class="text-capitalize" id="sumFullAddress"></th>
+                </tr>
+                <tr>
+                    <th class="">Mayoría de edad:</th>
+                    <th class="" id="sumIsAdult"></th>
+                </tr>
+            </tbody>
+        </table>
     </div>
     <!-- No soy mayor -->
     <div class="custom-control custom-checkbox">
@@ -526,6 +510,12 @@
         let sumFullAddress = `${$('#textAddress').val()} ${$('#selectDistrict option:selected').text()}, ${$('#selectProvince option:selected').text()}, ${$('#selectDepartment option:selected').text()}`;
         let sumIsAdult = `${$('#checkIsClaim')[0].checked ? 'No' : 'Sí'}`;
 
+        /// (ii) Información del Bien Contratado
+        let sumGoodType = `${$('#checkIsProduct option:selected').text()}`;
+        let sumClaimedAmount = `S/. ${$('#textClaimedAmount').val()}`;
+        let sumDescription = `${$('#textDescription').val()}`;
+
+        /// [Impresión de valores]
         $('#sumDocument').html(sumDocument);
         $('#sumFullName').html(sumFullName);
         $('#sumPhoneNumber').html(sumPhoneNumber);
@@ -533,6 +523,10 @@
         $('#sumEMail').html(sumEMail);
         $('#sumFullAddress').html(sumFullAddress);
         $('#sumIsAdult').html(sumIsAdult);
+
+        $('#sumGoodType').html(sumGoodType);
+        $('#sumClaimedAmount').html(sumClaimedAmount);
+        $('#sumDescription').html(sumDescription);
     };
 
     /* Sending */
