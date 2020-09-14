@@ -238,13 +238,67 @@
     <div class="h2 form-title">
         Resumen final
     </div>
-    <div class="form-row">
-        <div id="sum_Document"></div>
-        <div id="sum_Names"></div>
-        <div id="sum_PhoneNumber"></div>
-        <div id="sum_EMail"></div>
-        <div id="sum_Address"></div>
-        <div id="sum_IsAdult"></div>
+    <div class="container">
+        <div class="col-md-6">
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col" colspan="2">Información del Reclamante</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th class="">Doc:</th>
+                        <th class="" id="sumDocument"></th>
+                    </tr>
+                    <tr>
+                        <th class="">Nombres y apellidos:</th>
+                        <th class="" id="sumFullName"></th>
+                    </tr>
+                    <tr>
+                        <th class="">Teléfono:</th>
+                        <th class="" id="sumPhoneNumber"></th>
+                    </tr>
+                    <tr>
+                        <th class="">Respuesta a:</th>
+                        <th class="" id="sumAnswerType"></th>
+                    </tr>
+                    <tr>
+                        <th class="">Correo electrónico:</th>
+                        <th class="" id="sumEMail"></th>
+                    </tr>
+                    <tr>
+                        <th class="">Dirección:</th>
+                        <th class="" id="sumFullAddress"></th>
+                    </tr>
+                    <tr>
+                        <th class="">Mayoría de edad:</th>
+                        <th class="" id="sumIsAdult"></th>
+                    </tr>
+                </tbody>
+            </table>
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col" colspan="2">Identificación del Bien Contratado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Tipo:</th>
+                        <th id="">Producto</th>
+                    </tr>
+                    <tr>
+                        <th>Monto:</th>
+                        <th id="">S/. 98.00</th>
+                    </tr>
+                    <tr>
+                        <th>Descripción:</th>
+                        <th id="">Zapato para varones marca Adidas LK9920</th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
     <!-- No soy mayor -->
     <div class="custom-control custom-checkbox">
@@ -318,7 +372,6 @@
             }, { code: null, province: 'Provincia' }, { code: null, province: 'Distrito' })
         });
 
-        /* Provinces */
         $('#selectGuardDepartment').change(function () {
             changeGeoZone({
                 selectSubzone: 'selectGuardDistrict',
@@ -334,7 +387,7 @@
             )
         });
 
-        /* Districts */
+        /* Provinces */
         $('#selectProvince').change(function () {
             changeGeoZone({
                 selectSubzone: 'selectDistrict',
@@ -363,6 +416,11 @@
             }, { code: null, district: 'Distrito' }, { code: null, district: null })
         });
 
+        /* Districts */
+        $('#selectDistrict').change(function () {
+
+        });
+
         /* Younger */
         $('#checkIsYounger').change(function () {
             let guardForm = $('#guardForm');
@@ -377,6 +435,7 @@
 
         /* Continue */
         $('[name="btnContinue"]').click(function () {
+
             /// (i) Cambio de formulario
             let parentFormName = $(this).attr('data-parentForm');
             let nextFormName = $(this).attr('data-nextForm');
@@ -388,13 +447,8 @@
                 $('#' + nextFormName).toggleClass('not-display animate__animated animate__fadeIn');
             }
 
-            /// (ii) Muestra de Resumen
-            //$('#sum_Document').html($('#'));
-            //$('#sum_Names').html($('#'));
-            //$('#sum_PhoneNumber').html($('#'));
-            //$('#sum_EMail').html($('#'));
-            //$('#sum_Address').html($('#'));
-            //$('#sum_IsAdult').html($('#'));
+            /// (ii) Actualización de Resumen Final
+            updateSummary();
         });
 
         /* Send */
@@ -460,6 +514,26 @@
 
         return errors;
     }
+
+    const updateSummary = () => {
+
+        /// (i) Información del Consumidor Reclamante
+        let sumDocument = `${$('#selectDocumentType option:selected').text()} ${$('#textDocumentNumber').val()}`;
+        let sumFullName = `${$('#textClaimerName').val()} ${$('#textSurnameFather').val()} ${$('#textSurnameMother').val()}`;
+        let sumPhoneNumber = `${$('#textTelephone').val()}`;
+        let sumAnswerType = `${$('#selectAnswerType option:selected').text()}`;
+        let sumEMail = `${$('#textMail').val()}`;
+        let sumFullAddress = `${$('#textAddress').val()} ${$('#selectDistrict option:selected').text()}, ${$('#selectProvince option:selected').text()}, ${$('#selectDepartment option:selected').text()}`;
+        let sumIsAdult = `${$('#checkIsClaim')[0].checked ? 'No' : 'Sí'}`;
+
+        $('#sumDocument').html(sumDocument);
+        $('#sumFullName').html(sumFullName);
+        $('#sumPhoneNumber').html(sumPhoneNumber);
+        $('#sumAnswerType').html(sumAnswerType);
+        $('#sumEMail').html(sumEMail);
+        $('#sumFullAddress').html(sumFullAddress);
+        $('#sumIsAdult').html(sumIsAdult);
+    };
 
     /* Sending */
     const sendForm = () => {
