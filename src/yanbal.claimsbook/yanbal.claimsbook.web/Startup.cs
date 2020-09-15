@@ -56,6 +56,8 @@ namespace yanbal.claimsbook.web
                     name: "default",
                     pattern: "{controller=Claims}/{action=Index}/{id?}");
             });
+
+            Rotativa.AspNetCore.RotativaConfiguration.Setup(env.WebRootPath, "../Utils/Rotativa");
         }
     }
 }
