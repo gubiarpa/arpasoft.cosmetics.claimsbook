@@ -11,6 +11,8 @@ using yanbal.claimsbook.data.Models;
 using yanbal.claimsbook.data.Utils;
 using yanbal.claimsbook.repository;
 using yanbal.claimsbook.web.Models;
+using Rotativa.AspNetCore;
+using System.Security.Cryptography.X509Certificates;
 
 namespace yanbal.claimsbook.web.Controllers
 {
@@ -27,6 +29,26 @@ namespace yanbal.claimsbook.web.Controllers
         {           
             return View();
         }
+
+        #region Reports
+        public async Task<IActionResult> GenerateClaimPdf(Guid ClaimID)
+        {
+            try
+            {
+                var _claims = await _context.Claims.ToListAsync();
+                var _claimers = await _context.Claimers.ToListAsync(); //.SingleOrDefaultAsync(x => x.ID == _claim.MainClaimerID);
+                return new ViewAsPdf("GenerateClaimPdf")
+                {
+                    FileName = "Reporte.pdf",
+                
+                };
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        #endregion
 
         #region AjaxRequests
         public async Task<IActionResult> GetDocumentTypes()
@@ -112,7 +134,7 @@ namespace yanbal.claimsbook.web.Controllers
                         Address = claimRequest.GuardClaimer.Address,
                         GeoZoneID = guardGeoZone.ID
                     };
-                    if (!claimRequest.IsAdult) _context.Claimers.Add(guardClaimer);
+                    _context.Claimers.Add(guardClaimer);
                 }
                 else
                 {
@@ -149,14 +171,13 @@ namespace yanbal.claimsbook.web.Controllers
                 _context.Claims.Add(claim);
 
                 await _context.SaveChangesAsync();
+
+                return RedirectToAction("GenerateClaimPdf", new { ID = claim.ID });
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-
-
-            return Ok();
         }
         #endregion
     }

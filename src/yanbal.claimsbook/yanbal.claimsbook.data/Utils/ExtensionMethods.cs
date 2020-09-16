@@ -33,5 +33,21 @@ namespace yanbal.claimsbook.data.Utils
                     throw new Exception("Unmapped Value");
             }
         }
+
+        public static Claim GetCopy(this Claim claim)
+        {
+            return new Claim()
+            {
+                ID = claim.ID,
+                MainClaimerID = claim.MainClaimerID,
+                GuardClaimerID = claim.GuardClaimerID,
+                GoodTypeID = claim.GoodTypeID,
+                ClaimedAmount = claim.ClaimedAmount,
+                Description = claim.Description,
+                ClaimTypeID = claim.ClaimTypeID,
+                ClaimDetail = claim.ClaimDetail,
+                OrderDetail = claim.OrderDetail
+            };
+        }
     }
 }

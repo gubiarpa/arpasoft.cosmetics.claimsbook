@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -31,7 +32,7 @@ namespace yanbal.claimsbook.web.Models
     public class ContractedGoodViewModel
     {
         public bool IsAProduct { get; set; }
-        public decimal ClaimedAmount { get; set; }
+        public System.Decimal ClaimedAmount { get; set; }
         public string GoodDescription { get; set; }
     }
 
