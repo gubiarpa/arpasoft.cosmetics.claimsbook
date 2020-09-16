@@ -65,6 +65,42 @@
                 </tr>
             </tbody>
         </table>
+        @if (Model.IsAdult.Equals("No"))
+        {
+            <table class="">
+                <thead>
+                    <tr>
+                        <th scope="col" colspan="2">Información del Apoderado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th class="field-name">Doc:</th>
+                        <th class="" id="sumDocument">@Model.GuardClaimer.DocumentType @Model.GuardClaimer.DocumentNumber</th>
+                    </tr>
+                    <tr>
+                        <th class="field-name">Nombres y apellidos:</th>
+                        <th class="text-capitalize" id="sumFullName">@Model.GuardClaimer.FullName</th>
+                    </tr>
+                    <tr>
+                        <th class="field-name">Teléfono:</th>
+                        <th class="" id="sumPhoneNumber">@Model.GuardClaimer.PhoneNumber</th>
+                    </tr>
+                    <tr>
+                        <th class="field-name">Respuesta a:</th>
+                        <th class="" id="sumAnswerType">@Model.GuardClaimer.ResponseTo</th>
+                    </tr>
+                    <tr>
+                        <th class="field-name">Correo electrónico:</th>
+                        <th class="text-lowercase" id="sumEMail">@Model.GuardClaimer.EMail</th>
+                    </tr>
+                    <tr>
+                        <th class="field-name">Dirección:</th>
+                        <th class="text-capitalize" id="sumFullAddress">@Model.GuardClaimer.Address</th>
+                    </tr>
+                </tbody>
+            </table>
+        }
         <table class="mt-3">
             <thead>
                 <tr>
