@@ -45,7 +45,8 @@ namespace yanbal.claimsbook.web.Controllers
                 mainClaimerPdf.DocumentNumber = mainClaimer.DocumentNumber;
                 mainClaimerPdf.FullName = string.Format("{0} {1} {2}", mainClaimer.Names, mainClaimer.PaternalSurname, mainClaimer.MaternalSurname);
                 mainClaimerPdf.PhoneNumber = mainClaimer.PhoneNumber;
-                mainClaimerPdf.ResponseTo = mainClaimer.EMail;
+                mainClaimerPdf.ResponseTo = (await _context.AnswerTypes.SingleOrDefaultAsync(x => x.ID.Equals(mainClaimer.AnswerTypeID))).Description;
+                mainClaimerPdf.EMail = mainClaimer.EMail;
                 var geoZoneMain = await _context.GeoZones.SingleOrDefaultAsync(x => x.ID.Equals(mainClaimer.GeoZoneID));
                 mainClaimerPdf.Address = string.Format("{0} {1}, {2}, {3}", mainClaimer.Address, geoZoneMain.District, geoZoneMain.Province, geoZoneMain.Department);
                 #endregion
@@ -60,7 +61,8 @@ namespace yanbal.claimsbook.web.Controllers
                     guardClaimerPdf.DocumentNumber = guardClaimer.DocumentNumber;
                     guardClaimerPdf.FullName = string.Format("{0} {1} {2}", guardClaimer.Names, guardClaimer.PaternalSurname, guardClaimer.MaternalSurname);
                     guardClaimerPdf.PhoneNumber = guardClaimer.PhoneNumber;
-                    guardClaimerPdf.ResponseTo = guardClaimer.EMail;
+                    guardClaimerPdf.ResponseTo = (await _context.AnswerTypes.SingleOrDefaultAsync(x => x.ID.Equals(guardClaimer.AnswerTypeID))).Description;
+                    guardClaimerPdf.EMail = guardClaimer.EMail;
                     var geoZoneGuard = await _context.GeoZones.SingleOrDefaultAsync(x => x.ID.Equals(guardClaimer.GeoZoneID));
                     guardClaimerPdf.Address = string.Format("{0} {1}, {2}, {3}", guardClaimer.Address, geoZoneGuard.District, geoZoneGuard.Province, geoZoneGuard.Department);
                 }
@@ -223,7 +225,6 @@ namespace yanbal.claimsbook.web.Controllers
                 await _context.SaveChangesAsync();
 
                 return Ok(new { claim.ID });
-                //return RedirectToAction("GenerateClaimPdf", new { claim.ID });
             }
             catch (Exception ex)
             {
