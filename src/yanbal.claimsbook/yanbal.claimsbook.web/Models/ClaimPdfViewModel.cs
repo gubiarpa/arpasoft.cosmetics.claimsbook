@@ -7,6 +7,7 @@ namespace yanbal.claimsbook.web.Models
 {
     public class ClaimPdfViewModel
     {
+        public string IsAdult { get; set; }
         public ClaimerPdfViewModel MainClaimer { get; set; }
         public ClaimerPdfViewModel GuardClaimer { get; set; }
         public ContractedGoodPdfViewModel ContractedGood { get; set; }
@@ -21,7 +22,6 @@ namespace yanbal.claimsbook.web.Models
         public string ResponseTo { get; set; }
         public string EMail { get; set; }
         public string Address { get; set; }
-        public string IsAdult { get; set; }
     }
 
     public class ContractedGoodPdfViewModel

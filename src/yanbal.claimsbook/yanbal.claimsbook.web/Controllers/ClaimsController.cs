@@ -37,21 +37,42 @@ namespace yanbal.claimsbook.web.Controllers
             {
                 Claim claim = null; Claimer mainClaimer = null, guardClaimer = null;
                 claim = await _context.Claims.SingleOrDefaultAsync(x => x.ID.Equals(ID));
-                mainClaimer = await _context.Claimers.SingleOrDefaultAsync(x => x.ID.Equals(claim.MainClaimerID));
                 if (claim.GuardClaimerID != null ) guardClaimer = await _context.Claimers.SingleOrDefaultAsync(x => x.ID.Equals(claim.GuardClaimerID));
 
-                var claimResponse = new ClaimViewModel()
+                #region MainClaimer
+                mainClaimer = await _context.Claimers.SingleOrDefaultAsync(x => x.ID.Equals(claim.MainClaimerID));
+                var mainClaimerPdf = new ClaimerPdfViewModel();
+                mainClaimerPdf.DocumentType = (await _context.DocumentTypes.SingleOrDefaultAsync(x => x.ID.Equals(mainClaimer.DocumentTypeID))).Description;
+                mainClaimerPdf.DocumentNumber = mainClaimer.DocumentNumber;
+                mainClaimerPdf.FullName = string.Format("{0} {1} {2}", mainClaimer.Names, mainClaimer.PaternalSurname, mainClaimer.MaternalSurname);
+                mainClaimerPdf.ResponseTo = mainClaimer.EMail;
+                var geoZoneMain = await _context.GeoZones.SingleOrDefaultAsync(x => x.ID.Equals(mainClaimer.GeoZoneID));
+                mainClaimerPdf.Address = string.Format("{0} {1}, {2}, {3}", mainClaimer.Address, geoZoneMain.District, geoZoneMain.Province, geoZoneMain.Department);
+                #endregion
+
+                #region GuardClaimer
+                var guardClaimerPdf = new ClaimerPdfViewModel();
+                if (claim.GuardClaimerID != null)
                 {
-                    MainClaimer = new ClaimerViewModel()
-                    {
-                        //DocumentType =
-                    }
+                    mainClaimer = await _context.Claimers.SingleOrDefaultAsync(x => x.ID.Equals(claim.MainClaimerID));
+                    guardClaimerPdf.DocumentType = (await _context.DocumentTypes.SingleOrDefaultAsync(x => x.ID.Equals(mainClaimer.DocumentTypeID))).Description;
+                    guardClaimerPdf.DocumentNumber = mainClaimer.DocumentNumber;
+                    guardClaimerPdf.FullName = string.Format("{0} {1} {2}", mainClaimer.Names, mainClaimer.PaternalSurname, mainClaimer.MaternalSurname);
+                    guardClaimerPdf.ResponseTo = mainClaimer.EMail;
+                    var geoZoneGuard = await _context.GeoZones.SingleOrDefaultAsync(x => x.ID.Equals(mainClaimer.GeoZoneID));
+                    guardClaimerPdf.Address = string.Format("{0} {1}, {2}, {3}", mainClaimer.Address, geoZoneGuard.District, geoZoneGuard.Province, geoZoneGuard.Department);
+                }
+                #endregion
+
+                var claimResponse = new ClaimPdfViewModel()
+                {
+                    IsAdult = claim.GuardClaimerID == null ? "Sí" : "No",
+                    MainClaimer = mainClaimerPdf,
+                    GuardClaimer = guardClaimerp
                 };
 
                 return new ViewAsPdf("GenerateClaimPdf")
                 {
-                    FileName = "Reporte.pdf",
-                
                 };
             }
             catch (Exception ex)
