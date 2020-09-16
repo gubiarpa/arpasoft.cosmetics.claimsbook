@@ -37,7 +37,6 @@ namespace yanbal.claimsbook.web.Controllers
             {
                 Claim claim = null; Claimer mainClaimer = null, guardClaimer = null;
                 claim = await _context.Claims.SingleOrDefaultAsync(x => x.ID.Equals(ID));
-                if (claim.GuardClaimerID != null ) guardClaimer = await _context.Claimers.SingleOrDefaultAsync(x => x.ID.Equals(claim.GuardClaimerID));
 
                 #region MainClaimer
                 mainClaimer = await _context.Claimers.SingleOrDefaultAsync(x => x.ID.Equals(claim.MainClaimerID));
@@ -55,15 +54,29 @@ namespace yanbal.claimsbook.web.Controllers
                 var guardClaimerPdf = new ClaimerPdfViewModel();
                 if (claim.GuardClaimerID != null)
                 {
-                    mainClaimer = await _context.Claimers.SingleOrDefaultAsync(x => x.ID.Equals(claim.MainClaimerID));
-                    guardClaimerPdf.DocumentType = (await _context.DocumentTypes.SingleOrDefaultAsync(x => x.ID.Equals(mainClaimer.DocumentTypeID))).Description;
-                    guardClaimerPdf.DocumentNumber = mainClaimer.DocumentNumber;
-                    guardClaimerPdf.FullName = string.Format("{0} {1} {2}", mainClaimer.Names, mainClaimer.PaternalSurname, mainClaimer.MaternalSurname);
+                    if (claim.GuardClaimerID != null ) guardClaimer = await _context.Claimers.SingleOrDefaultAsync(x => x.ID.Equals(claim.GuardClaimerID));
+                    guardClaimer = await _context.Claimers.SingleOrDefaultAsync(x => x.ID.Equals(claim.GuardClaimerID));
+                    guardClaimerPdf.DocumentType = (await _context.DocumentTypes.SingleOrDefaultAsync(x => x.ID.Equals(guardClaimer.DocumentTypeID))).Description;
+                    guardClaimerPdf.DocumentNumber = guardClaimer.DocumentNumber;
+                    guardClaimerPdf.FullName = string.Format("{0} {1} {2}", guardClaimer.Names, guardClaimer.PaternalSurname, guardClaimer.MaternalSurname);
                     guardClaimerPdf.PhoneNumber = guardClaimer.PhoneNumber;
-                    guardClaimerPdf.ResponseTo = mainClaimer.EMail;
-                    var geoZoneGuard = await _context.GeoZones.SingleOrDefaultAsync(x => x.ID.Equals(mainClaimer.GeoZoneID));
-                    guardClaimerPdf.Address = string.Format("{0} {1}, {2}, {3}", mainClaimer.Address, geoZoneGuard.District, geoZoneGuard.Province, geoZoneGuard.Department);
+                    guardClaimerPdf.ResponseTo = guardClaimer.EMail;
+                    var geoZoneGuard = await _context.GeoZones.SingleOrDefaultAsync(x => x.ID.Equals(guardClaimer.GeoZoneID));
+                    guardClaimerPdf.Address = string.Format("{0} {1}, {2}, {3}", guardClaimer.Address, geoZoneGuard.District, geoZoneGuard.Province, geoZoneGuard.Department);
                 }
+                #endregion
+
+                #region ContractedGood
+                var contractedGood = await _context.GoodTypes.SingleOrDefaultAsync(x => x.ID.Equals(claim.GoodTypeID));
+                var contractedGoodPdf = new ContractedGoodPdfViewModel();
+                contractedGoodPdf.GoodType = contractedGood.Description;
+                contractedGoodPdf.ClaimedAmount = claim.ClaimedAmount;
+                contractedGoodPdf.GoodDescription = claim.Description;
+                #endregion
+
+                #region ClaimDetail
+                var claimDetail = await _context.ClaimTypes.SingleOrDefaultAsync(x => x.ID.Equals(claim.ClaimTypeID));
+                var claimDetailPdf = new ClaimDetailPdfViewModel();
                 #endregion
 
                 #region Claim
@@ -71,7 +84,8 @@ namespace yanbal.claimsbook.web.Controllers
                 {
                     IsAdult = claim.GuardClaimerID == null ? "Sí" : "No",
                     MainClaimer = mainClaimerPdf,
-                    GuardClaimer = guardClaimerPdf
+                    GuardClaimer = guardClaimerPdf,
+                    ContractedGood = contractedGoodPdf
                 };
                 #endregion
 

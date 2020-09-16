@@ -110,17 +110,15 @@
             <tbody>
                 <tr>
                     <th class="field-name">Tipo:</th>
-                    <th class="">Producto</th>
+                    <th class="">@Model.ContractedGood.GoodType</th>
                 </tr>
                 <tr>
                     <th class="field-name">Monto:</th>
-                    <th class="" id="sumClaimedAmount">S/. 90.50</th>
+                    <th class="" id="sumClaimedAmount">S/. @Model.ContractedGood.ClaimedAmount.ToString("0.00")</th>
                 </tr>
                 <tr>
                     <th class="field-name">Descripción:</th>
-                    <th class="" id="sumClaimedAmount">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis nobis magnam ducimus et ab esse expedita at nostrum veritatis culpa! Neque dignissimos inventore quaerat eaque ullam nobis quidem earum fugit!
-                    </th>
+                    <th class="" id="sumClaimedAmount">@Model.ContractedGood.GoodDescription</th>
                 </tr>
             </tbody>
         </table>
