@@ -31,12 +31,23 @@ namespace yanbal.claimsbook.web.Controllers
         }
 
         #region Reports
-        public async Task<IActionResult> GenerateClaimPdf(Guid ClaimID)
+        public async Task<IActionResult> GenerateClaimPdf(Guid ID)
         {
             try
             {
-                var _claims = await _context.Claims.ToListAsync();
-                var _claimers = await _context.Claimers.ToListAsync(); //.SingleOrDefaultAsync(x => x.ID == _claim.MainClaimerID);
+                Claim claim = null; Claimer mainClaimer = null, guardClaimer = null;
+                claim = await _context.Claims.SingleOrDefaultAsync(x => x.ID.Equals(ID));
+                mainClaimer = await _context.Claimers.SingleOrDefaultAsync(x => x.ID.Equals(claim.MainClaimerID));
+                if (claim.GuardClaimerID != null ) guardClaimer = await _context.Claimers.SingleOrDefaultAsync(x => x.ID.Equals(claim.GuardClaimerID));
+
+                var claimResponse = new ClaimViewModel()
+                {
+                    MainClaimer = new ClaimerViewModel()
+                    {
+                        //DocumentType =
+                    }
+                };
+
                 return new ViewAsPdf("GenerateClaimPdf")
                 {
                     FileName = "Reporte.pdf",
@@ -172,7 +183,7 @@ namespace yanbal.claimsbook.web.Controllers
 
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction("GenerateClaimPdf", new { ID = claim.ID });
+                return RedirectToAction("GenerateClaimPdf", new { claim.ID });
             }
             catch (Exception ex)
             {
