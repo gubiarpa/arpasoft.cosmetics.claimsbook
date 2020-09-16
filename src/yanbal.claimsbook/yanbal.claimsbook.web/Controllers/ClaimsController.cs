@@ -68,7 +68,7 @@ namespace yanbal.claimsbook.web.Controllers
                 {
                     IsAdult = claim.GuardClaimerID == null ? "Sí" : "No",
                     MainClaimer = mainClaimerPdf,
-                    GuardClaimer = guardClaimerp
+                    GuardClaimer = guardClaimerPdf
                 };
 
                 return new ViewAsPdf("GenerateClaimPdf")
