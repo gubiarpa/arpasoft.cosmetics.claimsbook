@@ -45,6 +45,7 @@ namespace yanbal.claimsbook.web.Controllers
                 mainClaimerPdf.DocumentType = (await _context.DocumentTypes.SingleOrDefaultAsync(x => x.ID.Equals(mainClaimer.DocumentTypeID))).Description;
                 mainClaimerPdf.DocumentNumber = mainClaimer.DocumentNumber;
                 mainClaimerPdf.FullName = string.Format("{0} {1} {2}", mainClaimer.Names, mainClaimer.PaternalSurname, mainClaimer.MaternalSurname);
+                mainClaimerPdf.PhoneNumber = mainClaimer.PhoneNumber;
                 mainClaimerPdf.ResponseTo = mainClaimer.EMail;
                 var geoZoneMain = await _context.GeoZones.SingleOrDefaultAsync(x => x.ID.Equals(mainClaimer.GeoZoneID));
                 mainClaimerPdf.Address = string.Format("{0} {1}, {2}, {3}", mainClaimer.Address, geoZoneMain.District, geoZoneMain.Province, geoZoneMain.Department);
@@ -58,20 +59,23 @@ namespace yanbal.claimsbook.web.Controllers
                     guardClaimerPdf.DocumentType = (await _context.DocumentTypes.SingleOrDefaultAsync(x => x.ID.Equals(mainClaimer.DocumentTypeID))).Description;
                     guardClaimerPdf.DocumentNumber = mainClaimer.DocumentNumber;
                     guardClaimerPdf.FullName = string.Format("{0} {1} {2}", mainClaimer.Names, mainClaimer.PaternalSurname, mainClaimer.MaternalSurname);
+                    guardClaimerPdf.PhoneNumber = guardClaimer.PhoneNumber;
                     guardClaimerPdf.ResponseTo = mainClaimer.EMail;
                     var geoZoneGuard = await _context.GeoZones.SingleOrDefaultAsync(x => x.ID.Equals(mainClaimer.GeoZoneID));
                     guardClaimerPdf.Address = string.Format("{0} {1}, {2}, {3}", mainClaimer.Address, geoZoneGuard.District, geoZoneGuard.Province, geoZoneGuard.Department);
                 }
                 #endregion
 
+                #region Claim
                 var claimResponse = new ClaimPdfViewModel()
                 {
                     IsAdult = claim.GuardClaimerID == null ? "Sí" : "No",
                     MainClaimer = mainClaimerPdf,
                     GuardClaimer = guardClaimerPdf
                 };
+                #endregion
 
-                return new ViewAsPdf("GenerateClaimPdf")
+                return new ViewAsPdf("GenerateClaimPdf", claimResponse)
                 {
                 };
             }
@@ -204,7 +208,8 @@ namespace yanbal.claimsbook.web.Controllers
 
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction("GenerateClaimPdf", new { claim.ID });
+                return Ok(new { claim.ID });
+                //return RedirectToAction("GenerateClaimPdf", new { claim.ID });
             }
             catch (Exception ex)
             {

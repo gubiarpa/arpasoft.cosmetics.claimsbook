@@ -1,4 +1,4 @@
-﻿
+﻿@model ClaimPdfViewModel
 @{
     Layout = null;
 }
@@ -37,31 +37,31 @@
             <tbody>
                 <tr>
                     <th class="field-name">Doc:</th>
-                    <th class="" id="sumDocument">DNI 47707540</th>
+                    <th class="" id="sumDocument">@Model.MainClaimer.DocumentType @Model.MainClaimer.DocumentNumber</th>
                 </tr>
                 <tr>
                     <th class="field-name">Nombres y apellidos:</th>
-                    <th class="text-capitalize" id="sumFullName">Guillermo Billy Arredondo Palomino</th>
+                    <th class="text-capitalize" id="sumFullName">@Model.MainClaimer.FullName</th>
                 </tr>
                 <tr>
                     <th class="field-name">Teléfono:</th>
-                    <th class="" id="sumPhoneNumber">935598917</th>
+                    <th class="" id="sumPhoneNumber">@Model.MainClaimer.PhoneNumber</th>
                 </tr>
                 <tr>
                     <th class="field-name">Respuesta a:</th>
-                    <th class="" id="sumAnswerType">Correo electrónico</th>
+                    <th class="" id="sumAnswerType">@Model.MainClaimer.ResponseTo</th>
                 </tr>
                 <tr>
                     <th class="field-name">Correo electrónico:</th>
-                    <th class="text-lowercase" id="sumEMail">billy.arredondo@pucp.pe</th>
+                    <th class="text-lowercase" id="sumEMail">@Model.MainClaimer.EMail</th>
                 </tr>
                 <tr>
                     <th class="field-name">Dirección:</th>
-                    <th class="text-capitalize" id="sumFullAddress">Av. Javier Prado Oeste 1562, San Isidro, Lima, Lima</th>
+                    <th class="text-capitalize" id="sumFullAddress">@Model.MainClaimer.Address</th>
                 </tr>
                 <tr>
                     <th class="field-name">Mayoría de edad:</th>
-                    <th class="" id="sumIsAdult">Sí</th>
+                    <th class="" id="sumIsAdult">@Model.IsAdult</th>
                 </tr>
             </tbody>
         </table>

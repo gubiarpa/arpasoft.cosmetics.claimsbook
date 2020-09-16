@@ -589,9 +589,9 @@
             type: 'POST',
             url: 'Claims/SaveClaim',
             data: claim,
-            success(array) {
-                debugger;
-                console.log(array);
+            success(result) {
+                window.open('/Claims/GenerateClaimPdf/' + result.id, '_blank'); 
+                console.log(result);
             }
         });
     };

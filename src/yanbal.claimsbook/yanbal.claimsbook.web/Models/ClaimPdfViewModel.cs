@@ -19,6 +19,7 @@ namespace yanbal.claimsbook.web.Models
         public string DocumentType { get; set; }
         public string DocumentNumber { get; set; }
         public string FullName { get; set; }
+        public string PhoneNumber { get; set; }
         public string ResponseTo { get; set; }
         public string EMail { get; set; }
         public string Address { get; set; }
