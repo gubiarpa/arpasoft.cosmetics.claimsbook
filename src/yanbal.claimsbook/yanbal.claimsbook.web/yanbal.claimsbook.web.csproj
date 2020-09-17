@@ -27,7 +27,7 @@
   <ItemGroup>
     <ProjectReference Include="..\yanbal.claimsbook.data\yanbal.claimsbook.data.csproj" />
     <ProjectReference Include="..\yanbal.claimsbook.repository\yanbal.claimsbook.repository.csproj" />
-    <!--<Content Update="appsettings*.json" CopyToPublishDirectory="Never" />-->
+    <Content Update="appsettings*.json" CopyToPublishDirectory="Never" />
   </ItemGroup>
 
 </Project>
