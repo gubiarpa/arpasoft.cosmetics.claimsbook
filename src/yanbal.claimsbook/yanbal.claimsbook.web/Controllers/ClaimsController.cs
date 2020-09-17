@@ -13,6 +13,9 @@ using yanbal.claimsbook.repository;
 using yanbal.claimsbook.web.Models;
 using Rotativa.AspNetCore;
 using System.Security.Cryptography.X509Certificates;
+using System.Net.Mail;
+using System.Net;
+using Microsoft.AspNetCore.Cors;
 
 namespace yanbal.claimsbook.web.Controllers
 {
@@ -143,7 +146,7 @@ namespace yanbal.claimsbook.web.Controllers
                 .ToListAsync();
             return new JsonResult(districts);
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> SaveClaim(ClaimViewModel claimRequest)
         {
@@ -224,11 +227,39 @@ namespace yanbal.claimsbook.web.Controllers
 
                 await _context.SaveChangesAsync();
 
+                /// Send Mail
+                
+
                 return Ok(new { claim.ID });
             }
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+        #endregion
+
+        #region Auxiliar
+        private void SendMail(ClaimViewModel claim)
+        {
+            // Instance of SmtpClient
+            using (var server = new SmtpClient()
+            {
+                Host = "localhost",
+                Port = 81,
+                Credentials = new NetworkCredential()
+                {
+                    UserName = "",
+                    Password = ""
+                }
+            })
+            {
+                var from = new MailAddress("no-reply@yanbal.com", "Yanbal");
+                var receiver = new MailAddress(claim.MainClaimer.EMail);
+
+                var message = new MailMessage(from, receiver);
+
+                server.Send(message);
             }
         }
         #endregion
