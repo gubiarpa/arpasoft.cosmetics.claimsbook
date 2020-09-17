@@ -69,5 +69,19 @@ table {
         font-weight: normal;
         padding-right: 35px;
         vertical-align: top;
+        
+        &.display-desktop {
+            /*display: normal;*/
+            @media (max-width: 768px) {
+                display: none;
+            }
+        }
+    }
+}
+
+.display-mobile {
+    /*display: normal;*/
+    @media (min-width: 769px) {
+        display: none;
     }
 }

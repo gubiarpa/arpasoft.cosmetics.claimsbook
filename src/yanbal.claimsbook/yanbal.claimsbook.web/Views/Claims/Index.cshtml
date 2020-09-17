@@ -243,27 +243,27 @@
             <thead>
                 <tr>
                     <th scope="col" colspan="2">Información del Reclamante</th>
-                    <th scope="col" colspan="2">Identificación del Bien Contratado</th>
+                    <th scope="col" colspan="2" class="display-desktop">Identificación del Bien Contratado</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <th class="">Doc:</th>
                     <th class="" id="sumDocument"></th>
-                    <th class="">Tipo:</th>
-                    <th class=""></th>
+                    <th class="display-desktop">Tipo:</th>
+                    <th class="display-desktop"></th>
                 </tr>
                 <tr>
                     <th class="">Nombres y apellidos:</th>
                     <th class="text-capitalize" id="sumFullName"></th>
-                    <th class="">Monto:</th>
-                    <th class="" id="sumClaimedAmount"></th>
+                    <th class="display-desktop">Monto:</th>
+                    <th class="display-desktop" id="sumClaimedAmount"></th>
                 </tr>
                 <tr>
                     <th class="">Teléfono:</th>
                     <th class="" id="sumPhoneNumber"></th>
-                    <th class="">Descripción:</th>
-                    <th class="" id="sumDescription" rowspan="5"></th>
+                    <th class="display-desktop">">Descripción:</th>
+                    <th class="display-desktop">" id="sumDescription" rowspan="5"></th>
                 </tr>
                 <tr>
                     <th class="">Respuesta a:</th>
@@ -284,20 +284,43 @@
             </tbody>
         </table>
     </div>
+    <div class="text-justify display-mobile">
+        <table class="">
+            <thead>
+                <tr>
+                    <th scope="col" colspan="2" class="display-mobile">Identificación del Bien Contratado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th class="">Tipo:</th>
+                    <th class=""></th>
+                </tr>
+                <tr>
+                    <th class="">Monto:</th>
+                    <th class="" id="sumClaimedAmount"></th>
+                </tr>
+                <tr>
+                    <th class="">">Descripción:</th>
+                    <th class="" id="sumDescription" rowspan="5"></th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     <!-- Confirmación de envío -->
     <div class="form-row">
-        <div class="col-auto my-1">
+        <div class="col-auto my-1 w-100">
             <div class="custom-control custom-checkbox mr-sm-2">
-                <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
-                <label class="custom-control-label" for="customControlAutosizing">
+                <input type="checkbox" class="custom-control-input" id="checkAgreePersonalInfo">
+                <label class="custom-control-label" for="checkAgreePersonalInfo">
                     Al enviar este formulario acepto el flujo transfroterizo de mis datos personales, según la <a href="#">Ley de Protección de Datos Personales</a>
                 </label>
             </div>
         </div>
-        <div class="col-auto my-1">
+        <div class="col-auto my-1 w-100">
             <div class="custom-control custom-checkbox mr-sm-2">
-                <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
-                <label class="custom-control-label" for="customControlAutosizing">
+                <input type="checkbox" class="custom-control-input" id="checkAgreeTerms">
+                <label class="custom-control-label" for="checkAgreeTerms">
                     Acepto los <a href="#">Términos y Condiciones</a>
                 </label>
             </div>
@@ -381,7 +404,7 @@
                 selectZone: 'selectGuardProvince'
             }, function (elem) {
                 return printOptionInSelect(elem.code, elem.province);
-            }, { code: null, province: 'Provincia' }, { code: null, province: 'Distrito'}
+            }, { code: null, province: 'Provincia' }, { code: null, province: 'Distrito' }
             )
         });
 
@@ -397,7 +420,7 @@
                 selectZone: 'selectDistrict'
             }, function (elem) {
                 return printOptionInSelect(elem.code, elem.district);
-            }, { code: null, district: 'Distrito' }, { code: null, district: null})
+            }, { code: null, district: 'Distrito' }, { code: null, district: null })
         });
 
         $('#selectGuardProvince').change(function () {
@@ -600,7 +623,7 @@
             url: 'Claims/SaveClaim',
             data: claim,
             success(result) {
-                window.open('/Claims/GenerateClaimPdf/' + result.id, '_blank'); 
+                window.open('/Claims/GenerateClaimPdf/' + result.id, '_blank');
                 console.log(result);
             }
         });
