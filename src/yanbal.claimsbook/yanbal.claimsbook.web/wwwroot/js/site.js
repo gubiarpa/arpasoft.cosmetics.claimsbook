@@ -10,3 +10,7 @@ function printOptionInSelect(dataValue, displayValue) {
 function quoteNull(value) {
     return value == null ? null : `'${value}'`;
 }
+
+function buildEndpoint(methodname) {
+    return `${window.location.href}${window.location.href.substr(window.location.href.length - 1, 1) == '/' ? '' : '/'}${methodname}`;
+}

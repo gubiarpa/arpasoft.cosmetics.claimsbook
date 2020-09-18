@@ -342,10 +342,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                ...
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div>
@@ -355,10 +353,11 @@
 <script type="text/javascript" src="~/js/site.js"></script>
 <script type="text/javascript">
     $(document).ready(() => {
+        debugger;
         /* Document Types */
         $.ajax({
             type: 'GET',
-            url: window.location.href + '/Claims/GetDocumentTypes',
+            url: buildEndpoint('Claims/GetDocumentTypes'),
             success(array) {
                 let options = printOptionInSelect(null, 'Tipo de Documento');
                 for (let elem of array) {
@@ -371,7 +370,7 @@
         /* Answer Types */
         $.ajax({
             type: 'GET',
-            url: window.location.href + '/Claims/GetAnswerTypes',
+            url: buildEndpoint('Claims/GetAnswerTypes'),
             success(array) {
                 let options = printOptionInSelect(null, 'Tipo de Respuesta');
                 for (let elem of array) {
@@ -389,7 +388,7 @@
         /* Departments */
         $.ajax({
             type: 'GET',
-            url: window.location.href + '/Claims/GetDepartments',
+            url: buildEndpoint('Claims/GetDepartments'),
             success(array) {
                 let options = printOptionInSelect(null, 'Departamento');
                 for (let elem of array) {
@@ -405,7 +404,7 @@
                 selectSubzone: 'selectDistrict',
                 subZoneDefault: 'Distrito',
                 ajaxMethod: 'GET',
-                url: window.location.href + '/Claims/GetProvinces',
+                url: buildEndpoint('Claims/GetProvinces'),
                 body: $(this).val(),
                 zoneDefault: 'Provincia',
                 selectZone: 'selectProvince'
@@ -419,7 +418,7 @@
                 selectSubzone: 'selectGuardDistrict',
                 subZoneDefault: 'Distrito',
                 ajaxMethod: 'GET',
-                url: window.location.href + '/Claims/GetProvinces',
+                url: buildEndpoint('Claims/GetProvinces'),
                 body: $(this).val(),
                 zoneDefault: 'Provincia',
                 selectZone: 'selectGuardProvince'
@@ -435,7 +434,7 @@
                 selectSubzone: 'selectDistrict',
                 subZoneDefault: null,
                 ajaxMethod: 'GET',
-                url: window.location.href + '/Claims/GetDistricts',
+                url: buildEndpoint('Claims/GetDistricts'),
                 body: $(this).val(),
                 zoneDefault: 'Distrito',
                 selectZone: 'selectDistrict'
@@ -449,7 +448,7 @@
                 selectSubzone: 'selectGuardDistrict',
                 subZoneDefault: null,
                 ajaxMethod: 'GET',
-                url: window.location.href + '/Claims/GetDistricts',
+                url: buildEndpoint('Claims/GetDistricts'),
                 body: $(this).val(),
                 zoneDefault: 'Distrito',
                 selectZone: 'selectGuardDistrict'
@@ -641,10 +640,10 @@
 
         $.ajax({
             type: 'POST',
-            url: window.location.href + '/Claims/SaveClaim',
+            url: buildEndpoint('Claims/SaveClaim'),
             data: claim,
             success(result) {
-                window.open(window.location.href + '/Claims/GenerateClaimPdf/' + result.id, '_blank');
+                window.open(buildEndpoint('Claims/GenerateClaimPdf/') + result.id, '_blank');
                 console.log(result);
             }
         });
