@@ -38,6 +38,14 @@ function changeInputByDocumentType(triggerControl, affectedControls) {
 /*
  * AUXILIAR
  */
+function enablePersonalInfoForm() {
+    let documentTypeValue = $('#selectDocumentType').val();
+    let answerTypeValue = $('#selectAnswerType').val();
+    if (documentTypeValue != null && answerTypeValue != null) {
+        $('[data-parentForm="personalInfoForm"]').removeAttr('disabled');
+    }
+}
+
 function quoteNull(value) {
     return value == null ? null : `'${value}'`;
 }

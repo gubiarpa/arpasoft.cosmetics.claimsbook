@@ -21,6 +21,7 @@ $(document).ready(() => {
         let affectedLengthControls = $(this).attr('data-length').split(',');
         enableControls(triggerControl, affectedControls);
         changeInputByDocumentType(triggerControl, affectedLengthControls);
+        enablePersonalInfoForm();
     });
 
     /* Answer Types */
@@ -42,6 +43,7 @@ $(document).ready(() => {
         let triggerControl = $(this).attr('id');
         let affectedControls = $(this).attr('data-for').split(',');
         enableControls(triggerControl, affectedControls);
+        enablePersonalInfoForm();
     });
 
     /* Departments */
@@ -177,8 +179,6 @@ const changeGeoZone = (obj, printerMethod, defaultElem, defaultSubElem) => {
 
 /* Validation */
 const validateForm = (nameForm) => {
-
-    let errors = []; return errors;
 
     switch (nameForm) {
         case 'personalInfoForm':
