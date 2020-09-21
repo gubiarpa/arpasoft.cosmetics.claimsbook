@@ -19,6 +19,7 @@
                     id="selectDocumentType"
                     data-id="documentType"
                     data-for="textDocumentNumber,textClaimerName,textSurnameFather,textSurnameMother,textTelephone,checkIsYounger"
+                    data-length="textDocumentNumber"
                     disabled>
                 <option selected>Tipo de Documento</option>
             </select>
@@ -107,6 +108,7 @@
                     id="selectGuardDocumentType"
                     data-id="documentType"
                     data-for="textGuardDocumentNumber,textGuardClaimerName,textGuardSurnameFather,textGuardSurnameMother,textGuardTelephone"
+                    data-length="textGuardDocumentNumber"
                     disabled>
             </select>
         </div>
@@ -368,6 +370,6 @@
     </div>
 </div>
 @section Scripts {
-    <script type="text/javascript" src="~/js/main.js"></script>
+    <script type="text/javascript" asp-append-version="true" src="~/js/main.js"></script>
 }
 

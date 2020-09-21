@@ -18,7 +18,9 @@ $(document).ready(() => {
     $('[data-id="documentType"]').change(function () {
         let triggerControl = $(this).attr('id');
         let affectedControls = $(this).attr('data-for').split(',');
+        let affectedLengthControls = $(this).attr('data-length').split(',');
         enableControls(triggerControl, affectedControls);
+        changeInputByDocumentType(triggerControl, affectedLengthControls);
     });
 
     /* Answer Types */

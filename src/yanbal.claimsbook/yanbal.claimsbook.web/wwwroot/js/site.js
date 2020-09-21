@@ -19,6 +19,22 @@ function enableControls(triggerControl, affectedControls) {
     }
 }
 
+function changeInputByDocumentType(triggerControl, affectedControls) {
+    let _triggerControl = $(`#${triggerControl}`);
+    let _triggerText = _triggerControl[0][_triggerControl[0].selectedIndex].innerHTML;
+    if (_triggerControl != null) {
+        for (var affectedControl of affectedControls) {
+            let objAffectedControl = $(`#${affectedControl}`);
+            if (_triggerText == 'DNI') {
+                objAffectedControl.attr('maxlength', '8');
+            }
+            else {
+                objAffectedControl.removeAttr('maxlength');
+            }
+        }
+    }
+}
+
 /*
  * AUXILIAR
  */
