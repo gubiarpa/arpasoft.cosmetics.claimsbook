@@ -15,74 +15,84 @@
         <!-- Tipo de Documento -->
         <div class="mb-2 col-md-6">
             <label for="selectDocumentType" class="yanbal-label">Tipo de Documento</label>
-            <select class="custom-select mr-sm-2" id="selectDocumentType" data-id="documentType">
+            <select class="custom-select mr-sm-2"
+                    id="selectDocumentType"
+                    data-id="documentType"
+                    data-for="textDocumentNumber,textClaimerName,textSurnameFather,textSurnameMother,textTelephone,checkIsYounger"
+                    disabled>
+                <option selected>Tipo de Documento</option>
             </select>
         </div>
         <!-- Número de Documento -->
         <div class="mb-2 col-md-6">
             <label for="textDocumentNumber" class="yanbal-label">Número de Documento</label>
-            <input type="tel" class="form-control" id="textDocumentNumber" placeholder="Número de Documento">
+            <input type="tel" class="form-control" id="textDocumentNumber" placeholder="Número de Documento" disabled>
         </div>
         <!-- Nombres -->
         <div class="mb-2 col-md-6">
             <label for="textClaimerName" class="yanbal-label">Nombres</label>
-            <input type="text" class="form-control text-capitalize" id="textClaimerName" placeholder="Nombres">
+            <input type="text" class="form-control text-capitalize" id="textClaimerName" placeholder="Nombres" disabled>
         </div>
         <!-- Apellido Paterno -->
         <div class="mb-2 col-md-6">
             <label for="textClaimerName" class="yanbal-label">Apellido Paterno</label>
-            <input type="text" class="form-control text-capitalize" id="textSurnameFather" placeholder="Apellido Paterno">
+            <input type="text" class="form-control text-capitalize" id="textSurnameFather" placeholder="Apellido Paterno" disabled>
         </div>
         <!-- Apellido Materno -->
         <div class="mb-2 col-md-6">
             <label for="textClaimerName" class="yanbal-label">Apellido Materno</label>
-            <input type="text" class="form-control text-capitalize" id="textSurnameMother" aria-describedby="emailHelp" placeholder="Apellido Materno">
+            <input type="text" class="form-control text-capitalize" id="textSurnameMother" aria-describedby="emailHelp" placeholder="Apellido Materno" disabled>
         </div>
         <!-- Teléfono -->
         <div class="mb-2 col-md-6">
             <label for="textTelephone" class="yanbal-label">Teléfono</label>
-            <input type="tel" class="form-control" id="textTelephone" aria-describedby="emailHelp" placeholder="Teléfono">
+            <input type="tel" class="form-control" id="textTelephone" aria-describedby="emailHelp" placeholder="Teléfono" disabled>
         </div>
         <!-- Tipo de Respuesta -->
         <div class="mb-2 col-md-6">
             <label for="textAnswerType" class="yanbal-label">Tipo de Respuesta</label>
-            <select class="custom-select mr-sm-2" id="selectAnswerType">
+            <select class="custom-select mr-sm-2"
+                    id="selectAnswerType"
+                    data-id="answerType"
+                    data-for="textMail,textAddress,selectDepartment"
+                    disabled>
+                <option selected>Tipo de Respuesta</option>
             </select>
         </div>
         <!-- Correo electrónico -->
         <div class="mb-2 col-md-6">
             <label for="textMail" class="yanbal-label">Correo Electrónico</label>
-            <input type="text" class="form-control text-lowercase" id="textMail" placeholder="Correo electrónico">
+            <input type="text" class="form-control text-lowercase" id="textMail" placeholder="Correo electrónico" disabled>
         </div>
         <!-- Dirección -->
         <div class="mb-2 col-md-6">
             <label for="textAddress" class="yanbal-label">Dirección</label>
-            <input type="text" class="form-control text-capitalize" id="textAddress" placeholder="Dirección">
+            <input type="text" class="form-control text-capitalize" id="textAddress" placeholder="Dirección" disabled>
         </div>
         <!-- Departamento -->
         <div class="mb-2 col-md-6">
             <label for="selectDepartment" class="yanbal-label">Departamento</label>
-            <select class="custom-select mr-sm-2" id="selectDepartment">
+            <select class="custom-select mr-sm-2" id="selectDepartment" disabled>
                 <option selected>Departamento</option>
             </select>
         </div>
         <!-- Provincia -->
         <div class="mb-2 col-md-6">
             <label for="selectProvince" class="yanbal-label">Provincia</label>
-            <select disabled class="custom-select mr-sm-2" id="selectProvince">
+            <select class="custom-select mr-sm-2" id="selectProvince" disabled>
                 <option selected>Provincia</option>
             </select>
         </div>
         <!-- Distrito -->
         <div class="mb-2 col-md-6">
             <label for="selectDistrict" class="yanbal-label">Distrito</label>
-            <select disabled class="custom-select mr-sm-2" id="selectDistrict">
+            <select class="custom-select mr-sm-2" id="selectDistrict" disabled>
                 <option selected>Distrito</option>
             </select>
         </div>
         <!-- No soy mayor -->
         <div class="custom-control custom-checkbox col-md-6 mt-2">
-            <input type="checkbox" class="custom-control-input" id="checkIsYounger">
+            <input type="checkbox" class="custom-control-input" id="checkIsYounger" disabled>
             <label class="custom-control-label ml-4" for="checkIsYounger">Soy menor de edad</label>
         </div>
     </div>
@@ -93,38 +103,46 @@
         <!-- Tipo de Documento -->
         <div class="mb-2 col-md-6">
             <label for="selectDocumentTypeAp" class="yanbal-label">Tipo de Documento</label>
-            <select class="custom-select mr-sm-2" id="selectGuardDocumentType" data-id="documentType">
+            <select class="custom-select mr-sm-2"
+                    id="selectGuardDocumentType"
+                    data-id="documentType"
+                    data-for="textGuardDocumentNumber,textGuardClaimerName,textGuardSurnameFather,textGuardSurnameMother,textGuardTelephone"
+                    disabled>
             </select>
         </div>
         <!-- Número de Documento -->
         <div class="mb-2 col-md-6">
             <label for="textGuardDocumentNumber" class="yanbal-label">Número de Documento</label>
-            <input type="tel" class="form-control" id="textGuardDocumentNumber" placeholder="Número de Documento">
+            <input type="tel" class="form-control" id="textGuardDocumentNumber" placeholder="Número de Documento" disabled>
         </div>
         <!-- Nombres -->
         <div class="mb-2 col-md-6">
             <label for="textClaimerName" class="yanbal-label">Nombres</label>
-            <input type="text" class="form-control text-capitalize" id="textGuardClaimerName" placeholder="Nombres">
+            <input type="text" class="form-control text-capitalize" id="textGuardClaimerName" placeholder="Nombres" disabled>
         </div>
         <!-- Apellido Paterno -->
         <div class="mb-2 col-md-6">
             <label for="textClaimerName" class="yanbal-label">Apellido Paterno</label>
-            <input type="text" class="form-control text-capitalize" id="textGuardSurnameFather" placeholder="Apellido Paterno">
+            <input type="text" class="form-control text-capitalize" id="textGuardSurnameFather" placeholder="Apellido Paterno" disabled>
         </div>
         <!-- Apellido Materno -->
         <div class="mb-2 col-md-6">
             <label for="textClaimerName" class="yanbal-label">Apellido Materno</label>
-            <input type="text" class="form-control text-capitalize" id="textGuardSurnameMother" aria-describedby="emailHelp" placeholder="Apellido Materno">
+            <input type="text" class="form-control text-capitalize" id="textGuardSurnameMother" aria-describedby="emailHelp" placeholder="Apellido Materno" disabled>
         </div>
         <!-- Teléfono -->
         <div class="mb-2 col-md-6">
             <label for="textTelephone" class="yanbal-label">Teléfono</label>
-            <input type="tel" class="form-control" id="textGuardTelephone" aria-describedby="emailHelp" placeholder="Teléfono">
+            <input type="tel" class="form-control" id="textGuardTelephone" aria-describedby="emailHelp" placeholder="Teléfono" disabled>
         </div>
         <!-- Tipo de Respuesta -->
         <div class="mb-2 col-md-6">
             <label for="selectGuardAnswerType" class="yanbal-label">Tipo de Respuesta</label>
-            <select class="custom-select mr-sm-2" id="selectGuardAnswerType" disabled>
+            <select class="custom-select mr-sm-2"
+                    id="selectGuardAnswerType"
+                    data-id="answerType"
+                    data-for="textGuardMail,textGuardAddress,selectGuardDepartment,selectGuardProvince,selectGuardDistrict"
+                    disabled>
             </select>
         </div>
         <!-- Correo electrónico -->
@@ -161,7 +179,7 @@
     </div>
     <div class="form-row">
         <div></div>
-        <button name="btnContinue" data-parentForm="personalInfoForm" data-nextForm="contractedGoodForm" class="btn btn-primary col-md-6 offset-md-3">
+        <button name="btnContinue" data-parentForm="personalInfoForm" data-nextForm="contractedGoodForm" class="btn btn-primary col-md-6 offset-md-3" disabled>
             Continuar
         </button>
     </div>
@@ -349,6 +367,7 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="~/lib/jquery/dist/jquery.js"></script>
-<script type="text/javascript" src="~/js/site.js"></script>
-<script type="text/javascript" src="~/js/main.js"></script>
+@section Scripts {
+    <script type="text/javascript" src="~/js/main.js"></script>
+}
+

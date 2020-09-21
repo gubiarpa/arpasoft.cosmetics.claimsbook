@@ -1,6 +1,7 @@
 ﻿
+/* Document Loaded */
 $(document).ready(() => {
-    debugger;
+    
     /* Document Types */
     $.ajax({
         type: 'GET',
@@ -10,8 +11,14 @@ $(document).ready(() => {
             for (let elem of array) {
                 options += printOptionInSelect(elem.id, elem.description);
             }
-            $('[data-id="documentType"]').html(options);
+            $('[data-id="documentType"]').html(options).removeAttr('disabled');
         }
+    });
+
+    $('[data-id="documentType"]').change(function () {
+        let triggerControl = $(this).attr('id');
+        let affectedControls = $(this).attr('data-for').split(',');
+        enableControls(triggerControl, affectedControls);
     });
 
     /* Answer Types */
@@ -23,13 +30,16 @@ $(document).ready(() => {
             for (let elem of array) {
                 options += printOptionInSelect(elem.id, elem.description);
             }
-            $('#selectAnswerType').html(options);
-            $('#selectGuardAnswerType').html(options);
+            $('[data-id="answerType"]').html(options);
+            $('#selectAnswerType').removeAttr('disabled');
         }
     });
 
-    $('#selectAnswerType').change(function () {
+    $('[data-id="answerType"]').change(function () {
         $('#selectGuardAnswerType').val($(this).val());
+        let triggerControl = $(this).attr('id');
+        let affectedControls = $(this).attr('data-for').split(',');
+        enableControls(triggerControl, affectedControls);
     });
 
     /* Departments */
@@ -203,6 +213,7 @@ const validateForm = (nameForm) => {
     return errors;
 }
 
+/* Summary Update */
 const updateSummary = () => {
 
     /// (i) Información del Consumidor Reclamante
