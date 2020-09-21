@@ -155,6 +155,8 @@ $(document).ready(() => {
 
     /* Send */
     $('#btnSend').click(sendForm);
+
+    $('#btnPdfGenerator').click(openPdf);
 });
 
 /* Change Department */
@@ -179,6 +181,8 @@ const changeGeoZone = (obj, printerMethod, defaultElem, defaultSubElem) => {
 
 /* Validation */
 const validateForm = (nameForm) => {
+
+    let errors = [];
 
     switch (nameForm) {
         case 'personalInfoForm':
@@ -248,6 +252,10 @@ const updateSummary = () => {
 
 /* Sending */
 const sendForm = () => {
+
+    /// (o) Disabling button
+    $('#btnSend').attr('disabled');
+
     /// (i) Personal Info
     let mainClaimer = {
         documentType: $('#selectDocumentType').val(),
@@ -303,8 +311,12 @@ const sendForm = () => {
         url: buildEndpoint('Claims/SaveClaim'),
         data: claim,
         success(result) {
-            window.open(buildEndpoint('Claims/GenerateClaimPdf/') + result.id, '_blank');
-            console.log(result);
+            $('#btnPdfGenerator').attr('data-value', result.id);
         }
     });
 };
+
+const openPdf = () => {
+    let id = $('#btnPdfGenerator').attr('data-value');
+    window.open(buildEndpoint('Claims/GenerateClaimPdf/') + id, '_blank');
+}

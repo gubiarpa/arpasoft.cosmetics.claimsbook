@@ -282,8 +282,8 @@
                 <tr>
                     <th class="">Teléfono:</th>
                     <th class="" id="sumPhoneNumber"></th>
-                    <th class="display-desktop">">Descripción:</th>
-                    <th class="display-desktop">" id="sumDescription" rowspan="5"></th>
+                    <th class="display-desktop">Descripción:</th>
+                    <th class="display-desktop" id="sumDescription" rowspan="5"></th>
                 </tr>
                 <tr>
                     <th class="">Respuesta a:</th>
@@ -362,9 +362,11 @@
                 </button>
             </div>
             <div class="modal-body">
+                Estimado <span id="nameClaimer"></span>, su reclamo / queja se registró correctamente, con Hoja de Reclamación N°<span id="claimSheetNumber"></span>.<br />
+                Agradecemos su comunicación.
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary" id="btnPdfGenerator" data-value="">Imprimir reclamo</button>
             </div>
         </div>
     </div>
