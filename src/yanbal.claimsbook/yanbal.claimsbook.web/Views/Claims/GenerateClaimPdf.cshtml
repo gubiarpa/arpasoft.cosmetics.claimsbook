@@ -17,21 +17,30 @@
         }
 
         .field-name {
-            font-weight: bold !important;
+            /*font-weight: bold !important;*/
             vertical-align: top!important;
+        }
+
+        .summary-block {
+            font-weight: bold !important;
+            padding-bottom: 5px;
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <div class="h2 form-title">
+        <div class="img-fluid text-right">
+            <img src="~/imgs/logo-yanbal.svg" />
+        </div>
+        <div class="h2 form-title mt-3">
             Resumen final
         </div>
+        <hr />
         <table class="">
             <thead>
                 <tr>
-                    <th scope="col" colspan="2">Información del Reclamante</th>
+                    <th scope="col" colspan="2" class="summary-block">Información del Reclamante</th>
                 </tr>
             </thead>
             <tbody>
@@ -67,10 +76,11 @@
         </table>
         @if (Model.IsAdult.Equals("No"))
         {
+            <hr />
             <table class="">
                 <thead>
                     <tr>
-                        <th scope="col" colspan="2">Información del Apoderado</th>
+                        <th scope="col" colspan="2" class="summary-block">Información del Apoderado</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -101,10 +111,11 @@
                 </tbody>
             </table>
         }
+        <hr />
         <table class="mt-3">
             <thead>
                 <tr>
-                    <th scope="col" colspan="2">Identificación del Bien Contratado</th>
+                    <th scope="col" colspan="2" class="summary-block">Identificación del Bien Contratado</th>
                 </tr>
             </thead>
             <tbody>
@@ -122,7 +133,30 @@
                 </tr>
             </tbody>
         </table>
+        <hr />
+        <table class="mt-3">
+            <thead>
+                <tr>
+                    <th scope="col" colspan="2" class="summary-block">Detalle de su Reclamo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th class="field-name">Tipo:</th>
+                    <th class="">@Model.ClaimDetail.ClaimType</th>
+                </tr>
+                <tr>
+                    <th class="field-name">Detalle:</th>
+                    <th class="">@Model.ClaimDetail.ClaimDetail</th>
+                </tr>
+                <tr>
+                    <th class="field-name">Pedido:</th>
+                    <th class="">@Model.ClaimDetail.OrderDetail</th>
+                </tr>
+            </tbody>
+        </table>
     </div>
+    <hr />
 </body>
 
 </html>

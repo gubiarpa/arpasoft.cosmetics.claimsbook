@@ -82,6 +82,9 @@ namespace yanbal.claimsbook.web.Controllers
                 #region ClaimDetail
                 var claimDetail = await _context.ClaimTypes.SingleOrDefaultAsync(x => x.ID.Equals(claim.ClaimTypeID));
                 var claimDetailPdf = new ClaimDetailPdfViewModel();
+                claimDetailPdf.ClaimType = claimDetail.Description;
+                claimDetailPdf.ClaimDetail = claim.ClaimDetail;
+                claimDetailPdf.OrderDetail = claim.OrderDetail;
                 #endregion
 
                 #region Claim
@@ -90,7 +93,8 @@ namespace yanbal.claimsbook.web.Controllers
                     IsAdult = claim.GuardClaimerID == null ? "Sí" : "No",
                     MainClaimer = mainClaimerPdf,
                     GuardClaimer = guardClaimerPdf,
-                    ContractedGood = contractedGoodPdf
+                    ContractedGood = contractedGoodPdf,
+                    ClaimDetail = claimDetailPdf
                 };
                 #endregion
 
