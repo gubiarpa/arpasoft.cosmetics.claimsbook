@@ -236,9 +236,13 @@ const updateSummary = () => {
     let sumClaimedAmount = `S/. ${$('#textClaimedAmount').val()}`;
     let sumDescription = `${$('#textDescription').val()}`;
 
+    /// (iii) Detalle del Reclamo
+    let isAClaim = $('#checkIsClaim')[0].checked ? 'Reclamo' : 'Queja';
+
     /// [Impresión de valores]
     $('#sumDocument').html(sumDocument);
-    $('#sumFullName').html(sumFullName);
+    $('[name="sumFullName"]').html(sumFullName);
+    $('[name="ClaimOrComplaint"]').html(isAClaim);
     $('#sumPhoneNumber').html(sumPhoneNumber);
     $('#sumAnswerType').html(sumAnswerType);
     $('#sumEMail').html(sumEMail);
@@ -294,7 +298,7 @@ const sendForm = () => {
         orderDetail: $('#textOrderDetail').val()
     };
 
-    /// Group Information
+    /// (iv) Group Information
     let claim = {
         isAdult,
         mainClaimer,
@@ -303,6 +307,7 @@ const sendForm = () => {
         claimDetail
     };
 
+    /// (v) Consuming API
     $.ajax({
         type: 'POST',
         url: buildEndpoint('Claims/SaveClaim'),
@@ -312,6 +317,7 @@ const sendForm = () => {
             $('#btnPdfGenerator').attr('data-value', result.id);
         }
     });
+
 };
 
 const openPdf = () => {

@@ -17,5 +17,6 @@ namespace yanbal.claimsbook.data.Models
         public Guid ClaimTypeID { get; set; }
         public string ClaimDetail { get; set; }
         public string OrderDetail { get; set; }
+        public int SerialNumber { get; set; }
     }
 }
