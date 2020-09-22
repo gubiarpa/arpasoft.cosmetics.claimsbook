@@ -150,6 +150,8 @@ $(document).ready(() => {
         }
 
         /// (ii) Línea de progreso
+        let selectorStr = `[data-type="lineProgress"][data-form="${nextFormName}"]`;
+        $(selectorStr).attr('checked', 'checked');
 
 
         /// (iii) Actualización de Resumen Final

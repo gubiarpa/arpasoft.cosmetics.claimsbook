@@ -85,3 +85,14 @@ table {
         display: none;
     }
 }
+
+
+div {
+    &.progress-container {
+        text-align: center;
+    }
+
+    &.progress-point {
+        z-index: -1;
+    }
+}
