@@ -149,7 +149,10 @@ $(document).ready(() => {
             $('#' + nextFormName).toggleClass('not-display animate__animated animate__fadeIn');
         }
 
-        /// (ii) Actualización de Resumen Final
+        /// (ii) Línea de progreso
+
+
+        /// (iii) Actualización de Resumen Final
         updateSummary();
     });
 

@@ -6,6 +6,29 @@
 <div id="errorMessageForm">
     <div></div>
 </div>
+<!-- Línea de Progreso -->
+<div>
+    <div class="custom-control custom-radio d-inline">
+        <input type="radio" class="custom-control-input" id="lineProg1" data-type="lineProgress" data-form="personalInfoForm">
+        <label class="custom-control-label" for="lineProg1">INFORMACIÓN PERSONAL</label>
+        <div class="invalid-feedback">More example invalid feedback text</div>
+    </div>
+    <div class="custom-control custom-radio d-inline">
+        <input type="radio" class="custom-control-input" id="lineProg2" data-type="lineProgress" data-form="contractedGoodForm">
+        <label class="custom-control-label" for="lineProg2">BIEN CONTRATADO</label>
+        <div class="invalid-feedback">More example invalid feedback text</div>
+    </div>
+    <div class="custom-control custom-radio d-inline">
+        <input type="radio" class="custom-control-input" id="lineProg3" data-type="lineProgress" data-form="claimDetailForm">
+        <label class="custom-control-label" for="lineProg3">DETALLE DEL RECLAMO</label>
+        <div class="invalid-feedback">More example invalid feedback text</div>
+    </div>
+    <div class="custom-control custom-radio d-inline">
+        <input type="radio" class="custom-control-input" id="lineProg4" data-type="lineProgress" data-form="finalSummaryForm">
+        <label class="custom-control-label" for="lineProg4">RESUMEN FINAL</label>
+        <div class="invalid-feedback">More example invalid feedback text</div>
+    </div>
+</div>
 <!-- Datos Personales (personalInfoForm) -->
 <div id="personalInfoForm" class="form-page">
     <div class="h2 form-title">
@@ -47,7 +70,7 @@
         <!-- Teléfono -->
         <div class="mb-2 col-md-6">
             <label for="textTelephone" class="yanbal-label">Teléfono</label>
-            <input type="tel" class="form-control" id="textTelephone" aria-describedby="emailHelp" placeholder="Teléfono" disabled>
+            <input type="tel" class="form-control" id="textTelephone" aria-describedby="emailHelp" placeholder="Teléfono" maxlength="9" disabled>
         </div>
         <!-- Tipo de Respuesta -->
         <div class="mb-2 col-md-6">
@@ -135,7 +158,7 @@
         <!-- Teléfono -->
         <div class="mb-2 col-md-6">
             <label for="textTelephone" class="yanbal-label">Teléfono</label>
-            <input type="tel" class="form-control" id="textGuardTelephone" aria-describedby="emailHelp" placeholder="Teléfono" disabled>
+            <input type="tel" class="form-control" id="textGuardTelephone" aria-describedby="emailHelp" placeholder="Teléfono" maxlength="9" disabled>
         </div>
         <!-- Tipo de Respuesta -->
         <div class="mb-2 col-md-6">
