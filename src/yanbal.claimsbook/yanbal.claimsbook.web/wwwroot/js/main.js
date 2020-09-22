@@ -253,9 +253,6 @@ const updateSummary = () => {
 /* Sending */
 const sendForm = () => {
 
-    /// (o) Disabling button
-    $('#btnSend').attr('disabled');
-
     /// (i) Personal Info
     let mainClaimer = {
         documentType: $('#selectDocumentType').val(),
@@ -311,6 +308,7 @@ const sendForm = () => {
         url: buildEndpoint('Claims/SaveClaim'),
         data: claim,
         success(result) {
+            $('#btnSend').attr('disabled', 'disabled');
             $('#btnPdfGenerator').attr('data-value', result.id);
         }
     });
