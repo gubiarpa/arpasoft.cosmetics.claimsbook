@@ -210,6 +210,17 @@ namespace yanbal.claimsbook.web.Controllers
                 var claimType = (await _context.ClaimTypes.SingleOrDefaultAsync(
                     x => x.Description == claimTypeEnum.ToDbString()));
 
+                // Serial Number
+                var yearClaims = _context.Claims.Where(x => x.YearNumber.Equals(DateTime.Now.Year));
+                var serialNumber = 0;
+                if ((yearClaims == null) || (await yearClaims.CountAsync() == 0))
+                    serialNumber = 1;
+                else
+                    serialNumber = (await yearClaims.MaxAsync(x => x.SerialNumber)) + 1;
+
+                // Year Number
+                var yearNumber = DateTime.Now.Year;
+
                 // Claim
                 var claim = new Claim()
                 {
@@ -220,7 +231,9 @@ namespace yanbal.claimsbook.web.Controllers
                     Description = claimRequest.ContractedGood.GoodDescription,
                     ClaimTypeID = claimType.ID,
                     ClaimDetail = claimRequest.ClaimDetail.ClaimDetail,
-                    OrderDetail = claimRequest.ClaimDetail.OrderDetail
+                    OrderDetail = claimRequest.ClaimDetail.OrderDetail,
+                    SerialNumber = serialNumber,
+                    YearNumber = yearNumber
                 };
 
                 _context.Claims.Add(claim);
@@ -228,9 +241,8 @@ namespace yanbal.claimsbook.web.Controllers
                 await _context.SaveChangesAsync();
 
                 /// Send Mail
-                
 
-                return Ok(new { claim.ID });
+                return Ok(new { claim.ID, claim.SerialNumber, claim.YearNumber });
             }
             catch (Exception ex)
             {

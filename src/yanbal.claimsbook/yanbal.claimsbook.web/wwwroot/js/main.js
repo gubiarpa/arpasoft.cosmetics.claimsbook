@@ -231,12 +231,16 @@ const updateSummary = () => {
     let sumFullAddress = `${$('#textAddress').val()} ${$('#selectDistrict option:selected').text()}, ${$('#selectProvince option:selected').text()}, ${$('#selectDepartment option:selected').text()}`;
     let sumIsAdult = `${$('#checkIsClaim')[0].checked ? 'No' : 'Sí'}`;
 
-    /// (ii) Información del Bien Contratado
+    /// (ii) Información del Apoderado
+    let sumGuardDocument = `${$('#selectGuardDocumentType option:selected').text()} ${$('#textGuardDocumentNumber').val()}`;
+    let sumGuardFullName = `${$('#textGuardClaimerName').val()} ${$('#textGuardSurnameFather').val()} ${$('#textGuardSurnameMother').val()}`;
+
+    /// (iii) Información del Bien Contratado
     let sumGoodType = `${$('#checkIsProduct option:selected').text()}`;
     let sumClaimedAmount = `S/. ${$('#textClaimedAmount').val()}`;
     let sumDescription = `${$('#textDescription').val()}`;
 
-    /// (iii) Detalle del Reclamo
+    /// (iv) Detalle del Reclamo
     let isAClaim = $('#checkIsClaim')[0].checked ? 'Reclamo' : 'Queja';
 
     /// [Impresión de valores]
@@ -252,6 +256,9 @@ const updateSummary = () => {
     $('#sumGoodType').html(sumGoodType);
     $('#sumClaimedAmount').html(sumClaimedAmount);
     $('#sumDescription').html(sumDescription);
+
+    $('#sumGuardDocument').html(sumGuardDocument);
+    $('#sumGuardFullName').html(sumGuardFullName);
 };
 
 /* Sending */
@@ -314,6 +321,7 @@ const sendForm = () => {
         data: claim,
         success(result) {
             $('#btnSend').attr('disabled', 'disabled');
+            $('[name="claimSheetNumber"]').html(`${result.yearNumber}-${result.serialNumber}`);
             $('#btnPdfGenerator').attr('data-value', result.id);
         }
     });
