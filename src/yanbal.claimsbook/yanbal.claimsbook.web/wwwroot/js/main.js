@@ -234,6 +234,9 @@ const updateSummary = () => {
     /// (ii) Información del Apoderado
     let sumGuardDocument = `${$('#selectGuardDocumentType option:selected').text()} ${$('#textGuardDocumentNumber').val()}`;
     let sumGuardFullName = `${$('#textGuardClaimerName').val()} ${$('#textGuardSurnameFather').val()} ${$('#textGuardSurnameMother').val()}`;
+    let sumGuardPhoneNumber = `${$('#textGuardTelephone').val()}`;
+    let sumGuardEmail = `${$('#textGuardMail').val()}`;
+    let sumGuardFullAddress = `${$('#textGuardAddress').val()} ${$('#selectGuardDistrict option:selected').text()}, ${$('#selectGuardProvince option:selected').text()}, ${$('#selectGuardDepartment option:selected').text()}`;
 
     /// (iii) Información del Bien Contratado
     let sumGoodType = `${$('#checkIsProduct option:selected').text()}`;
@@ -245,10 +248,10 @@ const updateSummary = () => {
 
     /// [Impresión de valores]
     $('#sumDocument').html(sumDocument);
-    $('[name="sumFullName"]').html(sumFullName);
-    $('[name="ClaimOrComplaint"]').html(isAClaim);
+    $('[name="sumFullName"]').html(sumFullName); // modal
+    $('[name="ClaimOrComplaint"]').html(isAClaim); // modal
     $('#sumPhoneNumber').html(sumPhoneNumber);
-    $('#sumAnswerType').html(sumAnswerType);
+    $('[name="sumAnswerType"]').html(sumAnswerType); // same value for main and guard
     $('#sumEMail').html(sumEMail);
     $('#sumFullAddress').html(sumFullAddress);
     $('#sumIsAdult').html(sumIsAdult);
@@ -259,6 +262,9 @@ const updateSummary = () => {
 
     $('#sumGuardDocument').html(sumGuardDocument);
     $('#sumGuardFullName').html(sumGuardFullName);
+    $('#sumGuardPhoneNumber').html(sumGuardPhoneNumber);
+    $('#sumGuardEmail').html(sumGuardEmail);
+    $('#sumGuardFullAddress').html(sumGuardFullAddress);
 };
 
 /* Sending */
@@ -321,7 +327,7 @@ const sendForm = () => {
         data: claim,
         success(result) {
             $('#btnSend').attr('disabled', 'disabled');
-            $('[name="claimSheetNumber"]').html(`${result.yearNumber}-${result.serialNumber}`);
+            $('[name="claimSheetNumber"]').html(`${result.yearNumber}-${zeroPad(result.serialNumber, 4)}`);
             $('#btnPdfGenerator').attr('data-value', result.id);
         }
     });
