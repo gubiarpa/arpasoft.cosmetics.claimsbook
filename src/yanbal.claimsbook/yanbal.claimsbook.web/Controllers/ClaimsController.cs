@@ -91,6 +91,7 @@ namespace yanbal.claimsbook.web.Controllers
                 var claimResponse = new ClaimPdfViewModel()
                 {
                     IsAdult = claim.GuardClaimerID == null ? "Sí" : "No",
+                    ClaimNumber = string.Format("{0}-{1}", claim.YearNumber, claim.SerialNumber.ToString("0000")),
                     MainClaimer = mainClaimerPdf,
                     GuardClaimer = guardClaimerPdf,
                     ContractedGood = contractedGoodPdf,
@@ -100,6 +101,7 @@ namespace yanbal.claimsbook.web.Controllers
 
                 return new ViewAsPdf("GenerateClaimPdf", claimResponse)
                 {
+                    //Password = mainClaimerPdf.DocumentNumber
                 };
             }
             catch (Exception ex)
