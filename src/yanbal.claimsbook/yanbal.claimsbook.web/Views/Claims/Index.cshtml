@@ -121,8 +121,12 @@
         </div>
     </div>
     <div id="guardForm" class="form-row align-items-center invisible animate__animated not-display">
-        <div class="warning-message mt-1">
-            <span>(*) Toda comunicación relacionada con el reclamo/queja será enviada a los datos de contacto del Apoderado.</span>
+        <div class="h2 form-title mt-4 w-100 not-pb">
+            Información del Apoderado
+        </div>
+
+        <div class="warning-message mt-1 mb-2">
+            (*) Toda comunicación relacionada con el reclamo/queja será enviada a los datos de contacto del Apoderado.
         </div>
         <!-- Tipo de Documento -->
         <div class="mb-2 col-md-6">
@@ -434,7 +438,7 @@
     </button>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="exampleModalCenter" tabindex="0" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -444,11 +448,11 @@
                 </button>
             </div>
             <div class="modal-body">
-                Estimado <span name="sumFullName" class="text-capitalize"></span>, su <span name="ClaimOrComplaint">Reclamo</span> se registró correctamente, con Hoja de Reclamación N°<span name="claimSheetNumber">2020-0000</span>.<br />
+                Estimado <span name="sumFullName" class="text-capitalize"></span>, su <span name="ClaimOrComplaint">Reclamo</span> se registró correctamente, con Hoja de Reclamación N°<span name="claimSheetNumber">@DateTime.Now.Year-...</span>.<br />
                 Agradecemos su comunicación.
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="btnPdfGenerator" data-value="">Imprimir reclamo</button>
+                <button type="button" class="btn btn-primary" id="btnPdfGenerator" data-value="" disabled>Enviando...</button>
             </div>
         </div>
     </div>

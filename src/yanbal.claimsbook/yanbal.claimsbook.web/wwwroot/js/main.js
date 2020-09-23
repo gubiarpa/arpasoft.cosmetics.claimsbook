@@ -343,7 +343,7 @@ const sendForm = () => {
         success(result) {
             $('#btnSend').attr('disabled', 'disabled');
             $('[name="claimSheetNumber"]').html(`${result.yearNumber}-${zeroPad(result.serialNumber, 4)}`);
-            $('#btnPdfGenerator').attr('data-value', result.id);
+            $('#btnPdfGenerator').attr('data-value', result.id).html('Imprimir').removeAttr('disabled');
         }
     });
 
