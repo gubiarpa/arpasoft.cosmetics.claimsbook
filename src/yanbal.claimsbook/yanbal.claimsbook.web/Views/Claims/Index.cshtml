@@ -7,7 +7,7 @@
     <div></div>
 </div>
 <!-- Línea de Progreso -->
-<div class="progress-container">
+<div class="progress-container my-4">
     <div class="custom-control custom-radio d-inline progress-point">
         <input type="radio" class="custom-control-input" id="lineProg1" data-type="lineProgress" data-form="personalInfoForm" checked="checked">
         <label class="custom-control-label" for="lineProg1">INFORMACIÓN PERSONAL</label>
@@ -281,33 +281,27 @@
     <div class="h2 form-title">
         Resumen final
     </div>
+    <hr />
     <!-- Información de Consumidor Reclamante -->
     <div class="text-justify">
         <table class="">
             <thead>
                 <tr>
-                    <th scope="col" colspan="2">Información del Reclamante</th>
-                    <th scope="col" colspan="2" class="display-desktop">Identificación del Bien Contratado</th>
+                    <th scope="col" colspan="2" class="summary-block">Información del Reclamante</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <th class="">Doc:</th>
                     <th class="" id="sumDocument"></th>
-                    <th class="display-desktop">Tipo:</th>
-                    <th class="display-desktop"></th>
                 </tr>
                 <tr>
                     <th class="">Nombres y apellidos:</th>
                     <th class="text-capitalize" name="sumFullName"></th>
-                    <th class="display-desktop">Monto:</th>
-                    <th class="display-desktop" id="sumClaimedAmount"></th>
                 </tr>
                 <tr>
                     <th class="">Teléfono:</th>
                     <th class="" id="sumPhoneNumber"></th>
-                    <th class="display-desktop">Descripción:</th>
-                    <th class="display-desktop" id="sumDescription" rowspan="5"></th>
                 </tr>
                 <tr>
                     <th class="">Respuesta a:</th>
@@ -327,13 +321,14 @@
                 </tr>
             </tbody>
         </table>
+        <hr />
     </div>
     <!-- Información del Apoderado -->
-    <div class="text-justify">
+    <div class="text-justify" id="block-isNotAdult">
         <table class="">
             <thead>
                 <tr>
-                    <th scope="col" colspan="2">Información del Apoderado</th>
+                    <th scope="col" colspan="2" class="summary-block">Información del Apoderado</th>
                 </tr>
             </thead>
             <tbody>
@@ -363,30 +358,57 @@
                 </tr>
             </tbody>
         </table>
+        <hr />
     </div>
     <!-- Identificación del Bien Contratado -->
-    <div class="text-justify display-mobile">
+    <div class="text-justify">
         <table class="">
             <thead>
                 <tr>
-                    <th scope="col" colspan="2" class="display-mobile">Identificación del Bien Contratado</th>
+                    <th scope="col" colspan="2" class="summary-block">Identificación del Bien Contratado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th class="display-desktop">Tipo:</th>
+                    <th class="display-desktop" id="sumGoodType"></th>
+                </tr>
+                <tr>
+                    <th class="display-desktop">Monto:</th>
+                    <th class="display-desktop" id="sumClaimedAmount"></th>
+                </tr>
+                <tr>
+                    <th class="display-desktop">Descripción:</th>
+                    <th class="display-desktop" id="sumDescription"></th>
+                </tr>
+            </tbody>
+        </table>
+        <hr />
+    </div>
+    <!-- Detalle de su Reclamo -->
+    <div class="text-justify">
+        <table class="">
+            <thead>
+                <tr>
+                    <th scope="col" colspan="2" class="summary-block">Detalle de su Reclamo</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <th class="">Tipo:</th>
-                    <th class=""></th>
+                    <th class="" id="sumClaimType"></th>
                 </tr>
                 <tr>
-                    <th class="">Monto:</th>
-                    <th class="" id="sumClaimedAmount"></th>
+                    <th class="">Detalle:</th>
+                    <th class="" id="sumClaimDetail"></th>
                 </tr>
                 <tr>
-                    <th class="">">Descripción:</th>
-                    <th class="" id="sumDescription" rowspan="5"></th>
+                    <th class="">Pedido:</th>
+                    <th class="" id="sumOrderDetail"></th>
                 </tr>
             </tbody>
         </table>
+        <hr />
     </div>
     <!-- Confirmación de envío -->
     <div class="form-row">

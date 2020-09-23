@@ -96,3 +96,19 @@ div {
         z-index: -1;
     }
 }
+
+/* Summary Form */
+th {
+    font-weight: normal;
+    padding-right: 60px;
+}
+
+.field-name {
+    /*font-weight: bold !important;*/
+    vertical-align: top !important;
+}
+
+.summary-block {
+    font-weight: bold !important;
+    padding-bottom: 5px;
+}

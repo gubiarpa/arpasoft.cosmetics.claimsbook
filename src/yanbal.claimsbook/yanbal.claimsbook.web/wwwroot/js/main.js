@@ -234,7 +234,7 @@ const updateSummary = () => {
     let sumAnswerType = `${$('#selectAnswerType option:selected').text()}`;
     let sumEMail = `${$('#textMail').val()}`;
     let sumFullAddress = `${$('#textAddress').val()} ${$('#selectDistrict option:selected').text()}, ${$('#selectProvince option:selected').text()}, ${$('#selectDepartment option:selected').text()}`;
-    let sumIsAdult = `${$('#checkIsClaim')[0].checked ? 'No' : 'Sí'}`;
+    let sumIsAdult = `${$('#checkIsYounger')[0].checked ? 'No' : 'Sí'}`;
 
     /// (ii) Información del Apoderado
     let sumGuardDocument = `${$('#selectGuardDocumentType option:selected').text()} ${$('#textGuardDocumentNumber').val()}`;
@@ -244,26 +244,36 @@ const updateSummary = () => {
     let sumGuardFullAddress = `${$('#textGuardAddress').val()} ${$('#selectGuardDistrict option:selected').text()}, ${$('#selectGuardProvince option:selected').text()}, ${$('#selectGuardDepartment option:selected').text()}`;
 
     /// (iii) Información del Bien Contratado
-    let sumGoodType = `${$('#checkIsProduct option:selected').text()}`;
+    let sumGoodType = `${$('#checkIsProduct')[0].checked ? 'Producto' : 'Servicio'}`;
     let sumClaimedAmount = `S/. ${$('#textClaimedAmount').val()}`;
     let sumDescription = `${$('#textDescription').val()}`;
 
     /// (iv) Detalle del Reclamo
-    let isAClaim = $('#checkIsClaim')[0].checked ? 'Reclamo' : 'Queja';
+    let sumClaimType = $('#checkIsClaim')[0].checked ? 'Reclamo' : 'Queja';
+    let sumClaimDetail = $('#textClaimDetail').val();
+    let sumOrderDetail = $('#textOrderDetail').val();
 
     /// [Impresión de valores]
     $('#sumDocument').html(sumDocument);
     $('[name="sumFullName"]').html(sumFullName); // modal
-    $('[name="ClaimOrComplaint"]').html(isAClaim); // modal
+    $('[name="ClaimOrComplaint"]').html(sumClaimType); // modal
     $('#sumPhoneNumber').html(sumPhoneNumber);
     $('[name="sumAnswerType"]').html(sumAnswerType); // same value for main and guard
     $('#sumEMail').html(sumEMail);
     $('#sumFullAddress').html(sumFullAddress);
     $('#sumIsAdult').html(sumIsAdult);
 
+    if (sumIsAdult == 'Sí') { // Hide/Show Section
+        $('#block-isNotAdult').addClass('not-display');
+    }
+
     $('#sumGoodType').html(sumGoodType);
     $('#sumClaimedAmount').html(sumClaimedAmount);
     $('#sumDescription').html(sumDescription);
+
+    $('#sumClaimType').html(sumClaimType);
+    $('#sumClaimDetail').html(sumClaimDetail);
+    $('#sumOrderDetail').html(sumOrderDetail);
 
     $('#sumGuardDocument').html(sumGuardDocument);
     $('#sumGuardFullName').html(sumGuardFullName);
