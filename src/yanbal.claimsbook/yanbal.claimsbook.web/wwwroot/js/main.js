@@ -245,7 +245,7 @@ const updateSummary = () => {
 
     /// (iii) Información del Bien Contratado
     let sumGoodType = `${$('#checkIsProduct')[0].checked ? 'Producto' : 'Servicio'}`;
-    let sumClaimedAmount = `S/. ${$('#textClaimedAmount').val()}`;
+    let sumClaimedAmount = `S/ ${$('#textClaimedAmount').val()}`;
     let sumDescription = `${$('#textDescription').val()}`;
 
     /// (iv) Detalle del Reclamo
