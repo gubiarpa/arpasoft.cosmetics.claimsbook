@@ -60,6 +60,16 @@ $(document).ready(() => {
         }
     });
 
+    $.ajax({
+        type: 'GET',
+        url: buildEndpoint('Claims/GetCompanyInfo'),
+        success(result) {
+            $('#companyName').html(result.name);
+            $('#companyDocumentNumber').html(result.documentNumber);
+            $('#companyAddress').html(result.address);
+        }
+    });
+
     $('#selectDepartment').change(function () {
         changeGeoZone({
             selectSubzone: 'selectDistrict',

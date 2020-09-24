@@ -165,6 +165,18 @@ namespace yanbal.claimsbook.web.Controllers
             return new JsonResult(districts);
         }
 
+        public async Task<IActionResult> GetCompanyInfo()
+        {
+            var configKeys = await _context.ConfigKeys.ToListAsync();
+            var companyInfo = new CompanyInfo()
+            {
+                Address = configKeys.SingleOrDefault(x => x.Code.Equals("DomicilioFiscal")).Value,
+                DocumentNumber = configKeys.SingleOrDefault(x => x.Code.Equals("Ruc")).Value,
+                Name = configKeys.SingleOrDefault(x => x.Code.Equals("RazonSocial")).Value
+            };
+            return new JsonResult(companyInfo);
+        }
+
         [HttpPost]
         public async Task<IActionResult> SaveClaim(ClaimViewModel claimRequest)
         {
