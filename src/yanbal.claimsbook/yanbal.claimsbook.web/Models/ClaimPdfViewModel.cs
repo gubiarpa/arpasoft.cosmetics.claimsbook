@@ -7,6 +7,7 @@ namespace yanbal.claimsbook.web.Models
 {
     public class ClaimPdfViewModel
     {
+        public CompanyInfo CompanyInfo { get; set; }
         public string IsAdult { get; set; }
         public string ClaimNumber { get; set; }
         public DateTime ClaimDate { get; set; }
@@ -39,5 +40,12 @@ namespace yanbal.claimsbook.web.Models
         public string ClaimType { get; set; }
         public string ClaimDetail { get; set; }
         public string OrderDetail { get; set; }
+    }
+
+    public class CompanyInfo
+    {
+        public string DocumentNumber { get; set; }
+        public string Name { get; set; }
+        public string Address { get; set; }
     }
 }

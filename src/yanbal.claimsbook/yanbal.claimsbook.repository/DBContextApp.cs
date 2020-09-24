@@ -16,6 +16,7 @@ namespace yanbal.claimsbook.repository
         public DbSet<ClaimType> ClaimTypes { get; set; }
         public DbSet<Claim> Claims { get; set; }
         public DbSet<Claimer> Claimers { get; set; }
+        public DbSet<ConfigKey> ConfigKeys { get; set; }
 
         public DBContextApp(DbContextOptions<DBContextApp> options) : base(options)
         {
@@ -31,6 +32,7 @@ namespace yanbal.claimsbook.repository
             modelBuilder.ApplyConfiguration(new ClaimerMap());
             modelBuilder.ApplyConfiguration(new ClaimMap());
             modelBuilder.ApplyConfiguration(new GoodTypeMap());
+            modelBuilder.ApplyConfiguration(new ConfigKeyMap());
         }
     }
 }

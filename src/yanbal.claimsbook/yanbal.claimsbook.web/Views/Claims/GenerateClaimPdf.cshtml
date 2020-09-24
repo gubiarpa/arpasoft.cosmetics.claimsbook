@@ -47,8 +47,8 @@
             Hoja de Reclamación N° @Model.ClaimNumber
         </div>
         <div class="warning-message mt-2">
-            UNIQUE S.A. / RUC N°20100102413<br />
-            Av. Jorge Basadre N°592, Torre Azul, Piso 4, distrito de San Isidro, provincia y departamento de Lima.<br />
+            @Model.CompanyInfo.Name / RUC N°@Model.CompanyInfo.DocumentNumber<br />
+            @Model.CompanyInfo.Address<br />
             Fecha de registro: @Model.ClaimDate.ToString("dd/MM/yyyy")
         </div>
         <hr />

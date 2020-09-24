@@ -87,9 +87,20 @@ namespace yanbal.claimsbook.web.Controllers
                 claimDetailPdf.OrderDetail = claim.OrderDetail;
                 #endregion
 
+                #region BusinessInfo
+                var configKeys = await _context.ConfigKeys.ToListAsync();
+                var companyInfo = new CompanyInfo()
+                {
+                    Address = configKeys.SingleOrDefault(x => x.Code.Equals("DomicilioFiscal")).Value,
+                    DocumentNumber = configKeys.SingleOrDefault(x => x.Code.Equals("Ruc")).Value,
+                    Name = configKeys.SingleOrDefault(x => x.Code.Equals("RazonSocial")).Value
+                };
+                #endregion
+
                 #region Claim
                 var claimResponse = new ClaimPdfViewModel()
                 {
+                    CompanyInfo = companyInfo,
                     IsAdult = claim.GuardClaimerID == null ? "Sí" : "No",
                     ClaimNumber = string.Format("{0}-{1}", claim.YearNumber, claim.SerialNumber.ToString("0000")),
                     ClaimDate = claim.DateClaim,
