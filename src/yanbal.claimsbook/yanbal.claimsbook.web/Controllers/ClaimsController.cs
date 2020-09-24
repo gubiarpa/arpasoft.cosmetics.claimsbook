@@ -226,7 +226,7 @@ namespace yanbal.claimsbook.web.Controllers
                     serialNumber = (await yearClaims.MaxAsync(x => x.SerialNumber)) + 1;
 
                 // Year Number
-                var yearNumber = DateTime.Now.Year;
+                var dateNow = DateTime.Now;
 
                 // Claim
                 var claim = new Claim()
@@ -240,7 +240,8 @@ namespace yanbal.claimsbook.web.Controllers
                     ClaimDetail = claimRequest.ClaimDetail.ClaimDetail,
                     OrderDetail = claimRequest.ClaimDetail.OrderDetail,
                     SerialNumber = serialNumber,
-                    YearNumber = yearNumber
+                    YearNumber = dateNow.Year,
+                    DateClaim = DateTime.Now
                 };
 
                 _context.Claims.Add(claim);

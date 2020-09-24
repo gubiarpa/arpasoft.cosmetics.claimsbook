@@ -424,7 +424,7 @@
     <div class="form-row">
         <div class="col-auto my-1 w-100">
             <div class="custom-control custom-checkbox mr-sm-2">
-                <input type="checkbox" class="custom-control-input" id="checkAgreePersonalInfo">
+                <input type="checkbox" class="custom-control-input" id="checkAgreePersonalInfo" name="checkAgree">
                 <label class="custom-control-label" for="checkAgreePersonalInfo">
                     Al enviar este formulario acepto el flujo transfroterizo de mis datos personales, según la <a href="#">Ley de Protección de Datos Personales</a>
                 </label>
@@ -432,14 +432,14 @@
         </div>
         <div class="col-auto my-1 w-100">
             <div class="custom-control custom-checkbox mr-sm-2">
-                <input type="checkbox" class="custom-control-input" id="checkAgreeTerms">
+                <input type="checkbox" class="custom-control-input" id="checkAgreeTerms" name="checkAgree">
                 <label class="custom-control-label" for="checkAgreeTerms">
                     Acepto los <a href="#">Términos y Condiciones</a>
                 </label>
             </div>
         </div>
     </div>
-    <button id="btnSend" class="btn btn-primary col-md-6 offset-md-3" data-toggle="modal" data-target="#exampleModalCenter">
+    <button id="btnSend" class="btn btn-primary col-md-6 offset-md-3" data-toggle="modal" data-target="#exampleModalCenter" disabled>
         Enviar
     </button>
 </div>

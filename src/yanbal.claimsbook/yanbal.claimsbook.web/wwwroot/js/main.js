@@ -158,6 +158,19 @@ $(document).ready(() => {
         updateSummary();
     });
 
+/* Check Agree */
+    $('[name="checkAgree"]').change(function () {
+        let agreeList = $('[name="checkAgree"]');
+        let isEnabled = agreeList[0].checked && agreeList[1].checked;
+        let btnSend = $('#btnSend');
+        if (isEnabled) {
+            btnSend.removeAttr('disabled');
+        }
+        else {
+            btnSend.attr('disabled', 'disabled');
+        }
+    });
+
     /* Send */
     $('#btnSend').click(sendForm);
 
@@ -341,6 +354,7 @@ const sendForm = () => {
         url: buildEndpoint('Claims/SaveClaim'),
         data: claim,
         success(result) {
+            $('[name="checkAgree"]').attr('disabled', 'disabled');
             $('#btnSend').attr('disabled', 'disabled');
             $('[name="claimSheetNumber"]').html(`${result.yearNumber}-${zeroPad(result.serialNumber, 4)}`);
             $('#btnPdfGenerator').attr('data-value', result.id).html('Imprimir').removeAttr('disabled');
