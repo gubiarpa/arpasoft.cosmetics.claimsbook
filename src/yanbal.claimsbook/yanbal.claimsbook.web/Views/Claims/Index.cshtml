@@ -255,14 +255,20 @@
     <div class="form-row align-items-center">
         <div class="col-md-12 input-group">
             <!-- Reclamo -->
-            <div class="custom-control custom-radio col-6">
+            <div class="custom-control custom-radio col-md-6">
                 <input type="radio" id="checkIsClaim" name="isClaimOrComplaint" class="custom-control-input">
                 <label class="custom-control-label" for="checkIsClaim">Reclamo</label>
+                <div class="warning-message">
+                    Disconformidad relacionada a los productos o servicios.
+                </div>
             </div>
             <!-- Queja -->
-            <div class="custom-control custom-radio">
+            <div class="custom-control custom-radio col-md-6">
                 <input type="radio" id="checkIsComplaint" name="isClaimOrComplaint" class="custom-control-input">
                 <label class="custom-control-label" for="checkIsComplaint">Queja</label>
+                <div class="warning-message">
+                    Disconformidad no relacionada a los productos o servicios; malestar o descontento respecto a la atención al público.
+                </div>
             </div>
         </div>
         <!-- Detalle -->
@@ -354,7 +360,7 @@
                 </tr>
                 <tr>
                     <th class="">Correo electrónico:</th>
-                    <th class="text-lowercase" id="sumGuardEMail"></th>
+                    <th class="text-lowercase" id="sumGuardEmail"></th>
                 </tr>
                 <tr>
                     <th class="">Dirección:</th>
