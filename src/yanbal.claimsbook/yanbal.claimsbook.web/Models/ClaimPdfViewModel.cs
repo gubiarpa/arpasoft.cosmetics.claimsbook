@@ -9,6 +9,7 @@ namespace yanbal.claimsbook.web.Models
     {
         public string IsAdult { get; set; }
         public string ClaimNumber { get; set; }
+        public DateTime ClaimDate { get; set; }
         public ClaimerPdfViewModel MainClaimer { get; set; }
         public ClaimerPdfViewModel GuardClaimer { get; set; }
         public ContractedGoodPdfViewModel ContractedGood { get; set; }

@@ -19,5 +19,6 @@ namespace yanbal.claimsbook.data.Models
         public string OrderDetail { get; set; }
         public int SerialNumber { get; set; }
         public int YearNumber { get; set; }
+        public DateTime DateClaim { get; set; }
     }
 }

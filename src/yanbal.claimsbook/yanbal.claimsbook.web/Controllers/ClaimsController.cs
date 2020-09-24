@@ -92,6 +92,7 @@ namespace yanbal.claimsbook.web.Controllers
                 {
                     IsAdult = claim.GuardClaimerID == null ? "Sí" : "No",
                     ClaimNumber = string.Format("{0}-{1}", claim.YearNumber, claim.SerialNumber.ToString("0000")),
+                    ClaimDate = claim.DateClaim,
                     MainClaimer = mainClaimerPdf,
                     GuardClaimer = guardClaimerPdf,
                     ContractedGood = contractedGoodPdf,

@@ -26,6 +26,14 @@
             font-weight: bold !important;
             padding-bottom: 5px;
         }
+
+        .wrap-col {
+            width: 203px;
+        }
+
+        .title-mt {
+            margin-top: 100px;
+        }
     </style>
 </head>
 
@@ -33,14 +41,15 @@
     <div class="container">
         <div class="img-fluid text-right">
             <img src="~/imgs/logo-yanbal.svg" />
-        </div>
+        </div> 
+        <div class="title-mt"></div>
         <div class="h2 form-title mt-5">
             Hoja de Reclamación N° @Model.ClaimNumber
         </div>
         <div class="warning-message mt-2">
             UNIQUE S.A. / RUC N°20100102413<br />
             Av. Jorge Basadre N°592, Torre Azul, Piso 4, distrito de San Isidro, provincia y departamento de Lima.<br />
-            Fecha de registro: 21/09/2020
+            Fecha de registro: @Model.ClaimDate.ToString("dd/MM/yyyy")
         </div>
         <hr />
         <table class="">
@@ -126,7 +135,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <th class="field-name">Tipo:</th>
+                    <th class="field-name wrap-col">Tipo:</th>
                     <th class="">@Model.ContractedGood.GoodType</th>
                 </tr>
                 <tr>
@@ -148,7 +157,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <th class="field-name">Tipo:</th>
+                    <th class="field-name wrap-col">Tipo:</th>
                     <th class="">@Model.ClaimDetail.ClaimType</th>
                 </tr>
                 <tr>
