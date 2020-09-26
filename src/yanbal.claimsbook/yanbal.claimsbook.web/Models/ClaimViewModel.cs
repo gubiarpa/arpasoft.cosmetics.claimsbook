@@ -9,10 +9,17 @@ namespace yanbal.claimsbook.web.Models
     public class ClaimViewModel
     {
         public bool IsAdult { get; set; }
+        public ClaimSheetDetail ClaimSheetDetail { get; set; }
         public ClaimerViewModel MainClaimer { get; set; }
         public ClaimerViewModel GuardClaimer { get; set; }
         public ContractedGoodViewModel ContractedGood { get; set; }
         public ClaimDetailViewModel ClaimDetail { get; set; }
+    }
+
+    public class ClaimSheetDetail
+    {
+        public int YearNumber { get; set; }
+        public int SerialNumber { get; set; }
     }
 
     public class ClaimerViewModel

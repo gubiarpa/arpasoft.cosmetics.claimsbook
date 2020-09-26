@@ -368,6 +368,10 @@ const sendForm = () => {
             $('#btnSend').attr('disabled', 'disabled');
             $('[name="claimSheetNumber"]').html(`${result.yearNumber}-${zeroPad(result.serialNumber, 4)}`);
             $('#btnPdfGenerator').attr('data-value', result.id).html('Imprimir').removeAttr('disabled');
+        },
+        error(xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
         }
     });
 

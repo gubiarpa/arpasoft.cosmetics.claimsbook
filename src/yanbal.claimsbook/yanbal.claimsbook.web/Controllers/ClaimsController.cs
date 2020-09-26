@@ -144,7 +144,7 @@ namespace yanbal.claimsbook.web.Controllers
                 .ToListAsync();
             return new JsonResult(departments);
         }
-
+        
         public async Task<IActionResult> GetProvinces(string geoCode)
         {
             var departmentCode = geoCode.Substring(0, 2);
@@ -272,8 +272,17 @@ namespace yanbal.claimsbook.web.Controllers
                 await _context.SaveChangesAsync();
 
                 /// Send Mail
+                Exception ex = new Exception("No hay error");
+                try
+                {
+                    SendMail(claimRequest);
+                }
+                catch (Exception _ex)
+                {
+                    ex = _ex;
+                }
 
-                return Ok(new { claim.ID, claim.SerialNumber, claim.YearNumber });
+                return Ok(new { claim.ID, claim.SerialNumber, claim.YearNumber, Error = ex });
             }
             catch (Exception ex)
             {
@@ -285,24 +294,13 @@ namespace yanbal.claimsbook.web.Controllers
         #region Auxiliar
         private void SendMail(ClaimViewModel claim)
         {
-            // Instance of SmtpClient
-            using (var server = new SmtpClient()
+            try
             {
-                Host = "localhost",
-                Port = 81,
-                Credentials = new NetworkCredential()
-                {
-                    UserName = "",
-                    Password = ""
-                }
-            })
+                
+            }
+            catch (Exception ex)
             {
-                var from = new MailAddress("no-reply@yanbal.com", "Yanbal");
-                var receiver = new MailAddress(claim.MainClaimer.EMail);
-
-                var message = new MailMessage(from, receiver);
-
-                server.Send(message);
+                
             }
         }
         #endregion
