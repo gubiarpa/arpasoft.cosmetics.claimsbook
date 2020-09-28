@@ -2,6 +2,16 @@
 <div class="text-center">
     <div class="title-text-center">Libro de Reclamaciones</div>
 </div>
+<div>
+    <div class="warning-message mt-2">
+        <span id="companyName"></span> / RUC N°<span id="companyDocumentNumber"></span><br />
+        <span id="companyAddress"></span><br />
+    </div>
+    <div class="warning-message mt-2">
+        <span>Fecha de Registro:</span>
+        <span>@DateTime.Now.ToString("dd/MM/yyyy")</span>
+    </div>
+</div>
 <!-- Mensajes de Error -->
 <div id="errorMessageForm">
     <div></div>
@@ -29,6 +39,7 @@
         <div class="invalid-feedback">More example invalid feedback text</div>
     </div>
 </div>
+<hr />
 <!-- Datos Personales (personalInfoForm) -->
 <div id="personalInfoForm" class="form-page">
     <div class="h2 form-title">
@@ -291,11 +302,6 @@
     <div class="h2 form-title">
         Resumen final
     </div>
-    <div class="warning-message mt-2">
-        <span id="companyName"></span> / RUC N°<span id="companyDocumentNumber"></span><br />
-        <span id="companyAddress"></span><br />
-    </div>
-    <hr />
     <!-- Información de Consumidor Reclamante -->
     <div class="text-justify">
         <table class="">
