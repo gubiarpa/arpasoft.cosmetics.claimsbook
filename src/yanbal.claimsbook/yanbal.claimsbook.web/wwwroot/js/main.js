@@ -171,7 +171,7 @@ $(document).ready(() => {
 /* Check Agree */
     $('[name="checkAgree"]').change(function () {
         let agreeList = $('[name="checkAgree"]');
-        let isEnabled = agreeList[0].checked && agreeList[1].checked;
+        let isEnabled = agreeList[0].checked;
         let btnSend = $('#btnSend');
         if (isEnabled) {
             btnSend.removeAttr('disabled');
