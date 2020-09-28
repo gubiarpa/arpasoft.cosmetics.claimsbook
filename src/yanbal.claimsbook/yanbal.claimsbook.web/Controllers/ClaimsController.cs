@@ -290,7 +290,8 @@ namespace yanbal.claimsbook.web.Controllers
                     var subject = string.Format(configKeys.SingleOrDefault(x => x.Code.Equals("MailSubject")).Value, claim.YearNumber, claim.SerialNumber.ToString("0000"));
                     var bodyTemplate = System.IO.File.ReadAllText("./Utils/Mails/ClaimTemplate.html");
                     var body = bodyTemplate
-                        .Replace("{Names}", mainClaimer.Names)
+                        .Replace("{Names}", string.Format("{0} {1} {2}", mainClaimer.Names, mainClaimer.PaternalSurname, mainClaimer.MaternalSurname))
+                        .Replace("{ClaimType}", claimTypeEnum.ToDbString())
                         .Replace("{YearNumber}", claim.YearNumber.ToString())
                         .Replace("{SerialNumber}", claim.SerialNumber.ToString("0000"));
                     //Logger.Write(body);
