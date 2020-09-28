@@ -16,6 +16,11 @@ using System.Security.Cryptography.X509Certificates;
 using System.Net.Mail;
 using System.Net;
 using Microsoft.AspNetCore.Cors;
+using yanbal.claimsbook.web.Helpers;
+using System.IO;
+using Microsoft.AspNetCore.Http;
+using System.Reflection;
+using System.Globalization;
 
 namespace yanbal.claimsbook.web.Controllers
 {
@@ -272,35 +277,55 @@ namespace yanbal.claimsbook.web.Controllers
                 await _context.SaveChangesAsync();
 
                 /// Send Mail
-                Exception ex = new Exception("No hay error");
                 try
                 {
-                    SendMail(claimRequest);
-                }
-                catch (Exception _ex)
-                {
-                    ex = _ex;
-                }
+                    var configKeys = await _context.ConfigKeys.ToListAsync();
 
-                return Ok(new { claim.ID, claim.SerialNumber, claim.YearNumber, Error = ex });
+                    var host = configKeys.SingleOrDefault(x => x.Code.Equals("MailHost")).Value;
+                    var port = configKeys.SingleOrDefault(x => x.Code.Equals("MailPort")).Value;
+                    var name = configKeys.SingleOrDefault(x => x.Code.Equals("MailName")).Value;
+                    var from = configKeys.SingleOrDefault(x => x.Code.Equals("MailFrom")).Value;
+                    var to = mainClaimer.EMail;
+                    var cc = guardClaimer != null ? guardClaimer.EMail : null;
+                    var subject = string.Format(configKeys.SingleOrDefault(x => x.Code.Equals("MailSubject")).Value, claim.YearNumber, claim.SerialNumber.ToString("0000"));
+                    var bodyTemplate = System.IO.File.ReadAllText("./Utils/Mails/ClaimTemplate.html");
+                    var body = bodyTemplate
+                        .Replace("{Names}", mainClaimer.Names)
+                        .Replace("{YearNumber}", claim.YearNumber.ToString())
+                        .Replace("{SerialNumber}", claim.SerialNumber.ToString("0000"));
+                    //Logger.Write(body);
+                    var attachmentPath = "./Utils/Mails/logo-yanbal.jpg";
+
+                    Logger.Write("Se leyó todo correctamente");
+
+                    var mailSender = new MailSender()
+                    {
+                        Host = host,
+                        Port = port,
+                        Name = name,
+                        From = from,
+                        To = to,
+                        Cc = cc,
+                        Subject = subject,
+                        Body = body,
+                        AttachmentPath = attachmentPath,
+                        AttachmentContentId = "pic1"
+                    };
+
+                    Logger.Write(mailSender.Stringify());
+
+                    mailSender.Send();
+                }
+                catch (Exception ex)
+                {
+                    Logger.Write(ex.Message);
+                    return StatusCode(StatusCodes.Status500InternalServerError, ex);
+                }
+                return Ok(new { claim.ID, claim.SerialNumber, claim.YearNumber});
             }
             catch (Exception ex)
             {
                 throw ex;
-            }
-        }
-        #endregion
-
-        #region Auxiliar
-        private void SendMail(ClaimViewModel claim)
-        {
-            try
-            {
-                
-            }
-            catch (Exception ex)
-            {
-                
             }
         }
         #endregion

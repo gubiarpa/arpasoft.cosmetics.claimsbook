@@ -370,8 +370,8 @@ const sendForm = () => {
             $('#btnPdfGenerator').attr('data-value', result.id).html('Imprimir').removeAttr('disabled');
         },
         error(xhr, ajaxOptions, thrownError) {
-            alert(xhr.status);
-            alert(thrownError);
+            console.log(xhr.status);
+            console.log(thrownError);
         }
     });
 
