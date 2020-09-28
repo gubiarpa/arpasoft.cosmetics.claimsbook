@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <None Include="compilerconfig.json" />
+    <None Include="wwwroot\docs\Condiciones.pdf" />
   </ItemGroup>
 
   <ItemGroup>

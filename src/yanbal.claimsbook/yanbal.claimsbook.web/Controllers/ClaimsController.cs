@@ -126,6 +126,12 @@ namespace yanbal.claimsbook.web.Controllers
                 throw ex;
             }
         }
+
+        public async Task<IActionResult> Conditions()
+        {
+            var file = await System.IO.File.ReadAllBytesAsync("wwwroot/docs/Condiciones.pdf");
+            return File(file, "application/pdf");
+        }
         #endregion
 
         #region AjaxRequests
