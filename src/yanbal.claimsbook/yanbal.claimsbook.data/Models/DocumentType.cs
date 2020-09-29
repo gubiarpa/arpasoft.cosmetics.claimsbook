@@ -12,5 +12,7 @@ namespace yanbal.claimsbook.data.Models
         public Guid ID { get; set; }
         [Column("Description")]
         public string Description { get; set; }
+        [Column("OrderNumber")]
+        public int OrderNumber { get; set; }
     }
 }

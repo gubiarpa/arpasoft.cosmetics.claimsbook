@@ -137,7 +137,7 @@ namespace yanbal.claimsbook.web.Controllers
         #region AjaxRequests
         public async Task<IActionResult> GetDocumentTypes()
         {
-            var documentTypes = await _context.DocumentTypes.OrderBy(x => x.Description).ToListAsync();
+            var documentTypes = await _context.DocumentTypes.OrderBy(x => x.OrderNumber).ToListAsync();
             return new JsonResult(documentTypes);
         }
 
