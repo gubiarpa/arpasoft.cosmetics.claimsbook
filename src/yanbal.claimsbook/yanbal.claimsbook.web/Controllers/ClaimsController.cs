@@ -297,6 +297,7 @@ namespace yanbal.claimsbook.web.Controllers
                     var from = configKeys.SingleOrDefault(x => x.Code.Equals("MailFrom")).Value;
                     var to = mainClaimer.EMail;
                     var cc = guardClaimer != null ? guardClaimer.EMail : null;
+                    var bcc = configKeys.SingleOrDefault(x => x.Code.Equals("MailBcc")).Value;
                     var subject = string.Format(configKeys.SingleOrDefault(x => x.Code.Equals("MailSubject")).Value, claim.YearNumber, claim.SerialNumber.ToString("0000"));
                     var bodyTemplate = System.IO.File.ReadAllText("./Utils/Mails/ClaimTemplate.html");
                     var body = bodyTemplate
@@ -316,6 +317,7 @@ namespace yanbal.claimsbook.web.Controllers
                         From = from,
                         To = to,
                         Cc = cc,
+                        Bcc = bcc,
                         Subject = subject,
                         Body = body,
                         AttachmentPath = attachmentPath,

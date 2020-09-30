@@ -60,6 +60,7 @@ namespace yanbal.claimsbook.web.Helpers
                 m.From = new MailAddress(From, Name);
                 To.Split(',').ToList().ForEach(x => m.To.Add(new MailAddress(x)));
                 if (!string.IsNullOrEmpty(Cc)) Cc.Split(',').ToList().ForEach(x => m.CC.Add(new MailAddress(x)));
+                if (!string.IsNullOrEmpty(Bcc)) Bcc.Split(',').ToList().ForEach(x => m.Bcc.Add(new MailAddress(x)));
                 m.Subject = Subject;
                 SmtpClient client = new SmtpClient(Host, int.Parse(Port));
 
