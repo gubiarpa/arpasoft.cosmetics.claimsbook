@@ -21,6 +21,7 @@ using System.IO;
 using Microsoft.AspNetCore.Http;
 using System.Reflection;
 using System.Globalization;
+using Microsoft.AspNetCore.Http.Extensions;
 
 namespace yanbal.claimsbook.web.Controllers
 {
@@ -237,7 +238,7 @@ namespace yanbal.claimsbook.web.Controllers
                     guardClaimer = null;
                 }
 
-                 await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
 
                 // Good Type
                 var goodTypeEnum = claimRequest.ContractedGood.IsAProduct ?
@@ -283,10 +284,13 @@ namespace yanbal.claimsbook.web.Controllers
                 await _context.SaveChangesAsync();
 
                 /// Send Mail
+
+                var configKeys = await _context.ConfigKeys.ToListAsync();
+                var logPath = configKeys.SingleOrDefault(x => x.Code.Equals("LogPath")).Value;
+                var storagePath = configKeys.SingleOrDefault(x => x.Code.Equals("StoragePath")).Value;
+
                 try
                 {
-                    var configKeys = await _context.ConfigKeys.ToListAsync();
-
                     var host = configKeys.SingleOrDefault(x => x.Code.Equals("MailHost")).Value;
                     var port = configKeys.SingleOrDefault(x => x.Code.Equals("MailPort")).Value;
                     var name = configKeys.SingleOrDefault(x => x.Code.Equals("MailName")).Value;
@@ -300,10 +304,9 @@ namespace yanbal.claimsbook.web.Controllers
                         .Replace("{ClaimType}", claimTypeEnum.ToDbString())
                         .Replace("{YearNumber}", claim.YearNumber.ToString())
                         .Replace("{SerialNumber}", claim.SerialNumber.ToString("0000"));
-                    //Logger.Write(body);
                     var attachmentPath = "./Utils/Mails/logo-yanbal.jpg";
 
-                    Logger.Write("Se leyó todo correctamente");
+                    Logger.Write(logPath, "Se leyó todo correctamente");
 
                     var mailSender = new MailSender()
                     {
@@ -319,13 +322,21 @@ namespace yanbal.claimsbook.web.Controllers
                         AttachmentContentId = "pic1"
                     };
 
-                    Logger.Write(mailSender.Stringify());
+                    Logger.Write(logPath, mailSender.Stringify());
 
-                    mailSender.Send();
+                    var storageFile = Path.Combine(storagePath, "Hoja de Reclamación " + claim.YearNumber.ToString() + "-" + claim.SerialNumber.ToString("0000") + ".pdf");
+                    var fullHost = HttpContext.Request.GetDisplayUrl().Substring(0, HttpContext.Request.GetDisplayUrl().IndexOf(HttpContext.Request.Path));
+                    var urlPdf = Path.Combine(fullHost, "Claims/GenerateClaimPdf", claim.ID.ToString());
+
+                    Logger.Write(logPath, "fullHost: " + fullHost);
+                    Logger.Write(logPath, "urlPdf: " + urlPdf);
+                    Logger.Write(logPath, "storageFile: " + storageFile);
+
+                    mailSender.Send(urlPdf, storageFile, logPath);
                 }
                 catch (Exception ex)
                 {
-                    Logger.Write(ex.Message);
+                    Logger.Write(logPath, ex.Message);
                     return StatusCode(StatusCodes.Status500InternalServerError, ex);
                 }
                 return Ok(new { claim.ID, claim.SerialNumber, claim.YearNumber});

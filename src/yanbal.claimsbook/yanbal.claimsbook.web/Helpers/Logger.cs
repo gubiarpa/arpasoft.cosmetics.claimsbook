@@ -7,13 +7,11 @@ namespace yanbal.claimsbook.web.Helpers
 {
     public static class Logger
     {
-        public static void Write(string message)
+        public static void Write(string path, string message)
         {
             try
             {
-                System.IO.File.AppendAllText(
-                            "D:\\Logs\\LibroReclamaciones\\LogLibroReclamaciones.log",
-                            DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + '\t' + message + '\n');
+                System.IO.File.AppendAllText(path, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + '\t' + message + '\n');
             }
             catch
             {
