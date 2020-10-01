@@ -266,7 +266,8 @@ const validateForm = (nameForm) => {
             }
             /// Address
             if (personalInfoform.mainClaimer.address.val() == 0) {
-
+                personalInfoform.mainClaimer.address.addClass('border-danger');
+                errors.push({ title: 'Dirección', message: 'Debe ingresar una dirección' });
             }
             errors.forEach(e => console.log(e));
             break;
