@@ -148,20 +148,20 @@ $(document).ready(() => {
     /* Continue */
     $('[name="btnContinue"]').click(function () {
 
-        /// (i) Cambio de formulario
         let parentFormName = $(this).attr('data-parentForm');
         let nextFormName = $(this).attr('data-nextForm');
 
         let validationResult = validateForm(parentFormName);
 
         if (validationResult.length == 0) {
-            $('#' + parentFormName).toggleClass('not-display');
-            $('#' + nextFormName).toggleClass('not-display animate__animated animate__fadeIn');
-        }
+            /// (i) Cambio de formulario
+            $(`#${parentFormName}`).toggleClass('not-display');
+            $(`#${nextFormName}`).toggleClass('not-display animate__animated animate__fadeIn');
 
-        /// (ii) Línea de progreso
-        let selectorStr = `[data-type="lineProgress"][data-form="${nextFormName}"]`;
-        $(selectorStr).attr('checked', 'checked');
+            /// (ii) Línea de progreso
+            let selectorStr = `[data-type="lineProgress"][data-form="${nextFormName}"]`;
+            $(selectorStr).attr('checked', 'checked');
+        }
 
 
         /// (iii) Actualización de Resumen Final
@@ -214,25 +214,61 @@ const validateForm = (nameForm) => {
 
     switch (nameForm) {
         case 'personalInfoForm':
-            // Document Type
-            let documentTypeID = $('#selectDocumentType option:selected').val();
-            let documentTypeName = $('#selectDocumentType option:selected').text();
-            let textDocumentNumber = $('#textDocumentNumber').val();
-
-            if (documentTypeID == null || documentTypeID == 'null') {
-                $('#selectDocumentType').addClass('border-danger');
-                //errors.push({ title: 'DNI' });
-            }
-            else {
-                $('#selectDocumentType').removeClass('border-danger');
-            }
-
-            if (documentTypeName == 'DNI') {
-                if (textDocumentNumber == null || textDocumentNumber.length != 8) {
-                    $('#textDocumentNumber').removeClass('border-danger');
+            let personalInfoform = {
+                mainClaimer: {
+                    document: {
+                        type: $('#selectDocumentType option:selected'),
+                        number: $('#textDocumentNumber')
+                    },
+                    name: $('#textClaimerName'),
+                    paternalSurname: $('#textSurnameFather'),
+                    maternalSurname: $('#textSurnameMother'),
+                    telephone: $('#textTelephone'),
+                    mail: $('#textMail'),
+                    address: $('#textAddress'),
+                    geoZone: {
+                        department: $('selectDepartment option:selected'),
+                        province: $('selectProvince option:selected'),
+                        district: $('selectDistrict option:selected')
+                    }
                 }
-                // errors.push({ title: 'DNI', message: 'El DNI debe ser numérico y de 8 dígitos' })
+            };
+            /// Document Number
+            if ((personalInfoform.mainClaimer.document.number.val() == '') ||
+                ((personalInfoform.mainClaimer.document.type.text() == 'DNI') && (personalInfoform.mainClaimer.document.number.val().length != 8)) ) {
+                personalInfoform.mainClaimer.document.number.addClass('border-danger');
+                errors.push({ title: 'DNI', message: 'El DNI debe ser numérico y de 8 dígitos' });
             }
+            /// Name
+            if (personalInfoform.mainClaimer.name.val() == '') {
+                personalInfoform.mainClaimer.name.addClass('border-danger');
+                errors.push({ title: 'Nombre', message: 'Debe ingresar su nombre' });
+            }
+            /// Paternal Surname
+            if (personalInfoform.mainClaimer.paternalSurname.val() == '') {
+                personalInfoform.mainClaimer.paternalSurname.addClass('border-danger');
+                errors.push({ title: 'Apellido Paterno', message: 'Debe ingresar su apellido paterno' });
+            }
+            /// Maternal Surname
+            if (personalInfoform.mainClaimer.maternalSurname.val() == '') {
+                personalInfoform.mainClaimer.maternalSurname.addClass('border-danger');
+                errors.push({ title: 'Apellido Materno', message: 'Debe ingresar su apellido materno' });
+            }
+            /// Telephone
+            if (personalInfoform.mainClaimer.telephone.val().length != 9) {
+                personalInfoform.mainClaimer.telephone.addClass('border-danger');
+                errors.push({ title: 'Teléfono', message: 'Debe ingresar un número de contacto' });
+            }
+            /// EMail
+            if (!validateEmail(personalInfoform.mainClaimer.mail.val())) {
+                personalInfoform.mainClaimer.mail.addClass('border-danger');
+                errors.push({ title: 'Correo Electrónico', message: 'Debe ingresar un email correcto' });
+            }
+            /// Address
+            if (personalInfoform.mainClaimer.address.val() == 0) {
+
+            }
+            errors.forEach(e => console.log(e));
             break;
         case 'contractedGoodForm':
             break;
@@ -378,6 +414,7 @@ const sendForm = () => {
 
 };
 
+/* Open PDF */
 const openPdf = () => {
     let id = $('#btnPdfGenerator').attr('data-value');
     window.open(buildEndpoint('Claims/GenerateClaimPdf/') + id, '_blank');
