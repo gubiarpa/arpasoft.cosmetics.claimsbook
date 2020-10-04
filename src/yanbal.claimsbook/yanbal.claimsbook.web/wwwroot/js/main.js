@@ -207,14 +207,11 @@ const changeGeoZone = (obj, printerMethod, defaultElem, defaultSubElem) => {
     });
 }
 
-/* Validation */
-const validateForm = (nameForm) => {
-
-    let errors = [];
-
+/* Catch Form */
+const getDataForm = (nameForm) => {
     switch (nameForm) {
         case 'personalInfoForm':
-            let personalInfoform = {
+            return {
                 mainClaimer: {
                     document: {
                         type: $('#selectDocumentType option:selected'),
@@ -230,9 +227,47 @@ const validateForm = (nameForm) => {
                         department: $('selectDepartment option:selected'),
                         province: $('selectProvince option:selected'),
                         district: $('selectDistrict option:selected')
+                    },
+                    isAdult: $('#checkIsYounger')[0].checked
+                },
+                guardClaimer: {
+                    document: {
+                        type: $('#selectGuardDocumentType option:selected'),
+                        number: $('#textGuardDocumentNumber')
+                    },
+                    name: $('#textGuardClaimerName'),
+                    paternalSurname: $('#textGuardSurnameFather'),
+                    maternalSurname: $('#textGuardSurnameMother'),
+                    telephone: $('#textGuardTelephone'),
+                    mail: $('#textGuardMail'),
+                    address: $('#textGuardAddress'),
+                    geoZone: {
+                        department: $('selectGuardDepartment option:selected'),
+                        province: $('selectGuardProvince option:selected'),
+                        district: $('selectGuardDistrict option:selected')
                     }
                 }
             };
+            break;
+        case 'contractedGoodForm':
+            break;
+        case 'claimDetailForm':
+            break;
+        case 'finalSummaryForm':
+            break;
+        default:
+            break;
+    }
+}
+
+/* Validation */
+const validateForm = (nameForm) => {
+
+    let errors = [];
+
+    switch (nameForm) {
+        case 'personalInfoForm':
+            let personalInfoform = getDataForm('personalInfoForm');
             /// Document Number
             if ((personalInfoform.mainClaimer.document.number.val() == '') ||
                 ((personalInfoform.mainClaimer.document.type.text() == 'DNI') && (personalInfoform.mainClaimer.document.number.val().length != 8)) ) {
