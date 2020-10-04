@@ -248,15 +248,26 @@ const getDataForm = (nameForm) => {
                     }
                 }
             };
-            break;
         case 'contractedGoodForm':
-            break;
+            return {
+                type: {
+                    isProduct: $('#checkIsProduct')[0].checked,
+                    isService: $('#checkIsService')[0].checked
+                },
+                claimedAmount: $('#textClaimedAmount'),
+                description: $('#textDescription')
+            };
         case 'claimDetailForm':
-            break;
-        case 'finalSummaryForm':
-            break;
+            return {
+                type: {
+                    isClaim: $('#checkIsClaim')[0].checked,
+                    isComplaint: $('#checkIsComplaint')[0].checked
+                },
+                claimDetail: $('#textClaimDetail'),
+                orderDetail: $('#textOrderDetail')
+            };
         default:
-            break;
+            return null;
     }
 }
 
