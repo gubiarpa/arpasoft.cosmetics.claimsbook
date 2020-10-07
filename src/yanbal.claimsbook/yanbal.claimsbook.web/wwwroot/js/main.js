@@ -168,7 +168,7 @@ $(document).ready(() => {
         updateSummary();
     });
 
-/* Check Agree */
+    /* Check Agree */
     $('[name="checkAgree"]').change(function () {
         let agreeList = $('[name="checkAgree"]');
         let isEnabled = agreeList[0].checked;
