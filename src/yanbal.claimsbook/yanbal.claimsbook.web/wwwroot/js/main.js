@@ -24,6 +24,28 @@ $(document).ready(() => {
         enablePersonalInfoForm();
     });
 
+    /* Text input remove danger */
+    $([
+        '#textDocumentNumber',
+        '#textClaimerName',
+        '#textSurnameFather',
+        '#textSurnameMother',
+        '#textTelephone',
+        '#textMail',
+        '#textAddress'
+    ].join(',')).change(function () {
+        $(this).removeClass('border-danger');
+    });
+
+    /* Select remove danger */
+    $([
+        '#selectDepartment',
+        '#selectProvince',
+        '#selectDistrict'
+    ].join(',')).change(function () {
+        $(this).removeClass('border-danger');
+    });
+
     /* Answer Types */
     $.ajax({
         type: 'GET',
@@ -224,9 +246,9 @@ const getDataForm = (nameForm) => {
                     mail: $('#textMail'),
                     address: $('#textAddress'),
                     geoZone: {
-                        department: $('selectDepartment option:selected'),
-                        province: $('selectProvince option:selected'),
-                        district: $('selectDistrict option:selected')
+                        department: $('#selectDepartment option:selected'),
+                        province: $('#selectProvince option:selected'),
+                        district: $('#selectDistrict option:selected')
                     },
                     isAdult: $('#checkIsYounger')[0].checked
                 },
@@ -242,9 +264,9 @@ const getDataForm = (nameForm) => {
                     mail: $('#textGuardMail'),
                     address: $('#textGuardAddress'),
                     geoZone: {
-                        department: $('selectGuardDepartment option:selected'),
-                        province: $('selectGuardProvince option:selected'),
-                        district: $('selectGuardDistrict option:selected')
+                        department: $('#selectGuardDepartment option:selected'),
+                        province: $('#selectGuardProvince option:selected'),
+                        district: $('#selectGuardDistrict option:selected')
                     }
                 }
             };
@@ -314,6 +336,25 @@ const validateForm = (nameForm) => {
             if (personalInfoform.mainClaimer.address.val() == 0) {
                 personalInfoform.mainClaimer.address.addClass('border-danger');
                 errors.push({ title: 'Dirección', message: 'Debe ingresar una dirección' });
+            }
+            /// Department
+            if (personalInfoform.mainClaimer.geoZone.department.text() == 'Departamento') {
+                personalInfoform.mainClaimer.geoZone.department.parent().addClass('border-danger');
+                errors.push({ title: 'Departamento', message: 'Debe seleccionar un departamento' });
+            }
+            else {
+                /// Province
+                if (personalInfoform.mainClaimer.geoZone.province.text() == 'Provincia') {
+                    personalInfoform.mainClaimer.geoZone.province.parent().addClass('border-danger');
+                    errors.push({ title: 'Provincia', message: 'Debe seleccionar una provincia' });
+                }
+                else {
+                    /// District
+                    if (personalInfoform.mainClaimer.geoZone.district.text() == 'Distrito') {
+                        personalInfoform.mainClaimer.geoZone.district.parent().addClass('border-danger');
+                        errors.push({ title: 'Distrito', message: 'Debe seleccionar un distrito' });
+                    }
+                }
             }
             errors.forEach(e => console.log(e));
             break;

@@ -38,6 +38,17 @@ function changeInputByDocumentType(triggerControl, affectedControls) {
 /*
  * AUXILIAR
  */
+$.fn.enterKey = function (fnc) {
+    return this.each(function () {
+        $(this).keypress(function (ev) {
+            var keycode = (ev.keyCode ? ev.keyCode : ev.which);
+            if (keycode == '13') {
+                fnc.call(this, ev);
+            }
+        })
+    })
+}
+
 function enablePersonalInfoForm() {
     let documentTypeValue = $('#selectDocumentType').val();
     let answerTypeValue = $('#selectAnswerType').val();
