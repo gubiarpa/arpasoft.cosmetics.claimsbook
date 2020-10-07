@@ -32,7 +32,11 @@ $(document).ready(() => {
         '#textSurnameMother',
         '#textTelephone',
         '#textMail',
-        '#textAddress'
+        '#textAddress',
+        '#textGuardDocumentNumber',
+        '#textGuardClaimerName',
+        '#textGuardSurnameFather',
+        '#textGuardSurnameMother'
     ].join(',')).change(function () {
         $(this).removeClass('border-danger');
     });
@@ -41,7 +45,10 @@ $(document).ready(() => {
     $([
         '#selectDepartment',
         '#selectProvince',
-        '#selectDistrict'
+        '#selectDistrict',
+        '#selectGuardDepartment',
+        '#selectGuardProvince',
+        '#selectGuardDistrict'
     ].join(',')).change(function () {
         $(this).removeClass('border-danger');
     });
@@ -164,7 +171,7 @@ $(document).ready(() => {
             guardForm.addClass('animate__fadeIn');
         }, 200);
         $("html, body").animate({ scrollTop: $(document).height() }, 700);
-
+        enablePersonalInfoForm();
     });
 
     /* Continue */
@@ -250,7 +257,7 @@ const getDataForm = (nameForm) => {
                         province: $('#selectProvince option:selected'),
                         district: $('#selectDistrict option:selected')
                     },
-                    isAdult: $('#checkIsYounger')[0].checked
+                    isAdult: !$('#checkIsYounger')[0].checked
                 },
                 guardClaimer: {
                     document: {
@@ -353,6 +360,59 @@ const validateForm = (nameForm) => {
                     if (personalInfoform.mainClaimer.geoZone.district.text() == 'Distrito') {
                         personalInfoform.mainClaimer.geoZone.district.parent().addClass('border-danger');
                         errors.push({ title: 'Distrito', message: 'Debe seleccionar un distrito' });
+                    }
+                }
+            }
+            
+            if (!personalInfoform.mainClaimer.isAdult) {
+                /// Document Number (Guard)
+                if ((personalInfoform.guardClaimer.document.number.val() == '') ||
+                    ((personalInfoform.guardClaimer.document.type.text() == 'DNI') && (personalInfoform.guardClaimer.document.number.val().length != 8))) {
+                    personalInfoform.guardClaimer.document.number.addClass('border-danger');
+                    errors.push({ title: 'DNI', message: 'El DNI del apoderado debe ser numérico y de 8 dígitos' });
+                }
+                /// Name (Guard)
+                if (personalInfoform.guardClaimer.name.val() == '') {
+                    personalInfoform.guardClaimer.name.addClass('border-danger');
+                    errors.push({ title: 'Nombre', message: 'Debe ingresar su nombre' });
+                }
+                /// Paternal Surname (Guard)
+                if (personalInfoform.guardClaimer.paternalSurname.val() == '') {
+                    personalInfoform.guardClaimer.paternalSurname.addClass('border-danger');
+                    errors.push({ title: 'Apellido Paterno', message: 'Debe ingresar su apellido paterno' });
+                }
+                /// Maternal Surname (Guard)
+                if (personalInfoform.guardClaimer.maternalSurname.val() == '') {
+                    personalInfoform.guardClaimer.maternalSurname.addClass('border-danger');
+                    errors.push({ title: 'Apellido Materno', message: 'Debe ingresar su apellido materno' });
+                }
+                /// Telephone (Guard)
+                if (personalInfoform.guardClaimer.telephone.val() == '') {
+                    personalInfoform.guardClaimer.telephone.addClass('border-danger');
+                    errors.push({ title: 'Teléfono', message: 'Debe ingresarse el número de teléfono' });
+                }
+                /// Answer Type (Guard)
+                if (personalInfoform.guardClaimer.address.val() == 0) {
+                    personalInfoform.guardClaimer.address.addClass('border-danger');
+                    errors.push({ title: 'Dirección', message: 'Debe ingresar una dirección' });
+                }
+                /// Department
+                if (personalInfoform.guardClaimer.geoZone.department.text() == 'Departamento') {
+                    personalInfoform.guardClaimer.geoZone.department.parent().addClass('border-danger');
+                    errors.push({ title: 'Departamento', message: 'Debe seleccionar un departamento' });
+                }
+                else {
+                    /// Province
+                    if (personalInfoform.guardClaimer.geoZone.province.text() == 'Provincia') {
+                        personalInfoform.guardClaimer.geoZone.province.parent().addClass('border-danger');
+                        errors.push({ title: 'Provincia', message: 'Debe seleccionar una provincia' });
+                    }
+                    else {
+                        /// District
+                        if (personalInfoform.guardClaimer.geoZone.district.text() == 'Distrito') {
+                            personalInfoform.guardClaimer.geoZone.district.parent().addClass('border-danger');
+                            errors.push({ title: 'Distrito', message: 'Debe seleccionar un distrito' });
+                        }
                     }
                 }
             }

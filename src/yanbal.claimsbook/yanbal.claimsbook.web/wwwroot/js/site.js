@@ -52,7 +52,14 @@ $.fn.enterKey = function (fnc) {
 function enablePersonalInfoForm() {
     let documentTypeValue = $('#selectDocumentType').val();
     let answerTypeValue = $('#selectAnswerType').val();
-    if (documentTypeValue != null && answerTypeValue != null) {
+    let isAdult = $('#checkIsYounger')[0].checked;
+    let guardDocumentTypeValue = $('#selectGuardDocumentType').val();
+
+    let eval = (
+        (documentTypeValue != null && answerTypeValue != null) &&
+        (!isAdult || guardDocumentTypeValue != null)
+    );
+    if (eval) {
         $('[data-parentForm="personalInfoForm"]').removeAttr('disabled');
     }
 }
