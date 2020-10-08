@@ -48,10 +48,10 @@ namespace yanbal.claimsbook.web.Helpers
         {
             using (WebClient webClient = new WebClient())
             {
-                var data = webClient.DownloadData(urlPdf);
-                var file = storagePath;
                 File.WriteAllBytes(file, data); // saves the file in 'storagePath'
-                m.Attachments.Add(new Attachment(file)); // attaches the file
+                var data = webClient.DownloadData(urlPdf.Replace('\\', '/'));
+                File.WriteAllBytes(storagePath, data);
+                m.Attachments.Add(new Attachment(storagePath)); // attaches the file
             }
         }
     }

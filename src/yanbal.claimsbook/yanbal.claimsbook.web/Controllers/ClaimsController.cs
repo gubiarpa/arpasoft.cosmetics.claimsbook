@@ -289,6 +289,8 @@ namespace yanbal.claimsbook.web.Controllers
                 var logPath = configKeys.SingleOrDefault(x => x.Code.Equals("LogPath")).Value;
                 var storagePath = configKeys.SingleOrDefault(x => x.Code.Equals("StoragePath")).Value;
 
+                string storageFile = "", fullHost = "", urlPdf = "";
+
                 try
                 {
                     var host = configKeys.SingleOrDefault(x => x.Code.Equals("MailHost")).Value;
@@ -326,22 +328,38 @@ namespace yanbal.claimsbook.web.Controllers
 
                     Logger.Write(logPath, mailSender.Stringify());
 
-                    var storageFile = Path.Combine(storagePath, "Hoja de Reclamación " + claim.YearNumber.ToString() + "-" + claim.SerialNumber.ToString("0000") + ".pdf");
-                    var fullHost = HttpContext.Request.GetDisplayUrl().Substring(0, HttpContext.Request.GetDisplayUrl().IndexOf(HttpContext.Request.Path));
-                    var urlPdf = Path.Combine(fullHost, "Claims/GenerateClaimPdf", claim.ID.ToString());
-
+                    try
+                    {
+                        storageFile = Path.Combine(/*storagePath*/"Storage", "Hoja de Reclamación " + claim.YearNumber.ToString() + "-" + claim.SerialNumber.ToString("0000") + ".pdf");
+                        fullHost = HttpContext.Request.GetDisplayUrl().Substring(0, HttpContext.Request.GetDisplayUrl().IndexOf(HttpContext.Request.Path));
+                        urlPdf = Path.Combine(fullHost, "Claims/GenerateClaimPdf", claim.ID.ToString());
+                    }
+                    catch (Exception ex)
+                    {
+                        return Ok(new { claim.ID, claim.SerialNumber, claim.YearNumber, error = ex.Message,
+                        datos = new { storageFile, fullHost, urlPdf }, version = "2.0.0" });
+                    }
+                    
                     Logger.Write(logPath, "fullHost: " + fullHost);
                     Logger.Write(logPath, "urlPdf: " + urlPdf);
                     Logger.Write(logPath, "storageFile: " + storageFile);
 
                     mailSender.Send(urlPdf, storageFile, logPath);
+
+                    return Ok(new
+                    {
+                        claim.ID,
+                        claim.SerialNumber,
+                        claim.YearNumber,
+                        datos = new { storageFile, fullHost, urlPdf }
+                    });
                 }
                 catch (Exception ex)
                 {
                     Logger.Write(logPath, ex.Message);
-                    return StatusCode(StatusCodes.Status500InternalServerError, ex);
+                    return Ok(new { claim.ID, claim.SerialNumber, claim.YearNumber, error = ex.Message, version = "2.0.0",
+                        datos = new { storageFile, fullHost, urlPdf } });
                 }
-                return Ok(new { claim.ID, claim.SerialNumber, claim.YearNumber});
             }
             catch (Exception ex)
             {
