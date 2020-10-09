@@ -286,7 +286,9 @@ namespace yanbal.claimsbook.web.Controllers
                 /// Send Mail
 
                 var configKeys = await _context.ConfigKeys.ToListAsync();
-                var logPath = configKeys.SingleOrDefault(x => x.Code.Equals("LogPath")).Value;
+                var logPath = string.Format(
+                    configKeys.SingleOrDefault(x => x.Code.Equals("LogPath")).Value,
+                    DateTime.Now.ToString("yyyy-MM-dd"));
                 var storagePath = configKeys.SingleOrDefault(x => x.Code.Equals("StoragePath")).Value;
 
                 string storageFile = "", fullHost = "", urlPdf = "";

@@ -68,6 +68,7 @@ namespace yanbal.claimsbook.web.Helpers
                 client.Send(m);
                 Logger.Write(logPath, "Se envió el mensaje correctamente");
 
+                m.DeletePdf(storageFile);
             }
             catch (Exception ex)
             {

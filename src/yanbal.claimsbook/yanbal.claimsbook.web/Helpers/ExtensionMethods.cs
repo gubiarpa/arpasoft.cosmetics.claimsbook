@@ -48,11 +48,15 @@ namespace yanbal.claimsbook.web.Helpers
         {
             using (WebClient webClient = new WebClient())
             {
-                File.WriteAllBytes(file, data); // saves the file in 'storagePath'
                 var data = webClient.DownloadData(urlPdf.Replace('\\', '/'));
                 File.WriteAllBytes(storagePath, data);
                 m.Attachments.Add(new Attachment(storagePath)); // attaches the file
             }
+        }
+
+        public static void DeletePdf(this MailMessage m, string storagePath)
+        {
+            File.Delete(storagePath);
         }
     }
 }
