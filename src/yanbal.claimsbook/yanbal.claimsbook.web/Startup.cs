@@ -37,7 +37,7 @@ namespace yanbal.claimsbook.web
             });
             services.AddControllersWithViews();
             services.AddDbContext<DBContextApp>(
-                options => options.UseSqlServer(Configuration.GetConnectionString("YanbalClaimsConn")));
+                options => options.UseSqlServer(Configuration.GetConnectionString("ClaimsBookConn")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
