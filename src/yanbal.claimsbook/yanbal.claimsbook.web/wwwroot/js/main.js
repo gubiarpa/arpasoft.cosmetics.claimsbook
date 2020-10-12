@@ -189,7 +189,7 @@ $(document).ready(() => {
 
             /// (ii) Línea de progreso
             let selectorStr = `[data-type="lineProgress"][data-form="${nextFormName}"]`;
-            $(selectorStr).attr('checked', 'checked');
+            $(selectorStr).removeClass('inactive');
         }
 
 
@@ -574,14 +574,13 @@ const openPdf = () => {
 
 /* Event Resizing (and loading) */
 const windowSetSize = () => {
-    if (window.innerWidth < 768) {
+    
+    let limit = 768,
+        position1 = 0.07, position2 = 0.27, position3 = 0.47, position4 = 0.67;
 
-        let position1 = 0.07, position2 = 0.27, position3 = 0.47, position4 = 0.67;
+    if (window.innerWidth < limit) {
         /// Padding Left
         $('svg').css('padding-left', window.innerWidth * 0.05);
-        /// Text
-        $('#svgText1').attr('x', window.innerWidth * position1 - 50);
-        $('#svgText2').attr('x', window.innerWidth * position2 - 50);
         /// Circle
         $('#svgCircle1').attr('cx', window.innerWidth * position1);
         $('#svgCircle2').attr('cx', window.innerWidth * position2);
@@ -591,5 +590,11 @@ const windowSetSize = () => {
         $('#svgLine2').attr('x', window.innerWidth * position1).attr('width', window.innerWidth * (position2 - position1));
         $('#svgLine3').attr('x', window.innerWidth * position2).attr('width', window.innerWidth * (position3 - position2));
         $('#svgLine4').attr('x', window.innerWidth * position3).attr('width', window.innerWidth * (position4 - position3));
+    } else {
+        /// Text
+        $('#svgText1').attr('x', limit * position1 - 50);
+        $('#svgText2').attr('x', limit * position2 - 20);
+        $('#svgText3').attr('x', limit * position3 - 20);
+        $('#svgText4').attr('x', limit * position4 + 10);
     }
 }
