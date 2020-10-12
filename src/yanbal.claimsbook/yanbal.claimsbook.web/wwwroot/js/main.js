@@ -214,6 +214,10 @@ $(document).ready(() => {
     $('#btnSend').click(sendForm);
 
     $('#btnPdfGenerator').click(openPdf);
+
+/* Window resize */
+    windowSetSize();
+    $(window).resize(windowSetSize);
 });
 
 /* Change Department */
@@ -566,4 +570,26 @@ const sendForm = () => {
 const openPdf = () => {
     let id = $('#btnPdfGenerator').attr('data-value');
     window.open(buildEndpoint('Claims/GenerateClaimPdf/') + id, '_blank');
+}
+
+/* Event Resizing (and loading) */
+const windowSetSize = () => {
+    if (window.innerWidth < 768) {
+
+        let position1 = 0.07, position2 = 0.27, position3 = 0.47, position4 = 0.67;
+        /// Padding Left
+        $('svg').css('padding-left', window.innerWidth * 0.05);
+        /// Text
+        $('#svgText1').attr('x', window.innerWidth * position1 - 50);
+        $('#svgText2').attr('x', window.innerWidth * position2 - 50);
+        /// Circle
+        $('#svgCircle1').attr('cx', window.innerWidth * position1);
+        $('#svgCircle2').attr('cx', window.innerWidth * position2);
+        $('#svgCircle3').attr('cx', window.innerWidth * position3);
+        $('#svgCircle4').attr('cx', window.innerWidth * position4);
+        /// Line
+        $('#svgLine2').attr('x', window.innerWidth * position1).attr('width', window.innerWidth * (position2 - position1));
+        $('#svgLine3').attr('x', window.innerWidth * position2).attr('width', window.innerWidth * (position3 - position2));
+        $('#svgLine4').attr('x', window.innerWidth * position3).attr('width', window.innerWidth * (position4 - position3));
+    }
 }
