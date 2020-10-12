@@ -348,6 +348,9 @@ namespace yanbal.claimsbook.web.Controllers
 
                     mailSender.Send(urlPdf, storageFile, logPath);
 
+                    claim.Completed = true;
+                    await _context.SaveChangesAsync();
+
                     return Ok(new
                     {
                         claim.ID,
