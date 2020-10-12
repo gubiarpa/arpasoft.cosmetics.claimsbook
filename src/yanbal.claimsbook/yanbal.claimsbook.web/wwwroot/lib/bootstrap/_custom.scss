@@ -86,7 +86,6 @@ table {
         vertical-align: top;
         
         &.display-desktop {
-            /*display: normal;*/
             @media (max-width: 768px) {
                 display: none;
             }
@@ -95,12 +94,10 @@ table {
 }
 
 .display-mobile {
-    /*display: normal;*/
     @media (min-width: 769px) {
         display: none;
     }
 }
-
 
 div {
     &.progress-container {
@@ -134,4 +131,24 @@ th {
 
 .wrap-col {
     width: 200px;
+}
+
+/* SVG */
+svg {
+    font-size: 0.8em;
+    fill: #dc582a;
+    stroke: #dc582a;
+
+    .inactive {
+        fill: #BBB;
+        stroke: #BBB;
+    }
+
+    @media (max-width: 768px) {
+        width: 100%;
+
+        text {
+            display: none;
+        }
+    }
 }

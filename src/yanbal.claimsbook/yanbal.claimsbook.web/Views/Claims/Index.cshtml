@@ -17,26 +17,38 @@
 </div>
 <!-- Línea de Progreso -->
 <div class="progress-container my-4">
-    <div class="custom-control custom-radio d-inline progress-point">
-        <input type="radio" class="custom-control-input" id="lineProg1" data-type="lineProgress" data-form="personalInfoForm" checked="checked">
-        <label class="custom-control-label" for="lineProg1">INFORMACIÓN PERSONAL</label>
-        <div class="invalid-feedback">More example invalid feedback text</div>
-    </div>
-    <div class="custom-control custom-radio d-inline progress-point">
-        <input type="radio" class="custom-control-input" id="lineProg2" data-type="lineProgress" data-form="contractedGoodForm">
-        <label class="custom-control-label" for="lineProg2">BIEN CONTRATADO</label>
-        <div class="invalid-feedback">More example invalid feedback text</div>
-    </div>
-    <div class="custom-control custom-radio d-inline progress-point">
-        <input type="radio" class="custom-control-input" id="lineProg3" data-type="lineProgress" data-form="claimDetailForm">
-        <label class="custom-control-label" for="lineProg3">DETALLE DEL RECLAMO</label>
-        <div class="invalid-feedback">More example invalid feedback text</div>
-    </div>
-    <div class="custom-control custom-radio d-inline progress-point">
-        <input type="radio" class="custom-control-input" id="lineProg4" data-type="lineProgress" data-form="finalSummaryForm">
-        <label class="custom-control-label" for="lineProg4">RESUMEN FINAL</label>
-        <div class="invalid-feedback">More example invalid feedback text</div>
-    </div>
+    <svg width="626" height="34" xmlns="http://www.w3.org/2000/svg">
+        <g>
+            <title>background</title>
+            <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
+                <rect fill="url(#gridpattern)" stroke-width="0" y="1" x="1" height="600" width="800" />
+            </g>
+        </g>
+        <g>
+            <title>Libro de Reclamaciones</title>
+
+            <!-- Text (available only in PC) -->
+            <text xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="0.8em"
+                  id="svgText1" y="11.5" x="2.58334" stroke-width="0" stroke="#dc582a" fill="#dc582a">INFORMACIÓN PERSONAL</text>
+            <text xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="0.8em"
+                  id="svgText2" y="11.5" x="179.91668" stroke-width="0" stroke="#dc582a" fill="#dc582a" class="inactive">BIEN CONTRATADO</text>
+            <text xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="0.8em"
+                  id="svgText3" y="11.5" x="342.58337" stroke-width="0" stroke="#dc582a" fill="#dc582a" class="inactive">DETALLE DEL RECLAMO</text>
+            <text xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="0.8em"
+                  id="svgText4" y="11.5" x="526.08338" stroke-width="0" stroke="#dc582a" fill="#dc582a" class="inactive">RESUMEN FINAL</text>
+
+            <!-- Lines in PC -->
+            <rect id="svgLine2" stroke="#dc582a" height="2" width="160" y="23.5501" x="73.25" stroke-width="1.5" />
+            <rect id="svgLine3" stroke="#dc582a" height="2" width="160" y="23.5501" x="241.24988" stroke-width="1.5" class="inactive" />
+            <rect id="svgLine4" stroke="#dc582a" height="2" width="160" y="23.5501" x="405.91642" stroke-width="1.5" class="inactive" />
+
+            <!-- Circles in PC -->
+            <ellipse id="svgCircle1" ry="7" rx="7" cy="24.38339" cx="68.75004" stroke-width="1.5" stroke="#dc582a" fill="#dc582a" />
+            <ellipse id="svgCircle2" ry="7" rx="7" cy="24.38339" cx="236.74992" stroke-width="1.5" stroke="#dc582a" fill="#dc582a" class="inactive" />
+            <ellipse id="svgCircle3" ry="7" rx="7" cy="24.38339" cx="401.41645" stroke-width="1.5" stroke="#dc582a" fill="#dc582a" class="inactive" />
+            <ellipse id="svgCircle4" ry="7" rx="7" cy="24.38339" cx="569.41633" stroke-width="1.5" stroke="#dc582a" fill="#dc582a" class="inactive" />
+        </g>
+    </svg>
 </div>
 <hr />
 <!-- Datos Personales (personalInfoForm) -->
