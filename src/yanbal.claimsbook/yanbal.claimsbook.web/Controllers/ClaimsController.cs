@@ -22,6 +22,7 @@ using Microsoft.AspNetCore.Http;
 using System.Reflection;
 using System.Globalization;
 using Microsoft.AspNetCore.Http.Extensions;
+using yanbal.claimsbook.web.Utils.MD5;
 
 namespace yanbal.claimsbook.web.Controllers
 {
@@ -48,7 +49,7 @@ namespace yanbal.claimsbook.web.Controllers
                 claim = await _context.Claims.SingleOrDefaultAsync(x => x.ID.Equals(ID));
 
                 #region MainClaimer
-                mainClaimer = await _context.Claimers.SingleOrDefaultAsync(x => x.ID.Equals(claim.MainClaimerID));
+                mainClaimer = (await _context.Claimers.SingleOrDefaultAsync(x => x.ID.Equals(claim.MainClaimerID))).Decrypt();
                 var mainClaimerPdf = new ClaimerPdfViewModel();
                 mainClaimerPdf.DocumentType = (await _context.DocumentTypes.SingleOrDefaultAsync(x => x.ID.Equals(mainClaimer.DocumentTypeID))).Description;
                 mainClaimerPdf.DocumentNumber = mainClaimer.DocumentNumber;
@@ -65,7 +66,7 @@ namespace yanbal.claimsbook.web.Controllers
                 if (claim.GuardClaimerID != null)
                 {
                     if (claim.GuardClaimerID != null ) guardClaimer = await _context.Claimers.SingleOrDefaultAsync(x => x.ID.Equals(claim.GuardClaimerID));
-                    guardClaimer = await _context.Claimers.SingleOrDefaultAsync(x => x.ID.Equals(claim.GuardClaimerID));
+                    guardClaimer = (await _context.Claimers.SingleOrDefaultAsync(x => x.ID.Equals(claim.GuardClaimerID))).Decrypt();
                     guardClaimerPdf.DocumentType = (await _context.DocumentTypes.SingleOrDefaultAsync(x => x.ID.Equals(guardClaimer.DocumentTypeID))).Description;
                     guardClaimerPdf.DocumentNumber = guardClaimer.DocumentNumber;
                     guardClaimerPdf.FullName = string.Format("{0} {1} {2}", guardClaimer.Names, guardClaimer.PaternalSurname, guardClaimer.MaternalSurname);
@@ -212,7 +213,9 @@ namespace yanbal.claimsbook.web.Controllers
                     Address = claimRequest.MainClaimer.Address,
                     GeoZoneID = geoZone.ID
                 };
-                _context.Claimers.Add(mainClaimer);
+                var mainclaimerEncrypt = mainClaimer.Encript();
+                _context.Claimers.Add(mainclaimerEncrypt);
+                mainClaimer.ID = mainclaimerEncrypt.ID;
 
                 var guardClaimer = new Claimer();
 
@@ -231,7 +234,9 @@ namespace yanbal.claimsbook.web.Controllers
                         Address = claimRequest.GuardClaimer.Address,
                         GeoZoneID = guardGeoZone.ID
                     };
-                    _context.Claimers.Add(guardClaimer);
+                    var guardClaimerEncrypt = guardClaimer.Encript();
+                    _context.Claimers.Add(guardClaimerEncrypt);
+                    guardClaimer.ID = guardClaimerEncrypt.ID;
                 }
                 else
                 {
