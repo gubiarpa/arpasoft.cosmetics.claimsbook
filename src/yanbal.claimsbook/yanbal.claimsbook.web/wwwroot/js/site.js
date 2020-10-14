@@ -38,16 +38,6 @@ function changeInputByDocumentType(triggerControl, affectedControls) {
 /*
  * AUXILIAR
  */
-$.fn.enterKey = function (fnc) {
-    return this.each(function () {
-        $(this).keypress(function (ev) {
-            var keycode = (ev.keyCode ? ev.keyCode : ev.which);
-            if (keycode == '13') {
-                fnc.call(this, ev);
-            }
-        })
-    })
-}
 
 function enablePersonalInfoForm() {
     let documentTypeValue = $('#selectDocumentType').val();
@@ -61,6 +51,21 @@ function enablePersonalInfoForm() {
     );
     if (eval) {
         $('[data-parentForm="personalInfoForm"]').removeAttr('disabled');
+    }
+}
+
+function enableContractedGoodForm() {
+    let contractedGoodForm = getDataForm('contractedGoodForm');
+    let eval = ( // true: si el formulario está correctamente completado
+        (contractedGoodForm.type.isService || contractedGoodForm.type.isProduct) &&
+        (contractedGoodForm.claimedAmount.val().length > 0) &&
+        (contractedGoodForm.description.val().length > 0)
+    );
+    let button = $('[data-parentForm="contractedGoodForm"]')
+    if (eval) {
+        button.removeAttr('disabled');
+    } else {
+        button.attr('disabled', 'disabled');
     }
 }
 
@@ -79,4 +84,9 @@ function validateEmail(mail) {
 
 function zeroPad(num, places) {
     return String(num).padStart(places, '0');
+}
+
+/* Validate Decimal */
+function validateDecimal(number) {
+    return (/^\d+\.\d{0,2}$/).test(number);
 }

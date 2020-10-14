@@ -1,4 +1,4 @@
-﻿
+﻿ 
 /* Document Loaded */
 $(document).ready(() => {
     
@@ -162,6 +162,14 @@ $(document).ready(() => {
 
     });
 
+    $('#textClaimedAmount,#textDescription').keyup(function (event) {
+        enableContractedGoodForm();
+    });
+
+    $('#checkIsProduct,#checkIsService,#textClaimedAmount,#textDescription').change(function () {
+        enableContractedGoodForm();
+    });
+
     /* Younger */
     $('#checkIsYounger').change(function () {
         let guardForm = $('#guardForm');
@@ -311,7 +319,7 @@ const validateForm = (nameForm) => {
 
     switch (nameForm) {
         case 'personalInfoForm':
-            let personalInfoform = getDataForm('personalInfoForm');
+            let personalInfoform = getDataForm(nameForm);
             /// Document Number
             if ((personalInfoform.mainClaimer.document.number.val() == '') ||
                 ((personalInfoform.mainClaimer.document.type.text() == 'DNI') && (personalInfoform.mainClaimer.document.number.val().length != 8)) ) {
