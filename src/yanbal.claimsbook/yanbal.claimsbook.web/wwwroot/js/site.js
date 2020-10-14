@@ -88,5 +88,5 @@ function zeroPad(num, places) {
 
 /* Validate Decimal */
 function validateDecimal(number) {
-    return (/^\d+\.\d{0,2}$/).test(number);
+    return (/^\d+(\.\d{1,2})?$/).test(number);
 }

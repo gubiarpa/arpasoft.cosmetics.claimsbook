@@ -36,7 +36,8 @@ $(document).ready(() => {
         '#textGuardDocumentNumber',
         '#textGuardClaimerName',
         '#textGuardSurnameFather',
-        '#textGuardSurnameMother'
+        '#textGuardSurnameMother',
+        '#textClaimedAmount'
     ].join(',')).change(function () {
         $(this).removeClass('border-danger');
     });
@@ -431,6 +432,12 @@ const validateForm = (nameForm) => {
             errors.forEach(e => console.log(e));
             break;
         case 'contractedGoodForm':
+            let contractedGoodForm = getDataForm(nameForm);
+            ///
+            if (!validateDecimal(contractedGoodForm.claimedAmount.val())) {
+                contractedGoodForm.claimedAmount.addClass('border-danger');
+                errors.push({ title: 'Monto reclamado', message: 'Debe ingresar un monto numérico' })
+            }
             break;
         case 'claimDetailForm':
             break;
