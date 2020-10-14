@@ -163,6 +163,7 @@ $(document).ready(() => {
 
     });
 
+    /* Claimed Amount, Good Description */
     $('#textClaimedAmount,#textDescription').keyup(function (event) {
         enableContractedGoodForm();
     });
@@ -170,6 +171,15 @@ $(document).ready(() => {
     $('#checkIsProduct,#checkIsService,#textClaimedAmount,#textDescription').change(function () {
         enableContractedGoodForm();
     });
+
+    /* Claim Detail */
+    $('#textClaimDetail,#textOrderDetail').keyup(function (event) {
+        enableClaimDetailForm();
+    });
+
+    $('#checkIsClaim,#checkIsComplaint,#textClaimDetail,#textOrderDetail').change(function () {
+        enableClaimDetailForm();
+    })
 
     /* Younger */
     $('#checkIsYounger').change(function () {
@@ -433,7 +443,7 @@ const validateForm = (nameForm) => {
             break;
         case 'contractedGoodForm':
             let contractedGoodForm = getDataForm(nameForm);
-            ///
+            /// Validar que es un número (entero o decimal)
             if (!validateDecimal(contractedGoodForm.claimedAmount.val())) {
                 contractedGoodForm.claimedAmount.addClass('border-danger');
                 errors.push({ title: 'Monto reclamado', message: 'Debe ingresar un monto numérico' })

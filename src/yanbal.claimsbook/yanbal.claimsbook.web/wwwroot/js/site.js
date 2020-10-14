@@ -56,12 +56,27 @@ function enablePersonalInfoForm() {
 
 function enableContractedGoodForm() {
     let contractedGoodForm = getDataForm('contractedGoodForm');
-    let eval = ( // true: si el formulario está correctamente completado
+    let eval = ( // true: si el formulario ha sido completado correctamente
         (contractedGoodForm.type.isService || contractedGoodForm.type.isProduct) &&
         (contractedGoodForm.claimedAmount.val().length > 0) &&
         (contractedGoodForm.description.val().length > 0)
     );
-    let button = $('[data-parentForm="contractedGoodForm"]')
+    let button = $('[data-parentForm="contractedGoodForm"]');
+    if (eval) {
+        button.removeAttr('disabled');
+    } else {
+        button.attr('disabled', 'disabled');
+    }
+}
+
+function enableClaimDetailForm() {
+    let claimDetailForm = getDataForm('claimDetailForm');
+    let eval = ( // true: si el formulario ha sido completado correctamente
+        (claimDetailForm.type.isClaim || claimDetailForm.type.isComplaint) &&
+        (claimDetailForm.claimDetail.val().length > 0) &&
+        (claimDetailForm.orderDetail.val().length > 0)
+    );
+    let button = $('[data-parentForm="claimDetailForm"]');
     if (eval) {
         button.removeAttr('disabled');
     } else {
