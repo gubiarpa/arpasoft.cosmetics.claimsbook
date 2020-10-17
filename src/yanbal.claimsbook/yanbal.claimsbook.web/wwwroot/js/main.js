@@ -101,7 +101,12 @@ $(document).ready(() => {
     });
 
     /* Only Digits */
-    $('#textDocumentNumber').keydown(function (e) {
+    $([
+        '#textDocumentNumber',
+        '#textTelephone',
+        '#textGuardDocumentNumber',
+        '#textGuardTelephone'
+    ].join(',')).keydown(function (e) {
         if (! ( (/^[0-9]*$/).test(e.key) || [8, 9, 13, 16, 35, 36, 37, 39, 46].indexOf(e.keyCode) >= 0 ) ) {
             e.preventDefault();
         }
