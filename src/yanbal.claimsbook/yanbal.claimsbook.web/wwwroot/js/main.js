@@ -112,6 +112,20 @@ $(document).ready(() => {
         }
     });
 
+    /* No digits */
+    $([
+        '#textClaimerName',
+        '#textSurnameFather',
+        '#textSurnameMother',
+        '#textGuardClaimerName',
+        '#textGuardSurnameFather',
+        '#textGuardSurnameMother'
+    ].join(',')).keydown(function (e) {
+        if ((/^[0-9]*$/).test(e.key)) {
+            e.preventDefault();
+        }
+    });
+
     $('#selectDepartment').change(function () {
         changeGeoZone({
             selectSubzone: 'selectDistrict',
