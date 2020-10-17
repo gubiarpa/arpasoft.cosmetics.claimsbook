@@ -47,6 +47,7 @@ namespace yanbal.claimsbook.web.Controllers
             {
                 Claim claim = null; Claimer mainClaimer = null, guardClaimer = null;
                 claim = await _context.Claims.SingleOrDefaultAsync(x => x.ID.Equals(ID));
+                if (claim.DateClaim.AddMinutes(2).CompareTo(DateTime.Now) < 0) return NotFound();
 
                 #region MainClaimer
                 mainClaimer = (await _context.Claimers.SingleOrDefaultAsync(x => x.ID.Equals(claim.MainClaimerID))).Decrypt();
