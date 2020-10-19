@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using yanbal.claimsbook.data.Models;
 
-namespace yanbal.claimsbook.web.Utils.MD5
+namespace yanbal.claimsbook.web.Utils.Hash
 {
     public static class Md5
     {

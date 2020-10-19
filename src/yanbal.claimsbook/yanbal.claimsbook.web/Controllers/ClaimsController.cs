@@ -22,7 +22,7 @@ using Microsoft.AspNetCore.Http;
 using System.Reflection;
 using System.Globalization;
 using Microsoft.AspNetCore.Http.Extensions;
-using yanbal.claimsbook.web.Utils.MD5;
+using yanbal.claimsbook.web.Utils.Hash;
 
 namespace yanbal.claimsbook.web.Controllers
 {
