@@ -38,6 +38,11 @@ namespace yanbal.claimsbook.web
             services.AddControllersWithViews();
             services.AddDbContext<DBContextApp>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("ClaimsBookConn")));
+            services.ConfigureApplicationCookie(o =>
+            {
+                o.Cookie.SecurePolicy = Microsoft.AspNetCore.Http.CookieSecurePolicy.Always;
+                o.Cookie.HttpOnly = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
