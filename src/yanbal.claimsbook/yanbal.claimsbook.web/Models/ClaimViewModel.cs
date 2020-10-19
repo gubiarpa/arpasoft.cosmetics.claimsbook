@@ -39,7 +39,7 @@ namespace yanbal.claimsbook.web.Models
     public class ContractedGoodViewModel
     {
         public bool IsAProduct { get; set; }
-        public System.Decimal ClaimedAmount { get; set; }
+        public string ClaimedAmount { get; set; }
         public string GoodDescription { get; set; }
     }
 

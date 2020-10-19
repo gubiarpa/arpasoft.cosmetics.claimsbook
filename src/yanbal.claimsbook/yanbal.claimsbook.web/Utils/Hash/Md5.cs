@@ -12,7 +12,7 @@ namespace yanbal.claimsbook.web.Utils.Hash
     {
         private const string key = "A!9HHhi%XjjYY4YP2@Nob009X";
 
-        public static string Encrypt(this string text)
+        public static string Md5Encrypt(this string text)
         {
             using (var md5 = new MD5CryptoServiceProvider())
             {
@@ -32,7 +32,7 @@ namespace yanbal.claimsbook.web.Utils.Hash
             }
         }
 
-        public static string Decrypt(this string cipher)
+        public static string Md5Decrypt(this string cipher)
         {
             using (var md5 = new MD5CryptoServiceProvider())
             {
@@ -52,38 +52,38 @@ namespace yanbal.claimsbook.web.Utils.Hash
             }
         }
 
-        public static Claimer Encript(this Claimer claimer)
+        public static Claimer Md5Encript(this Claimer claimer)
         {
             return new Claimer()
             {
                 ID = claimer.ID,
                 DocumentTypeID = claimer.DocumentTypeID,
-                DocumentNumber = claimer.DocumentNumber.Encrypt(),
-                Names = claimer.Names.Encrypt(),
-                PaternalSurname = claimer.PaternalSurname.Encrypt(),
-                MaternalSurname = claimer.MaternalSurname.Encrypt(),
+                DocumentNumber = claimer.DocumentNumber.Md5Encrypt(),
+                Names = claimer.Names.Md5Encrypt(),
+                PaternalSurname = claimer.PaternalSurname.Md5Encrypt(),
+                MaternalSurname = claimer.MaternalSurname.Md5Encrypt(),
                 AnswerTypeID = claimer.AnswerTypeID,
-                PhoneNumber = claimer.PhoneNumber.Encrypt(),
-                EMail = claimer.EMail.Encrypt(),
-                Address = claimer.Address.Encrypt(),
+                PhoneNumber = claimer.PhoneNumber.Md5Encrypt(),
+                EMail = claimer.EMail.Md5Encrypt(),
+                Address = claimer.Address.Md5Encrypt(),
                 GeoZoneID = claimer.GeoZoneID
             };
         }
 
-        public static Claimer Decrypt(this Claimer claimer)
+        public static Claimer Md5Decrypt(this Claimer claimer)
         {
             return new Claimer()
             {
                 ID = claimer.ID,
                 DocumentTypeID = claimer.DocumentTypeID,
-                DocumentNumber = claimer.DocumentNumber.Decrypt(),
-                Names = claimer.Names.Decrypt(),
-                PaternalSurname = claimer.PaternalSurname.Decrypt(),
-                MaternalSurname = claimer.MaternalSurname.Decrypt(),
+                DocumentNumber = claimer.DocumentNumber.Md5Decrypt(),
+                Names = claimer.Names.Md5Decrypt(),
+                PaternalSurname = claimer.PaternalSurname.Md5Decrypt(),
+                MaternalSurname = claimer.MaternalSurname.Md5Decrypt(),
                 AnswerTypeID = claimer.AnswerTypeID,
-                PhoneNumber = claimer.PhoneNumber.Decrypt(),
-                EMail = claimer.EMail.Decrypt(),
-                Address = claimer.Address.Decrypt(),
+                PhoneNumber = claimer.PhoneNumber.Md5Decrypt(),
+                EMail = claimer.EMail.Md5Decrypt(),
+                Address = claimer.Address.Md5Decrypt(),
                 GeoZoneID = claimer.GeoZoneID
             };
         }

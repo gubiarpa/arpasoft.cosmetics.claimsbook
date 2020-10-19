@@ -2,11 +2,13 @@
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using yanbal.claimsbook.data.Models;
 
 namespace yanbal.claimsbook.web.Utils.Hash
 {
     public static class Sha256
     {
+        #region Algorithm
         private const string password = "y4nb4l#cl41m5.2020$";
 
         /// <summary>
@@ -14,7 +16,7 @@ namespace yanbal.claimsbook.web.Utils.Hash
         /// </summary>
         /// <param name="plainText">String to be encrypted</param>
         /// <param name="password">Password</param>
-        public static string Encrypt(string plainText, string password = password)
+        public static string Sha256Encrypt(this string plainText, string password = password)
         {
             if (plainText == null)
             {
@@ -44,7 +46,7 @@ namespace yanbal.claimsbook.web.Utils.Hash
         /// <param name="encryptedText">String to be decrypted</param>
         /// <param name="password">Password used during encryption</param>
         /// <exception cref="FormatException"></exception>
-        public static string Decrypt(string encryptedText, string password = password)
+        public static string Sha256Decrypt(this string encryptedText, string password = password)
         {
             if (encryptedText == null)
             {
@@ -133,5 +135,44 @@ namespace yanbal.claimsbook.web.Utils.Hash
 
             return decryptedBytes;
         }
+        #endregion
+
+        #region Extension
+        public static Claimer Sha256Encript(this Claimer claimer)
+        {
+            return new Claimer()
+            {
+                ID = claimer.ID,
+                DocumentTypeID = claimer.DocumentTypeID,
+                DocumentNumber = claimer.DocumentNumber.Sha256Encrypt(),
+                Names = claimer.Names.Sha256Encrypt(),
+                PaternalSurname = claimer.PaternalSurname.Sha256Encrypt(),
+                MaternalSurname = claimer.MaternalSurname.Sha256Encrypt(),
+                AnswerTypeID = claimer.AnswerTypeID,
+                PhoneNumber = claimer.PhoneNumber.Sha256Encrypt(),
+                EMail = claimer.EMail.Sha256Encrypt(),
+                Address = claimer.Address.Sha256Encrypt(),
+                GeoZoneID = claimer.GeoZoneID
+            };
+        }
+
+        public static Claimer Sha256Decrypt(this Claimer claimer)
+        {
+            return new Claimer()
+            {
+                ID = claimer.ID,
+                DocumentTypeID = claimer.DocumentTypeID,
+                DocumentNumber = claimer.DocumentNumber.Sha256Decrypt(),
+                Names = claimer.Names.Sha256Decrypt(),
+                PaternalSurname = claimer.PaternalSurname.Sha256Decrypt(),
+                MaternalSurname = claimer.MaternalSurname.Sha256Decrypt(),
+                AnswerTypeID = claimer.AnswerTypeID,
+                PhoneNumber = claimer.PhoneNumber.Sha256Decrypt(),
+                EMail = claimer.EMail.Sha256Decrypt(),
+                Address = claimer.Address.Sha256Decrypt(),
+                GeoZoneID = claimer.GeoZoneID
+            };
+        }
+        #endregion
     }
 }

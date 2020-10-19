@@ -578,7 +578,7 @@ const sendForm = () => {
     /// (ii) Contracted Good
     let contractedGood = {
         isAProduct: $('#checkIsProduct')[0].checked, // or a service
-        claimedAmount: parseFloat($('#textClaimedAmount').val()).toFixed(2),
+        claimedAmount: $('#textClaimedAmount').val(),
         goodDescription: $('#textDescription').val()
     };
 
