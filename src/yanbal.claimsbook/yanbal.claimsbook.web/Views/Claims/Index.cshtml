@@ -483,10 +483,10 @@
 </div>
 @section Scripts {
     <script type="text/javascript" asp-append-version="true" src="~/js/main.js"></script>
-    <script src="https://www.google.com/recaptcha/api.js?render=6LcAMtkZAAAAAOuUDjgpKFmjN0bx6FbZ1MSNRqN5"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=@ViewBag.WebSiteKey"></script>
     <script>
         grecaptcha.ready(function () {
-            grecaptcha.execute('6LcAMtkZAAAAAOuUDjgpKFmjN0bx6FbZ1MSNRqN5', { action: 'saveClaim' }).then(function (token) {
+            grecaptcha.execute('@ViewBag.WebSiteKey', { action: 'saveClaim' }).then(function (token) {
                 $('#googleCatpchaToken').val(token);
                 // Add your logic to submit to your backend server here.
             });

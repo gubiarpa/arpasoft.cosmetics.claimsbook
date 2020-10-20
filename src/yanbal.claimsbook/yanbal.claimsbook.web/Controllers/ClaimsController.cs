@@ -39,7 +39,9 @@ namespace yanbal.claimsbook.web.Controllers
         }
 
         public IActionResult Index()
-        {           
+        {
+            var configKeys = _context.ConfigKeys.ToList();
+            ViewBag.WebSiteKey = configKeys.SingleOrDefault(x => x.Code.Equals("reCaptWebSiteKey")).Value;
             return View();
         }
 
