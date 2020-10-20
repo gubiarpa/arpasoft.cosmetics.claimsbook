@@ -26,10 +26,11 @@ function changeInputByDocumentType(triggerControl, affectedControls) {
         for (var affectedControl of affectedControls) {
             let objAffectedControl = $(`#${affectedControl}`);
             if (_triggerText == 'DNI') {
+                objAffectedControl.val(objAffectedControl.val().substring(0, 8));
                 objAffectedControl.attr('maxlength', '8');
             }
             else {
-                objAffectedControl.removeAttr('maxlength');
+                objAffectedControl.attr('maxlength', '15');
             }
         }
     }

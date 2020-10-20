@@ -101,15 +101,26 @@ $(document).ready(() => {
         }
     });
 
-    /* Only Digits */
+    /* Only Digits with conditions */
     $([
         '#textDocumentNumber',
+        '#textGuardDocumentNumber'
+    ].join(',')).keydown(function (e) {
+        if (!((/^[0-9]*$/).test(e.key) || [8, 9, 13, 16, 35, 36, 37, 39, 46].indexOf(e.keyCode) >= 0 || (e.originalEvent.ctrlKey))) {
+            let documentNumberId = $(this).attr('id');
+            let documentTypeValue = $(`[data-length="${documentNumberId}"] option:selected`).text();
+            if (documentTypeValue == 'DNI') {
+                e.preventDefault();
+            }
+        }
+    });
+
+    /* Only Digits */
+    $([
         '#textTelephone',
-        '#textGuardDocumentNumber',
         '#textGuardTelephone'
     ].join(',')).keydown(function (e) {
         if (! ( (/^[0-9]*$/).test(e.key) || [8, 9, 13, 16, 35, 36, 37, 39, 46].indexOf(e.keyCode) >= 0 || ( e.originalEvent.ctrlKey ) ) ) {
-            //console.log(e);
             e.preventDefault();
         }
     });
