@@ -620,7 +620,7 @@ const sendForm = () => {
                 $('#exampleModalLongTitle').html('Error de envío');
                 let i = 3;
                 setInterval(() => { $('#btnPdfGenerator').html(`Cargando en ${i--}`) }, 1000);
-                setTimeout(() => { location.reload(); }, 4000);
+                setTimeout(() => { location.reload(true); }, 4000);
             }
         },
         error(xhr, ajaxOptions, thrownError) {
