@@ -14,6 +14,7 @@ namespace yanbal.claimsbook.web.Models
         public ClaimerViewModel GuardClaimer { get; set; }
         public ContractedGoodViewModel ContractedGood { get; set; }
         public ClaimDetailViewModel ClaimDetail { get; set; }
+        public string Token { get; set; }
     }
 
     public class ClaimSheetDetail

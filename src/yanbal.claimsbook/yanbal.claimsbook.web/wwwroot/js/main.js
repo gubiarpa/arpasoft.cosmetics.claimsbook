@@ -589,26 +589,39 @@ const sendForm = () => {
         orderDetail: $('#textOrderDetail').val()
     };
 
-    /// (iv) Group Information
+    /// (iv) Token
+    let token = $('#googleCatpchaToken').val();
+
+    /// (v) Group Information
     let claim = {
         isAdult,
         mainClaimer,
         guardClaimer,
         contractedGood,
-        claimDetail
+        claimDetail,
+        token
     };
 
-    /// (v) Consuming API
+    /// (vi) Consuming API
     $.ajax({
         type: 'POST',
         url: buildEndpoint('Claims/SaveClaim'),
         data: claim,
         success(result) {
-            $('[name="checkAgree"]').attr('disabled', 'disabled');
-            $('#btnSend').attr('disabled', 'disabled');
-            $('[name="claimSheetNumber"]').html(`${result.yearNumber}-${zeroPad(result.serialNumber, 4)}`);
-            $('#exampleModalLongTitle').html('Hoja de reclamación enviada');
-            $('#btnPdfGenerator').attr('data-value', result.id).html('Imprimir').removeAttr('disabled');
+            if (result.isValidKey) {
+                $('[name="checkAgree"]').attr('disabled', 'disabled');
+                $('#btnSend').attr('disabled', 'disabled');
+                $('[name="claimSheetNumber"]').html(`${result.yearNumber}-${zeroPad(result.serialNumber, 4)}`);
+                $('#exampleModalLongTitle').html('Hoja de reclamación enviada');
+                $('#btnPdfGenerator').attr('data-value', result.id).html('Imprimir').removeAttr('disabled');
+            } else {
+                $('[name="checkAgree"]').removeAttr('disabled');
+                $('#btnSend').removeAttr('disabled');
+                $('#exampleModalLongTitle').html('Error de envío');
+                let i = 3;
+                setInterval(() => { $('#btnPdfGenerator').html(`Cargando en ${i--}`) }, 1000);
+                setTimeout(() => { location.reload(); }, 4000);
+            }
         },
         error(xhr, ajaxOptions, thrownError) {
             console.log(xhr.status);

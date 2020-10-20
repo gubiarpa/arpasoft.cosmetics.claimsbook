@@ -23,6 +23,9 @@ using System.Reflection;
 using System.Globalization;
 using Microsoft.AspNetCore.Http.Extensions;
 using yanbal.claimsbook.web.Utils.Hash;
+using System.Net.Http;
+using Newtonsoft.Json;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
 namespace yanbal.claimsbook.web.Controllers
 {
@@ -196,6 +199,13 @@ namespace yanbal.claimsbook.web.Controllers
         {
             try
             {
+                var configKeys = await _context.ConfigKeys.ToListAsync();
+
+                var secretKey = configKeys.SingleOrDefault(x => x.Code.Equals("reCaptchaSecretKey")).Value;
+
+                var isValidCaptcha = await IsValid(secretKey, "saveClaim", claimRequest.Token);
+                if (!isValidCaptcha) return Ok(new { isValidKey = false });
+
                 // GeoZone
                 var geoZone = await _context.GeoZones.SingleOrDefaultAsync(x => x.Code == claimRequest.MainClaimer.GeoZone);
                 var guardGeoZone = await _context.GeoZones.SingleOrDefaultAsync(x => x.Code == claimRequest.GuardClaimer.GeoZone);
@@ -290,8 +300,6 @@ namespace yanbal.claimsbook.web.Controllers
                 await _context.SaveChangesAsync();
 
                 /// Send Mail
-
-                var configKeys = await _context.ConfigKeys.ToListAsync();
                 var logPath = string.Format(
                     configKeys.SingleOrDefault(x => x.Code.Equals("LogPath")).Value,
                     DateTime.Now.ToString("yyyy-MM-dd"));
@@ -362,19 +370,66 @@ namespace yanbal.claimsbook.web.Controllers
                         claim.ID,
                         claim.SerialNumber,
                         claim.YearNumber,
-                        datos = new { storageFile, fullHost, urlPdf }
+                        isValidKey = true
                     });
                 }
                 catch (Exception ex)
                 {
                     Logger.Write(logPath, ex.Message);
-                    return Ok(new { claim.ID, claim.SerialNumber, claim.YearNumber, error = ex.Message, version = "2.0.0",
-                        datos = new { storageFile, fullHost, urlPdf } });
+                    return Ok(
+                        new
+                        {
+                            claim.ID,
+                            claim.SerialNumber,
+                            claim.YearNumber,
+                            error = ex.Message,
+                            isValidKey = true
+                        }
+                    );
                 }
             }
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+        #endregion
+
+        #region Auxiliar
+        private class ReCaptchaResponse
+        {
+            public bool Success { get; set; }
+            public DateTime Challenge_Ts { get; set; }
+            public string Hostname { get; set; }
+            public float Score { get; set; }
+            public string Action { get; set; }
+        }
+
+        public async Task<bool> IsValid(string secretKey, string action, string token)
+        {
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    var values = new Dictionary<string, string>();
+                    values.Add("secret", secretKey);
+                    values.Add("response", token);
+                    values.Add("remoteip", Request.Host.Host);
+
+                    var content = new FormUrlEncodedContent(values);
+                    var verify = await client.PostAsync("https://www.google.com/recaptcha/api/siteverify", content);
+                    var captchaResponseJson = await verify.Content.ReadAsStringAsync();
+                    var captchaResult = JsonConvert.DeserializeObject<ReCaptchaResponse>(captchaResponseJson);
+                    return (
+                        (captchaResult.Success) &&
+                        (captchaResult.Action == action) &&
+                        (captchaResult.Score >= 0.5)
+                        );
+                }
+            }
+            catch
+            {
+                return false;
             }
         }
         #endregion
