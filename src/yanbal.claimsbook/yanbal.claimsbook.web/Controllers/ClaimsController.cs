@@ -50,9 +50,12 @@ namespace yanbal.claimsbook.web.Controllers
         {
             try
             {
+                var configKeys = await _context.ConfigKeys.ToListAsync();
+                var expireMinutes = int.TryParse(configKeys.SingleOrDefault(x => x.Code.Equals("ExpirePdfMinutes")).Value, out int expirePdfMinutes) ? expirePdfMinutes : 60;
+
                 Claim claim = null; Claimer mainClaimer = null, guardClaimer = null;
                 claim = await _context.Claims.SingleOrDefaultAsync(x => x.ID.Equals(ID));
-                if ((claim == null) || (claim.DateClaim.AddMinutes(2).CompareTo(DateTime.Now) < 0)) return NotFound();
+                if ((claim == null) || (claim.DateClaim.AddMinutes(expireMinutes).CompareTo(DateTime.Now) < 0)) return NotFound();
 
                 #region MainClaimer
                 mainClaimer = (await _context.Claimers.SingleOrDefaultAsync(x => x.ID.Equals(claim.MainClaimerID))).Sha256Decrypt();
@@ -101,7 +104,6 @@ namespace yanbal.claimsbook.web.Controllers
                 #endregion
 
                 #region BusinessInfo
-                var configKeys = await _context.ConfigKeys.ToListAsync();
                 var companyInfo = new CompanyInfo()
                 {
                     Address = configKeys.SingleOrDefault(x => x.Code.Equals("DomicilioFiscal")).Value,
