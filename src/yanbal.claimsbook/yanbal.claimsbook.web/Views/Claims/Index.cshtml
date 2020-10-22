@@ -1,0 +1,496 @@
+﻿<div class="text-center">
+    <div class="title-text-center">Libro de Reclamaciones</div>
+</div>
+<div>
+    <div class="warning-message mt-2">
+        <span id="companyName"></span> / RUC N°<span id="companyDocumentNumber"></span><br />
+        <span id="companyAddress"></span><br />
+    </div>
+    <div class="warning-message mt-2">
+        <span>Fecha de Registro:</span>
+        <span>@DateTime.Now.ToString("dd/MM/yyyy")</span>
+    </div>
+</div>
+<!-- Mensajes de Error -->
+<div id="errorMessageForm">
+    <div></div>
+</div>
+<!-- Línea de Progreso -->
+<div class="progress-container my-4">
+    <svg width="626" height="34" xmlns="http://www.w3.org/2000/svg">
+        <g>
+            <title>background</title>
+            <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
+                <rect fill="url(#gridpattern)" stroke-width="0" y="1" x="1" height="600" width="800" />
+            </g>
+        </g>
+        <g>
+            <title>Libro de Reclamaciones</title>
+
+            <!-- Text (available only in PC) -->
+            <text xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="0.8em"
+                  id="svgText1" y="11.5" x="2.58334" stroke-width="0" stroke="#dc582a" fill="#dc582a">INFORMACIÓN PERSONAL</text>
+            <text xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="0.8em"
+                  id="svgText2" data-type="lineProgress" data-form="contractedGoodForm" y="11.5" x="190.91668" stroke-width="0" stroke="#dc582a" fill="#dc582a" class="inactive">BIEN CONTRATADO</text>
+            <text xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="0.8em"
+                  id="svgText3" data-type="lineProgress" data-form="claimDetailForm" y="11.5" x="342.58337" stroke-width="0" stroke="#dc582a" fill="#dc582a" class="inactive">DETALLE DEL RECLAMO</text>
+            <text xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="0.8em"
+                  id="svgText4" data-type="lineProgress" data-form="finalSummaryForm" y="11.5" x="526.08338" stroke-width="0" stroke="#dc582a" fill="#dc582a" class="inactive">RESUMEN FINAL</text>
+
+            <!-- Lines in PC -->
+            <rect id="svgLine2" data-type="lineProgress" data-form="contractedGoodForm"  stroke="#dc582a" height="2" width="160" y="23.5501" x="73.25" stroke-width="1.5" class="inactive" />
+            <rect id="svgLine3" data-type="lineProgress" data-form="claimDetailForm" stroke="#dc582a" height="2" width="160" y="23.5501" x="241.24988" stroke-width="1.5" class="inactive" />
+            <rect id="svgLine4" data-type="lineProgress" data-form="finalSummaryForm" stroke="#dc582a" height="2" width="160" y="23.5501" x="405.91642" stroke-width="1.5" class="inactive" />
+
+            <!-- Circles in PC -->
+            <ellipse id="svgCircle1" ry="7" rx="7" cy="24.38339" cx="68.75004" stroke-width="1.5" stroke="#dc582a" fill="#dc582a" />
+            <ellipse id="svgCircle2" data-type="lineProgress" data-form="contractedGoodForm" ry="7" rx="7" cy="24.38339" cx="236.74992" stroke-width="1.5" stroke="#dc582a" fill="#dc582a" class="inactive" />
+            <ellipse id="svgCircle3" data-type="lineProgress" data-form="claimDetailForm" ry="7" rx="7" cy="24.38339" cx="401.41645" stroke-width="1.5" stroke="#dc582a" fill="#dc582a" class="inactive" />
+            <ellipse id="svgCircle4" data-type="lineProgress" data-form="finalSummaryForm" ry="7" rx="7" cy="24.38339" cx="569.41633" stroke-width="1.5" stroke="#dc582a" fill="#dc582a" class="inactive" />
+        </g>
+    </svg>
+</div>
+<hr />
+<!-- Datos Personales (personalInfoForm) -->
+<div id="personalInfoForm" class="form-page">
+    <div class="h2 form-title">
+        Información del Consumidor Reclamante
+    </div>
+    <div id="claimerForm" class="form-row align-items-center">
+        <!-- Tipo de Documento -->
+        <div class="mb-2 col-md-6">
+            <label for="selectDocumentType" class="yanbal-label">Tipo de Documento</label>
+            <select class="custom-select mr-sm-2"
+                    id="selectDocumentType"
+                    data-id="documentType"
+                    data-for="textDocumentNumber,textClaimerName,textSurnameFather,textSurnameMother,textTelephone,checkIsYounger"
+                    data-length="textDocumentNumber"
+                    disabled>
+                <option selected>Tipo de Documento</option>
+            </select>
+        </div>
+        <!-- Número de Documento -->
+        <div class="mb-2 col-md-6">
+            <label for="textDocumentNumber" class="yanbal-label">Número de Documento</label>
+            <input type="tel" class="form-control" id="textDocumentNumber" placeholder="Número de Documento" disabled>
+        </div>
+        <!-- Nombres -->
+        <div class="mb-2 col-md-6">
+            <label for="textClaimerName" class="yanbal-label">Nombres</label>
+            <input type="text" class="form-control text-capitalize" id="textClaimerName" placeholder="Nombres" maxlength="30" disabled>
+        </div>
+        <!-- Apellido Paterno -->
+        <div class="mb-2 col-md-6">
+            <label for="textClaimerName" class="yanbal-label">Apellido Paterno</label>
+            <input type="text" class="form-control text-capitalize" id="textSurnameFather" placeholder="Apellido Paterno" maxlength="30" disabled>
+        </div>
+        <!-- Apellido Materno -->
+        <div class="mb-2 col-md-6">
+            <label for="textClaimerName" class="yanbal-label">Apellido Materno</label>
+            <input type="text" class="form-control text-capitalize" id="textSurnameMother" aria-describedby="emailHelp" placeholder="Apellido Materno" maxlength="30" disabled>
+        </div>
+        <!-- Teléfono -->
+        <div class="mb-2 col-md-6">
+            <label for="textTelephone" class="yanbal-label">Teléfono</label>
+            <input type="tel" class="form-control" id="textTelephone" aria-describedby="emailHelp" placeholder="Teléfono" maxlength="9" disabled>
+        </div>
+        <!-- Tipo de Respuesta -->
+        <div class="mb-2 col-md-6">
+            <label for="textAnswerType" class="yanbal-label">Tipo de Respuesta</label>
+            <select class="custom-select mr-sm-2"
+                    id="selectAnswerType"
+                    data-id="answerType"
+                    data-for="textMail,textAddress,selectDepartment"
+                    disabled>
+                <option selected>Tipo de Respuesta</option>
+            </select>
+        </div>
+        <!-- Correo electrónico -->
+        <div class="mb-2 col-md-6">
+            <label for="textMail" class="yanbal-label">Correo Electrónico</label>
+            <input type="text" class="form-control text-lowercase" id="textMail" placeholder="Correo electrónico" maxlength="80" disabled>
+        </div>
+        <!-- Dirección -->
+        <div class="mb-2 col-md-6">
+            <label for="textAddress" class="yanbal-label">Dirección</label>
+            <input type="text" class="form-control text-capitalize" id="textAddress" placeholder="Dirección" maxlength="100" disabled>
+        </div>
+        <!-- Departamento -->
+        <div class="mb-2 col-md-6">
+            <label for="selectDepartment" class="yanbal-label">Departamento</label>
+            <select class="custom-select mr-sm-2" id="selectDepartment" disabled>
+                <option selected>Departamento</option>
+            </select>
+        </div>
+        <!-- Provincia -->
+        <div class="mb-2 col-md-6">
+            <label for="selectProvince" class="yanbal-label">Provincia</label>
+            <select class="custom-select mr-sm-2" id="selectProvince" disabled>
+                <option selected>Provincia</option>
+            </select>
+        </div>
+        <!-- Distrito -->
+        <div class="mb-2 col-md-6">
+            <label for="selectDistrict" class="yanbal-label">Distrito</label>
+            <select class="custom-select mr-sm-2" id="selectDistrict" disabled>
+                <option selected>Distrito</option>
+            </select>
+        </div>
+        <!-- No soy mayor -->
+        <div class="custom-control custom-checkbox col-md-6 mt-2">
+            <input type="checkbox" class="custom-control-input" id="checkIsYounger" disabled>
+            <label class="custom-control-label ml-4" for="checkIsYounger">Soy menor de edad</label>
+        </div>
+    </div>
+    <div id="guardForm" class="form-row align-items-center invisible animate__animated not-display">
+        <div class="h2 form-title mt-4 w-100 not-pb">
+            Información del Apoderado
+        </div>
+
+        <div class="warning-message mt-1 mb-2">
+            (*) Toda comunicación relacionada con el reclamo/queja será enviada a los datos de contacto del Apoderado.
+        </div>
+        <!-- Tipo de Documento -->
+        <div class="mb-2 col-md-6">
+            <label for="selectDocumentTypeAp" class="yanbal-label">Tipo de Documento</label>
+            <select class="custom-select mr-sm-2"
+                    id="selectGuardDocumentType"
+                    data-id="documentType"
+                    data-for="textGuardDocumentNumber,textGuardClaimerName,textGuardSurnameFather,textGuardSurnameMother,textGuardTelephone"
+                    data-length="textGuardDocumentNumber"
+                    disabled>
+            </select>
+        </div>
+        <!-- Número de Documento -->
+        <div class="mb-2 col-md-6">
+            <label for="textGuardDocumentNumber" class="yanbal-label">Número de Documento</label>
+            <input type="tel" class="form-control" id="textGuardDocumentNumber" placeholder="Número de Documento" disabled>
+        </div>
+        <!-- Nombres -->
+        <div class="mb-2 col-md-6">
+            <label for="textClaimerName" class="yanbal-label">Nombres</label>
+            <input type="text" class="form-control text-capitalize" id="textGuardClaimerName" placeholder="Nombres" maxlength="30" disabled>
+        </div>
+        <!-- Apellido Paterno -->
+        <div class="mb-2 col-md-6">
+            <label for="textClaimerName" class="yanbal-label">Apellido Paterno</label>
+            <input type="text" class="form-control text-capitalize" id="textGuardSurnameFather" placeholder="Apellido Paterno" maxlength="30" disabled>
+        </div>
+        <!-- Apellido Materno -->
+        <div class="mb-2 col-md-6">
+            <label for="textClaimerName" class="yanbal-label">Apellido Materno</label>
+            <input type="text" class="form-control text-capitalize" id="textGuardSurnameMother" aria-describedby="emailHelp" placeholder="Apellido Materno" maxlength="30" disabled>
+        </div>
+        <!-- Teléfono -->
+        <div class="mb-2 col-md-6">
+            <label for="textTelephone" class="yanbal-label">Teléfono</label>
+            <input type="tel" class="form-control" id="textGuardTelephone" aria-describedby="emailHelp" placeholder="Teléfono" maxlength="9" disabled>
+        </div>
+        <!-- Tipo de Respuesta -->
+        <div class="mb-2 col-md-6">
+            <label for="selectGuardAnswerType" class="yanbal-label">Tipo de Respuesta</label>
+            <select class="custom-select mr-sm-2"
+                    id="selectGuardAnswerType"
+                    data-id="answerType"
+                    data-for="textGuardMail,textGuardAddress,selectGuardDepartment,selectGuardProvince,selectGuardDistrict"
+                    disabled>
+            </select>
+        </div>
+        <!-- Correo electrónico -->
+        <div class="mb-2 col-md-6">
+            <label for="textMail" class="yanbal-label">Correo Electrónico</label>
+            <input type="text" class="form-control text-lowercase" id="textGuardMail" placeholder="Correo electrónico" maxlength="80">
+        </div>
+        <!-- Dirección -->
+        <div class="mb-2 col-md-6">
+            <label for="textAddress" class="yanbal-label">Dirección</label>
+            <input type="text" class="form-control text-capitalize" id="textGuardAddress" placeholder="Dirección" maxlength="100">
+        </div>
+        <!-- Departamento -->
+        <div class="mb-2 col-md-6">
+            <label for="selectGuardDepartment" class="yanbal-label">Departamento</label>
+            <select class="custom-select mr-sm-2" id="selectGuardDepartment">
+                <option selected value="00">Departamento</option>
+            </select>
+        </div>
+        <!-- Provincia -->
+        <div class="mb-2 col-md-6">
+            <label for="selectGuardProvince" class="yanbal-label">Provincia</label>
+            <select disabled class="custom-select mr-sm-2" id="selectGuardProvince">
+                <option selected value="00">Provincia</option>
+            </select>
+        </div>
+        <!-- Distrito -->
+        <div class="mb-2 col-md-6">
+            <label for="selectGuardDistrict" class="yanbal-label">Distrito</label>
+            <select disabled class="custom-select mr-sm-2" id="selectGuardDistrict">
+                <option selected value="00">Distrito</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row">
+        <div></div>
+        <button name="btnContinue" data-parentForm="personalInfoForm" data-nextForm="contractedGoodForm" class="btn btn-primary col-md-6 offset-md-3" disabled>
+            Continuar
+        </button>
+    </div>
+</div>
+<!-- Bien Contratado (contractedGoodForm) -->
+<div id="contractedGoodForm" class="form-page not-display">
+    <div class="h2 form-title">
+        Identificación del Bien Contratado
+    </div>
+    <div class="form-row align-items-center">
+        <!-- Tipo de Bien Contratado -->
+        <div class="col-md-12 input-group">
+            <!-- Opción 1: Producto -->
+            <div class="custom-control custom-radio col-6">
+                <input type="radio" id="checkIsProduct" name="isProductOrService" class="" title="Producto">
+                <label for="checkIsProduct" class="">Producto</label>
+            </div>
+            <!-- Opción 2: Servicio -->
+            <div class="custom-control custom-radio">
+                <input type="radio" id="checkIsService" name="isProductOrService" class="" title="Servicio">
+                <label for="checkIsService" class="">Servicio</label>
+            </div>
+        </div>
+        <!-- Monto Reclamado -->
+        <div class="col-md-6">
+            <label for="textClaimedAmount" class="yanbal-label">Monto Reclamado</label>
+            <input type="tel" class="form-control" id="textClaimedAmount" placeholder="Monto Reclamado (S/)">
+        </div>
+        <!-- Descripción -->
+        <div class="col-md-6">
+            <label for="textDescription" class="yanbal-label">Descripción</label>
+            <input type="text" class="form-control" id="textDescription" placeholder="Descripción">
+        </div>
+    </div>
+    <button name="btnContinue" data-parentForm="contractedGoodForm" data-nextForm="claimDetailForm" class="btn btn-primary col-md-6 offset-md-3" disabled="disabled">
+        Continuar
+    </button>
+</div>
+<!-- Detalle del Reclamo (claimDetailForm) -->
+<div id="claimDetailForm" class="form-page not-display">
+    <div class="h2 form-title">
+        Detalle de su reclamo
+    </div>
+    <div class="form-row align-items-center">
+        <div class="col-md-12 input-group">
+            <!-- Reclamo -->
+            <div class="custom-control custom-radio col-md-6">
+                <input type="radio" id="checkIsClaim" name="isClaimOrComplaint" class="custom-control-input">
+                <label class="custom-control-label" for="checkIsClaim">Reclamo</label>
+                <div class="warning-message">
+                    Disconformidad relacionada a los productos o servicios.
+                </div>
+            </div>
+            <!-- Queja -->
+            <div class="custom-control custom-radio col-md-6">
+                <input type="radio" id="checkIsComplaint" name="isClaimOrComplaint" class="custom-control-input">
+                <label class="custom-control-label" for="checkIsComplaint">Queja</label>
+                <div class="warning-message">
+                    Disconformidad no relacionada a los productos o servicios; malestar o descontento respecto a la atención al público.
+                </div>
+            </div>
+        </div>
+        <!-- Detalle -->
+        <div class="col-md-6">
+            <label for="textClaimDetail" class="yanbal-label">Detalle</label>
+            <input type="text" class="form-control" id="textClaimDetail" placeholder="Detalle">
+        </div>
+        <!-- Pedido -->
+        <div class="col-md-6">
+            <label for="textOrderDetail" class="yanbal-label">Pedido</label>
+            <input type="text" class="form-control" id="textOrderDetail" placeholder="Pedido">
+        </div>
+    </div>
+    <button name="btnContinue" data-parentForm="claimDetailForm" data-nextForm="finalSummaryForm" class="btn btn-primary col-md-6 offset-md-3" disabled="disabled">
+        Continuar
+    </button>
+</div>
+<!-- Resumen Final (finalSummaryForm) -->
+<div id="finalSummaryForm" class="form-page not-display">
+    <div class="h2 form-title">
+        Resumen final
+    </div>
+    <!-- Información de Consumidor Reclamante -->
+    <div class="text-justify">
+        <table class="">
+            <thead>
+                <tr>
+                    <th scope="col" colspan="2" class="summary-block">Información del Reclamante</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th class="wrap-col">Doc:</th>
+                    <th class="" id="sumDocument"></th>
+                </tr>
+                <tr>
+                    <th class="">Nombres y apellidos:</th>
+                    <th class="text-capitalize" name="sumFullName"></th>
+                </tr>
+                <tr>
+                    <th class="">Teléfono:</th>
+                    <th class="" id="sumPhoneNumber"></th>
+                </tr>
+                <tr>
+                    <th class="">Respuesta a:</th>
+                    <th class="" id="sumAnswerType" name="sumAnswerType"></th>
+                </tr>
+                <tr>
+                    <th class="">Correo electrónico:</th>
+                    <th class="text-lowercase" id="sumEMail"></th>
+                </tr>
+                <tr>
+                    <th class="">Dirección:</th>
+                    <th class="text-capitalize" id="sumFullAddress"></th>
+                </tr>
+                <tr>
+                    <th class="">Mayoría de edad:</th>
+                    <th class="" id="sumIsAdult"></th>
+                </tr>
+            </tbody>
+        </table>
+        <hr />
+    </div>
+    <!-- Información del Apoderado -->
+    <div class="text-justify" id="block-isNotAdult">
+        <table class="">
+            <thead>
+                <tr>
+                    <th scope="col" colspan="2" class="summary-block">Información del Apoderado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th class="wrap-col">Doc:</th>
+                    <th class="" id="sumGuardDocument"></th>
+                </tr>
+                <tr>
+                    <th class="">Nombres y apellidos:</th>
+                    <th class="text-capitalize" id="sumGuardFullName"></th>
+                </tr>
+                <tr>
+                    <th class="">Teléfono:</th>
+                    <th class="" id="sumGuardPhoneNumber"></th>
+                </tr>
+                <tr>
+                    <th class="">Respuesta a:</th>
+                    <th class="" id="sumGuardAnswerType" name="sumAnswerType"></th>
+                </tr>
+                <tr>
+                    <th class="">Correo electrónico:</th>
+                    <th class="text-lowercase" id="sumGuardEmail"></th>
+                </tr>
+                <tr>
+                    <th class="">Dirección:</th>
+                    <th class="text-capitalize" id="sumGuardFullAddress"></th>
+                </tr>
+            </tbody>
+        </table>
+        <hr />
+    </div>
+    <!-- Identificación del Bien Contratado -->
+    <div class="text-justify">
+        <table class="">
+            <thead>
+                <tr>
+                    <th scope="col" colspan="2" class="summary-block">Identificación del Bien Contratado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th class="wrap-col">Tipo:</th>
+                    <th class="" id="sumGoodType"></th>
+                </tr>
+                <tr>
+                    <th class="">Monto:</th>
+                    <th class="" id="sumClaimedAmount"></th>
+                </tr>
+                <tr>
+                    <th class="">Descripción:</th>
+                    <th class="" id="sumDescription"></th>
+                </tr>
+            </tbody>
+        </table>
+        <hr />
+    </div>
+    <!-- Detalle de su Reclamo -->
+    <div class="text-justify">
+        <table class="">
+            <thead>
+                <tr>
+                    <th scope="col" colspan="2" class="summary-block">Detalle de su Reclamo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th class="wrap-col">Tipo:</th>
+                    <th class="" id="sumClaimType"></th>
+                </tr>
+                <tr>
+                    <th class="">Detalle:</th>
+                    <th class="" id="sumClaimDetail"></th>
+                </tr>
+                <tr>
+                    <th class="">Pedido:</th>
+                    <th class="" id="sumOrderDetail"></th>
+                </tr>
+            </tbody>
+        </table>
+        <hr />
+    </div>
+    <!-- Confirmación de envío -->
+    <div class="form-row">
+        <div class="col-auto my-1 w-100">
+            <div class="custom-control custom-checkbox mr-sm-2">
+                <input type="checkbox" class="custom-control-input" id="checkAgreePersonalInfo" name="checkAgree">
+                <label class="custom-control-label" for="checkAgreePersonalInfo">
+                    He leído y acepto las <a asp-action="Conditions" target="_blank">condiciones de tratamiento de uso de datos personales</a>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="warning-message mt-2 ml-4">
+        La formulación del reclamo no impide acudir a otras vías de solución de controversias ni es requisito previo para interponer una denuncia ante INDECOPI.<br />
+        El proveedor debe dar respuesta al reclamo en un plazo no mayor de treinta (30) días calendario, pudiendo ampliar el plazo hasta por treinta (30) días más, previa comunicación al consumidor.
+    </div>
+    <button id="btnSend" class="btn btn-primary col-md-6 offset-md-3" data-toggle="modal" data-target="#exampleModalCenter" disabled>
+        Enviar
+    </button>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="0" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Enviando información...</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <input type="hidden" id="googleCatpchaToken" value="" />
+            </div>
+            <div class="modal-body">
+                Estimado <span name="sumFullName" class="text-capitalize"></span>, su <span name="ClaimOrComplaint">Reclamo</span> se registró correctamente, con Hoja de Reclamación N°<span name="claimSheetNumber">@DateTime.Now.Year-...</span>.<br />
+                Agradecemos su comunicación.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnPdfGenerator" data-value="" disabled>Enviando...</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript" asp-append-version="true" src="~/js/main.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=@ViewBag.WebSiteKey"></script>
+    <script>
+        grecaptcha.ready(function () {
+            grecaptcha.execute('@ViewBag.WebSiteKey', { action: 'saveClaim' }).then(function (token) {
+                $('#googleCatpchaToken').val(token);
+                // Add your logic to submit to your backend server here.
+            });
+        });
+    </script>
+}
+
